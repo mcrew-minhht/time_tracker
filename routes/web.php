@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\TimeTrackersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,4 +27,5 @@ Route::group(['prefix' => '/',  'middleware' => 'auth:sanctum','verified'], func
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('/time_trackers', [TimeTrackersController::class, 'index'])->name('time_trackers');;
 });
