@@ -19,9 +19,11 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     public function update($user, array $input)
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'photo' => ['nullable', 'image', 'max:1024'],
+            'name' => ['required', 'string', 'max:191'],
+            'email' => ['required', 'email', 'max:191', Rule::unique('users')->ignore($user->id)],
+            'employee_code' => ['required','string', 'max:191', Rule::unique('users')->ignore($user->id)],
+            'birthdate' => ['nullable', 'date', 'max:10'],
+            'address' => ['nullable', 'string', 'max:191'],
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
@@ -35,6 +37,9 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $user->forceFill([
                 'name' => $input['name'],
                 'email' => $input['email'],
+                'employee_code' => $input['employee_code'],
+                'birthdate' => $input['birthdate'],
+                'address' => $input['address'],
             ])->save();
         }
     }
@@ -51,6 +56,9 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         $user->forceFill([
             'name' => $input['name'],
             'email' => $input['email'],
+            'employee_code' => $input['employee_code'],
+            'birthdate' => $input['birthdate'],
+            'address' => $input['address'],
             'email_verified_at' => null,
         ])->save();
 
