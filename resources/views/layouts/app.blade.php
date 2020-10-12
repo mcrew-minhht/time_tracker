@@ -27,6 +27,7 @@
                 </div>
             </header>
 
+            <livewire:head-master></livewire:head-master>
             <!-- Page Content -->
             <main>
                 {{ $slot }}
@@ -36,5 +37,7 @@
         @stack('modals')
 
         @livewireScripts
+        <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+        @yield('javascript')
     </body>
 </html>

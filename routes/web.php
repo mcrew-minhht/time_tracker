@@ -27,5 +27,7 @@ Route::group(['prefix' => '/',  'middleware' => 'auth:sanctum','verified'], func
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/time_trackers', [TimeTrackersController::class, 'index'])->name('time_trackers');;
+    Route::resource('time_trackers', TimeTrackersController::class);
+    Route::get('/time_trackers/{id}/{id_project}/{employee_code}', [TimeTrackersController::class, 'show']);
+    Route::post('/time_trackers/add_project', [TimeTrackersController::class, 'store']);
 });
