@@ -12,7 +12,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
+        <link rel="stylesheet" href="{{ asset('bootstrap-4.0.0-dist/css/bootstrap.min.css') }}">
         @livewireStyles
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>
@@ -39,5 +39,6 @@
         @livewireScripts
         <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
         @yield('javascript')
+        <script src="{ asset('bootstrap-4.0.0-dist/js/bootstrap.min.css') }}"></script>
     </body>
 </html>

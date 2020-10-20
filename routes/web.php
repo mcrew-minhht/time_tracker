@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TimeTrackersController;
+use App\Http\Controllers\ProjectManagersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,4 +31,5 @@ Route::group(['prefix' => '/',  'middleware' => 'auth:sanctum','verified'], func
     Route::resource('time_trackers', TimeTrackersController::class);
     Route::get('/time_trackers/{id}/{id_project}/{employee_code}', [TimeTrackersController::class, 'show']);
     Route::post('/time_trackers/add_project', [TimeTrackersController::class, 'store']);
+    Route::get('/project_managers', [ProjectManagersController::class, 'index'])->name('project_managers');
 });
