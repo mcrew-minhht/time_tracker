@@ -11,8 +11,10 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('bootstrap-4.0.0-dist/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('fontawesome-free-5.15.1-web/css/all.css') }}">
         @livewireStyles
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>
@@ -37,8 +39,18 @@
         @stack('modals')
 
         @livewireScripts
+        <script type="text/javascript" src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery-ui.js') }}"></script>
+        <script src="{{ asset('bootstrap-4.0.0-dist/js/bootstrap.min.js') }}"></script>
+        <script src="{{  asset('fontawesome-free-5.15.1-web/js/all.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/common.js') }}"></script>
+        <script type="text/javascript">
+            $( ".datepicker" ).datepicker({
+                dateFormat: 'yy/mm/dd'
+            });
+        </script>
         <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
         @yield('javascript')
-        <script src="{ asset('bootstrap-4.0.0-dist/js/bootstrap.min.css') }}"></script>
+
     </body>
 </html>
