@@ -22,11 +22,11 @@
                 @foreach($data['lists'] as $item)
                     <tr>
                         <td class="px-4 py-2">{{ $item->name_project ?? '' }}</td>
-                        <td class="px-4 py-2">{{ date_format(date_create("$item->start_date"), 'Y/m/d') }}</td>
-                        <td class="px-4 py-2">{{  date_format(date_create("$item->end_date"), 'Y/m/d') }}</td>
-                        <td class="px-4 py-2">{{  date_format(date_create("$item->created_at"), 'Y/m/d') }}</td>
+                        <td class="px-4 py-2">{{ format_date("$item->start_date") }}</td>
+                        <td class="px-4 py-2">{{ format_date("$item->end_date") }}</td>
+                        <td class="px-4 py-2">{{ format_date("$item->created_at") }}</td>
                         <td class="px-4 py-2">{{ $item->created_user ?? '' }}</td>
-                        <td class="px-4 py-2">{{  date_format(date_create("$item->updated_at"), 'Y/m/d') }}</td>
+                        <td class="px-4 py-2">{{ format_date("$item->updated_at") }}</td>
                         <td class="px-4 py-2">{{ $item->updated_user ?? '' }}</td>
                     </tr>
                 @endforeach
