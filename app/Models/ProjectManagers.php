@@ -27,11 +27,14 @@ class ProjectManagers extends Model
         'updated_at'
     ];
     public $timestamps = true;
-    public function getTotal(){
-        return DB::table($this->table)->paginate(15)->total();
-    }
-    public function getAllProject(){
-        return DB::table($this->table)->get();
-       
+    public function getAllProject($params){
+        $result =  DB::table($this->table);
+        if (!empty($params['search'])){
+            $result->where('name_project','like','%'.$params['search'].'%');
+        }
+        if (!empty($params['sortfield']) && !empty($params['sorttype'])){
+            $result->orderBy(DB::raw($params['sortfield']),$params['sorttype']);
+        }
+        return $result;
     }
 }

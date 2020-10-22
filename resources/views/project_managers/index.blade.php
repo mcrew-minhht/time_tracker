@@ -5,6 +5,17 @@
         </h2>
     </x-slot>
     <div class="bg-white shadow max-w-7xl mx-auto py-10 mt-2 px-1">
+        <div class="box-search-table overflow-hidden mb-2">
+            <div class="float-left">
+                <a href="javascript:;" id="btn-delete-all" data-routes="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i> {{__("Delete")}}</a>
+            </div>
+            <div class="float-right">
+                {!! Form::open(array('url' => url("./project_managers"), 'id' => 'form-search', 'method' => 'GET','class'=>'overflow-hidden')) !!}
+                <button class="btn btn-primary float-right" type="submit"><i class="fa fa-search"></i> {{__('search')}}</button>
+                {!! Form::text('search', Request::get('search'), array('class' => 'form-control form-inline float-left', 'maxlength' => 50, 'id' => 'input_source', 'placeholder' => __('Enter keyword'), 'style'=>'width:200px;')) !!}
+                {!! Form::close() !!}
+            </div>
+        </div>
         <table class="table table-bordered table-striped w-full">
             <thead class="thead-light">
             <tr>
@@ -34,11 +45,8 @@
             </tbody>
         </table>
         <div class="row">
-            <div class="col-sm-6">
-                <span class="total-record">{!!__("Total: <strong>:total</strong> result", ['total' => $data['total']])!!}</span>
-            </div>
-            <div class="col-sm-6">
-                @include("partials.numpaging")
+            <div class="col-sm-12">
+                {{ $data['lists']->appends(['search'=> Request::get('search'), 'sortfield'=> Request::get('sortfield'), 'sorttype'=> Request::get('sorttype')])->links() }}
             </div>
         </div>
     </div>
