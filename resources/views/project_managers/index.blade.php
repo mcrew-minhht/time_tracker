@@ -8,13 +8,13 @@
         <table class="table table-bordered table-striped w-full">
             <thead class="thead-light">
             <tr>
-                <th class="px-4 py-2">{{ __('Project Name') }}</th>
-                <th class="px-4 py-2">{{ __('Start date') }}</th>
-                <th class="px-4 py-2">{{ __('End date') }}</th>
-                <th class="px-4 py-2">{{ __('Created date') }}</th>
-                <th class="px-4 py-2">{{ __('Created user') }}</th>
-                <th class="px-4 py-2">{{ __('Updated date') }}</th>
-                <th class="px-4 py-2">{{ __('Updated user') }}</th>
+                <th class="px-4 py-2">{!! sort_title('name_project', __('Project Name')) !!}</th>
+                <th class="px-4 py-2">{!! sort_title('start_date', __('Start date')) !!}</th>
+                <th class="px-4 py-2">{!! sort_title('end_date', __('End date')) !!}</th>
+                <th class="px-4 py-2">{!! sort_title('created_at', __('Created date')) !!}</th>
+                <th class="px-4 py-2">{!! sort_title('created_user', __('Created user')) !!}</th>
+                <th class="px-4 py-2">{!! sort_title('updated_at', __('Updated date')) !!}</th>
+                <th class="px-4 py-2">{!! sort_title('updated_user', __('Updated user')) !!}</th>
             </tr>
             </thead>
             <tbody>
@@ -33,5 +33,13 @@
             @endif
             </tbody>
         </table>
+        <div class="row">
+            <div class="col-sm-6">
+                <span class="total-record">{!!__("Total: <strong>:total</strong> result", ['total' => $data['total']])!!}</span>
+            </div>
+            <div class="col-sm-6">
+                @include("partials.numpaging")
+            </div>
+        </div>
     </div>
 </x-app-layout>

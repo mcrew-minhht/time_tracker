@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class ProjectManagers extends Model
 {
@@ -26,4 +27,11 @@ class ProjectManagers extends Model
         'updated_at'
     ];
     public $timestamps = true;
+    public function getTotal(){
+        return DB::table($this->table)->paginate(15)->total();
+    }
+    public function getAllProject(){
+        return DB::table($this->table)->get();
+       
+    }
 }

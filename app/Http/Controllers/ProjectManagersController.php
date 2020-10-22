@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 class ProjectManagersController extends Controller
 {
     public function index(){
-        $data['lists'] = ProjectManagers::all();
+        $projectManagers = new ProjectManagers();
+        $data['lists'] = $projectManagers->getAllProject();
+        $data['total'] = $projectManagers->getTotal();
         return view('project_managers.index', compact('data', $data));
     }
 }

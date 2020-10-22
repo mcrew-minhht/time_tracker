@@ -17,3 +17,4 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
     ]);
 mix.js('resources/js/common.js', 'public/js');
+mix.styles('resources/css/style.css', 'public/css/style.css');
