@@ -1,9 +1,6 @@
 const APP_TIMES = {};
 $(function () {
     'use strict';
-    APP_TIMES.init = function () {
-        APP_TIMES.Open_Modal();
-    }
     APP_TIMES.getFormData = function (elmForm) {
         let formData = new FormData();
         let arr = elmForm.serializeArray();
@@ -46,50 +43,103 @@ $(function () {
             '<h4 class="single-text"><i class="icon fa fa-check"></i> ' + msg + '</h4></div>';
     };
 
-    APP_TIMES.Open_Modal = function () {
-        var openmodal = document.querySelectorAll('.modal-open')
-        for (var i = 0; i < openmodal.length; i++) {
-            openmodal[i].addEventListener('click', function(event){
-                event.preventDefault()
-                toggleModal()
+
+    APP_TIMES.validate = function (res, elmForm, cl = '.u-flex', scroll = true) {
+        let name, type, elms = elmForm.find('input, select, textarea'), elmMsg = $('#msg'),
+            msg = $('meta[name=msg_input_error]').attr('content');
+        msg = (typeof msg !== 'undefined') ? msg : '';
+        elmForm.find('p.error').remove();
+        if (typeof res.errors !== 'undefined') {
+            $.each(elms, function (index, elm) {
+                name = $(elm).attr('name');
+                type = $(elm)[0].localName;
+                if (typeof res.errors[name] !== 'undefined') {
+                    APP_TIMES.addErrorMsg(cl, elmForm.find(type + "[name='" + name + "']"), res.errors[name]);
+                } else {
+                    // group input
+                    let elms2 = $(elm).closest(cl).find('input, select'), del = true;
+                    $.each(elms2, function (i, e) {
+                        if (typeof res.errors[$(e).attr('name')] !== 'undefined') {
+                            del = false;
+                            if (scroll) {
+                                $('#msg').html(APP_TIMES.alertDanger(msg));
+                                APP_TIMES.scrollTop(elmMsg);
+                            }
+                            return false;
+                        }
+                    });
+
+                    if (del) {
+                        APP_TIMES.delErrorMsg(cl, type + "[name='" + name + "']");
+                    }
+                }
+            });
+            $(".has-error.text-danger").each(function () {
+                if ($(this).find("p.error").length > 1) {
+                    $(this).addClass('error-group');
+                } else {
+                    $(this).removeClass('error-group');
+                }
             })
+            if (scroll) {
+                $('#msg').html(APP_TIMES.alertDanger(msg));
+                APP_TIMES.scrollTop(elmMsg);
+            }
+            return false;
         }
+        $.each(elms, function (index, elm) {
+            name = $(elm).attr('name');
+            type = $(elm)[0].localName;
+            APP_TIMES.delErrorMsg(cl, type + "[name='" + name + "']");
+        });
 
-        const overlay = document.querySelector('.modal-overlay')
-        overlay.addEventListener('click', toggleModal)
+        return true;
+    };
 
-        var closemodal = document.querySelectorAll('.modal-close')
-        for (var i = 0; i < closemodal.length; i++) {
-            closemodal[i].addEventListener('click', toggleModal)
-        }
+    APP_TIMES.addErrorMsg = function (clElm, current, msg) {
 
-        document.onkeydown = function(evt) {
-            evt = evt || window.event
-            var isEscape = false
-            if ("key" in evt) {
-                isEscape = (evt.key === "Escape" || evt.key === "Esc")
+        let elmName = $(current).attr('name').replace('[]', '');
+        let elmInput = 'error_' + elmName;
+
+        if ($(current).attr('name') == 'onairKbn') {
+            $("#group_onairKbn").addClass('has-error text-danger');
+            let e = $("#group_onairKbn").find('p#' + elmInput);
+            if (e.length) {
+                e.text(msg);
             } else {
-                isEscape = (evt.keyCode === 27)
+                $("#group_onairKbn").append("<p class='error' id='" + elmInput + "'>" + msg + "</p>");
             }
-            if (isEscape && document.body.classList.contains('modal-active')) {
-                toggleModal()
+        } else {
+            $(current).closest(clElm).addClass('error-group has-error text-danger');
+            let e = $(current).closest(clElm).find('p#' + elmInput);
+            if (e.length) {
+                e.text(msg);
+            } else {
+                $(current).closest(clElm).append("<p class='error' id='" + elmInput + "'>" + msg + "</p>");
             }
-        };
-
-
-        function toggleModal () {
-            const body = document.querySelector('body')
-            const modal = document.querySelector('.modal')
-            modal.classList.toggle('opacity-0')
-            modal.classList.toggle('pointer-events-none')
-            body.classList.toggle('modal-active')
         }
-    }
+    };
+    APP_TIMES.delErrorMsg = function (clElm, current) {
 
+        $(current).closest(clElm).removeClass('has-error text-danger');
+        $(current).closest(clElm).removeClass('error-group');
+        $(current).closest(clElm).find('p.error').remove();
+    };
+    APP_TIMES.alertDanger = function (msg) {
+        return '<div class="alert alert-danger">' +
+            '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
+            '<h4 class="single-text"><i class="icon fa fa-ban"></i> ' + msg + '</h4></div>';
+    };
+    APP_TIMES.alertSuccess = function (msg) {
+        return '<div class="alert alert-success">' +
+            '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
+            '<h4 class="single-text"><i class="icon fa fa-check"></i> ' + msg + '</h4></div>';
+    };
+
+    APP_TIMES.scrollTop = function (elm) {
+        $("html, body").animate({scrollTop: elm.offset().top}, 300);
+    };
 })
 
-$(document).ready(function () {
-    APP_TIMES.init();
-});
 
 

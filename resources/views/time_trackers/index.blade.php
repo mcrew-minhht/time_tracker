@@ -6,7 +6,7 @@
     </x-slot>
     <div class="max-w-7xl mx-auto">
         <div class="text-right m-5">
-            <button class="modal-open bg-transparent border border-gray-500 hover:border-indigo-500 text-gray-500 hover:text-indigo-500 font-bold py-2 px-4 rounded-full">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_add_times">
                 Add Project
             </button>
         </div>
@@ -14,9 +14,13 @@
             <table class="table-fixed w-full">
                 <thead>
                     <tr>
-                        <th class="border">Project</th>
                         <th class="border">User</th>
-                        <th class="border">Time</th>
+                        <th class="border">Working date</th>
+                        <th class="border">Start working date</th>
+                        <th class="border">Start working time</th>
+                        <th class="border">End working date</th>
+                        <th class="border">End working time</th>
+                        <th class="border">Rest time</th>
                         <th class="border"></th>
                     </tr>
                 </thead>
@@ -25,17 +29,33 @@
                         @foreach($list as $item)
                         <tr>
                             <td class="border px-4 py-2">{{ $item->employee_name }}</td>
-                            <td class="border px-4 py-2">{{ $item->name_project }}</td>
                             <td class="border px-4 py-2">
-                                {{ $item->working_day }}
+                                {{ $item->working_date }}
+                                <input type="hidden" name="working_date" value="{{ $item->working_date }}">
                             </td>
                             <td class="border px-4 py-2">
-                                <a href="{{ url('/time_trackers/'.$item->working_day.'/'.$item->id_project.'/'.$item->employee_code) }}" class="text-blue-500 hover:text-blue-800 focus:outline-none">
-                                    Update |
-                                </a>
-                                <a class="text-blue-500 hover:text-blue-800 focus:outline-none">
-                                    Del
-                                </a>
+                                {{ $item->start_working_day }}
+                                <input type="hidden" name="start_working_day" value="{{ $item->start_working_day }}">
+                            </td>
+                            <td class="border px-4 py-2">{{ $item->start_working_time }}</td>
+                            <td class="border px-4 py-2">
+                                {{ $item->end_working_day }}
+                                <input type="hidden" name="end_working_day" value="{{ $item->end_working_day }}">
+                            </td>
+                            <td class="border px-4 py-2">
+                                {{ $item->end_working_time }}
+                            </td>
+                            <td class="border px-4 py-2">
+                                {{ $item->rest_time }}
+                                <input type="hidden" name="rest_time" value="{{ $item->rest_time }}">
+                            </td>
+                            <td class="border px-4 py-2">
+{{--                                <a href="{{ url('/time_trackers/'.$item->working_day.'/'.$item->id_project.'/'.$item->employee_code) }}" class="text-blue-500 hover:text-blue-800 focus:outline-none">--}}
+{{--                                    Detail |--}}
+{{--                                </a>--}}
+
+                                <button class="btn btn-default btn-sm btn_edit_times" data-id="{{ $item->id }}">Edit</button>
+                                <button class="btn btn-default btn-sm" data-id="{{ $item->id }}">Del</button>
                             </td>
                         </tr>
                         @endforeach
@@ -49,6 +69,9 @@
         </div>
     </div>
     @include('time_trackers.partials.add_project_modal')
+    {!! Form::open(['id' => 'frm_reload', 'class' => 'form-horizontal']) !!}
+    <input type="hidden" name="id" value="">
+    {!! Form::close() !!}
     @section('javascript')
         <script type="text/javascript" src="{{ asset('js/app_times.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/time_trackers.js') }}"></script>
