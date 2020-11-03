@@ -1,10 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Project Lists
-        </h2>
+        <div class="box-header with-border overflow-hidden row">
+            <div class="col-6">
+                <h3 class="box-title">
+                    <span class="ui-icon-bullet ">
+                        <i class="fas fa-cubes "></i>
+                    </span>
+                    <span>Project Lists</span>
+                </h3>
+            </div>
+            <div class="col-6">
+                <div class="box-action float-right">
+                    <ul class="header-action overflow-hidden">
+                        <li class="float-left"><a href="{{url('project_managers/create')}}" class="btn btn-success"><i class="fas fa-plus-square"></i> {{__('Add')}}</a></li>
+                        <li class="float-right"><a href="{{url('project_managers')}}" class="btn btn-light" ><i class="fas fa-sync-alt"></i> {{__('Reset')}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </x-slot>
     <div class="bg-white shadow max-w-7xl mx-auto py-10 mt-2 px-1">
+
         <div class="box-search-table overflow-hidden mb-2">
             <div class="float-left">
                 <a href="javascript:;" id="btn-delete-all" data-routes="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i> {{__("Delete")}}</a>

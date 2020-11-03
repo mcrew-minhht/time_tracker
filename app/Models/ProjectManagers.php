@@ -37,4 +37,9 @@ class ProjectManagers extends Model
         }
         return $result;
     }
+    public function insertProject($params){
+        $result =  DB::table($this->table);
+        $result = $result->insert($params);
+        return $result;
+    }
 }
