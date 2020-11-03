@@ -32,4 +32,6 @@ Route::group(['prefix' => '/',  'middleware' => 'auth:sanctum','verified'], func
     Route::get('/time_trackers/{id}/{id_project}/{employee_code}', [TimeTrackersController::class, 'show']);
     Route::post('/time_trackers/add_project', [TimeTrackersController::class, 'store']);
     Route::get('/project_managers', [ProjectManagersController::class, 'index'])->name('project_managers');
+    Route::get('/project_managers/create', [ProjectManagersController::class, 'create'])->name('project_managers_create');
+    Route::post('/project_managers/store', [ProjectManagersController::class, 'store'])->name('project_managers_store');
 });

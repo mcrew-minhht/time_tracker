@@ -30,8 +30,22 @@
             <livewire:navigation-dropdown></livewire:navigation-dropdown>
             <!-- Page Heading -->
             <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto pt-3 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
+                </div>
+                <div class="row m-0 p-0">
+                    <div class="col-12">
+                        <div id="flash_message">
+                            @if(Session::has('message'))
+                                <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissable">
+                                    <button data-dismiss="alert" class="close" type="button">
+                                        <i class="ace-icon fa fa-times"></i>
+                                    </button>
+                                    {{Session::get('message')}}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </header>
 
@@ -49,7 +63,7 @@
             $( ".datepicker" ).datepicker({
                 dateFormat: 'yy/mm/dd'
             });
-
+            $('.required').append(' <span class="text-danger">*</span>');
         </script>
         <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
         @yield('javascript')
