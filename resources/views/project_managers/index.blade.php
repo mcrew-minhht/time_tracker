@@ -38,10 +38,7 @@
                 <th class="px-4 py-2">{!! sort_title('name_project', __('Project Name')) !!}</th>
                 <th class="px-4 py-2">{!! sort_title('start_date', __('Start date')) !!}</th>
                 <th class="px-4 py-2">{!! sort_title('end_date', __('End date')) !!}</th>
-                <th class="px-4 py-2">{!! sort_title('created_at', __('Created date')) !!}</th>
-                <th class="px-4 py-2">{!! sort_title('created_user', __('Created user')) !!}</th>
-                <th class="px-4 py-2">{!! sort_title('updated_at', __('Updated date')) !!}</th>
-                <th class="px-4 py-2">{!! sort_title('updated_user', __('Updated user')) !!}</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -51,10 +48,10 @@
                         <td class="px-4 py-2">{{ $item->name_project ?? '' }}</td>
                         <td class="px-4 py-2">{{ format_date("$item->start_date") }}</td>
                         <td class="px-4 py-2">{{ format_date("$item->end_date") }}</td>
-                        <td class="px-4 py-2">{{ format_date("$item->created_at") }}</td>
-                        <td class="px-4 py-2">{{ $item->created_user ?? '' }}</td>
-                        <td class="px-4 py-2">{{ format_date("$item->updated_at") }}</td>
-                        <td class="px-4 py-2">{{ $item->updated_user ?? '' }}</td>
+                        <td class="px-4 py-2 overflow-hidden" style="width: 100px;">
+                            <a href="{{url('project_managers/edit/'.$item->id)}}" class="float-left text-primary"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="float-right text-danger"><i class="fas fa-trash-alt"></i></a>
+                        </td>
                     </tr>
                 @endforeach
             @endif

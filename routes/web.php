@@ -34,4 +34,6 @@ Route::group(['prefix' => '/',  'middleware' => 'auth:sanctum','verified'], func
     Route::get('/project_managers', [ProjectManagersController::class, 'index'])->name('project_managers');
     Route::get('/project_managers/create', [ProjectManagersController::class, 'create'])->name('project_managers_create');
     Route::post('/project_managers/store', [ProjectManagersController::class, 'store'])->name('project_managers_store');
+    Route::get('/project_managers/edit/{id}', [ProjectManagersController::class, 'edit'])->name('project_managers_edit');
+    Route::post('/project_managers/update', [ProjectManagersController::class, 'update'])->name('project_managers_update');
 });
