@@ -15,17 +15,17 @@ class CreateTimeTrackersTable extends Migration
     {
         Schema::create('time_trackers', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_code')->nullable();
-            $table->integer('id_project')->nullable();
-            $table->date('working_day')->nullable();
-            $table->integer('working_time')->nullable();
-            $table->date('date_overtime')->nullable();
-            $table->integer('time_overtime')->nullable();
-            $table->date('date_off')->nullable();
-            $table->integer('time_off')->nullable();
-            $table->string('memo')->nullable();
+            $table->integer('user_id');
+            $table->date('working_date')->nullable();
+            $table->date('start_working_day')->nullable();
+            $table->time('start_working_time')->nullable();
+            $table->date('end_working_day')->nullable();
+            $table->time('end_working_time')->nullable();
             $table->integer('created_user')->nullable();
             $table->integer('updated_user')->nullable();
+            $table->timestamp('updated_at')->nullable();
+            $table->integer('is_delete')->nullable();
+            $table->float('rest_time')->nullable();
             $table->timestamps();
         });
     }
