@@ -3,8 +3,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+//use App\Http\Controllers\Controller;
+//use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\TimeTrackers;
 use App\Models\User;
@@ -13,7 +13,8 @@ use App\Models\ProjectTime;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+//use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\TimeTrackersRequest;
 
 class TimeTrackersController extends Controller
 {
@@ -116,24 +117,12 @@ class TimeTrackersController extends Controller
 
     }
 
-    public function store(Request $request){
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required|numeric',
-            'id_project' => 'required|numeric',
-            'working_date' => 'required',
-            'start_working_day' => 'required',
-            'end_working_day' => 'required',
-            'rest_time' => 'numeric',
-        ]);
-        if ($validator->fails()) {
-            return $this->sendResponse(['errors' => $validator->errors()], 0);
-        }
+    public function store(TimeTrackersRequest $request){
         $params = [
             'user_id' => $request->user_id,
             'working_date' => date('Y-m-d', strtotime($request->working_date))
         ];
         $check_project = $this->time_trackers->CheckProjectByParams($params);
-
         $dataInsert = [
             'user_id' => $request->user_id,
             'working_date' => !empty($request->working_date) ? date('Y-m-d', strtotime($request->working_date)) : null,

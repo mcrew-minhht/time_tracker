@@ -18,3 +18,33 @@
     float: left;
     padding: 5px;
 }
+
+.u-flex, .u-flex .form-group {
+    display: flex;
+    margin: 0;
+}
+
+.div-textfield--half {
+    flex: 0 0 50%;
+}
+
+.div-textfield--110 {
+    flex: 0 0 110px;
+}
+
+.div-textfield--160 {
+    flex: 0 0 160px;
+}
+
+.m-b-10{
+    margin-bottom: 10px;
+}
+.m-r-10{
+    margin-right: 10px;
+}
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 700px !important;
+    }
+}

@@ -10,29 +10,47 @@ $(function () {
     TIME_TRACKERS.Add_Project_User = function () {
         $('#add_project').click(function () {
             let formData = APP_TIMES.getFormData($('#frm_add_project'));
-            APP_TIMES.postAjax(formData,'/time_trackers/add_project', function (res) {
-                if (APP_TIMES.validate(res, $('#frm_add_project'), '.u-flex')) {
-                    if (res.success == 1) {
-                        $("#msg_modal").html(APP_TIMES.alertSuccess(res.msg));
-                    } else {
-                        $("#msg_modal").html(APP_TIMES.alertDanger(res.msg));
-                    }
+            $.ajax({
+                type: "POST",
+                url: '/time_trackers/add_project',
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: "json",
+                beforeSend: function () {
+                },
+                done: function(error){
+
+                },
+                success: function (res) {
+                    $("#msg_modal").html(APP_TIMES.alertSuccess(res.msg));
+                },
+                error: function(json) {
+                    APP_TIMES.validate(json.responseJSON, $('#frm_add_project'), '.form-group', false);
+                    //console.log(json.responseJSON.errors);
                 }
-            })
+
+            });
+
         })
 
         $('.btn_edit_times').click(function () {
             let elm = $(this).closest('tr');
             let working_date = elm.find('[name=working_date]').val();
             let start_working_day = elm.find('[name=start_working_day]').val();
-            let rest_time = elm.find('[name=rest_time]').val();
+            let start_working_time = elm.find('[name=start_working_time]').val();
             let end_working_day = elm.find('[name=end_working_day]').val();
+            let end_working_time = elm.find('[name=end_working_time]').val();
+            let rest_time = elm.find('[name=rest_time]').val();
 
             $("#modal_add_times").find('[name=id]').val($(this).attr('data-id'));
             $("#modal_add_times").find('[name=working_date]').val(working_date);
             $("#modal_add_times").find('[name=start_working_day]').val(start_working_day);
+            $("#modal_add_times").find('[name=start_working_time]').val(start_working_time);
             $("#modal_add_times").find('[name=rest_time]').val(rest_time);
             $("#modal_add_times").find('[name=end_working_day]').val(end_working_day);
+            $("#modal_add_times").find('[name=end_working_time]').val(end_working_time);
             $("#modal_add_times").modal('show');
         })
 
@@ -72,7 +90,7 @@ $(document).ready(function () {
     $('.datetimepicker').datetimepicker();
     $('.datepicker').datetimepicker({
         showClose: true,
-        format: 'YYYY/MM/DD'
+        format: 'YYYY-MM-DD'
     });
     $('.timepicker').datetimepicker({ format: 'LT'});
 });

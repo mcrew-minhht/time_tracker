@@ -44,7 +44,7 @@ $(function () {
     };
 
 
-    APP_TIMES.validate = function (res, elmForm, cl = '.u-flex', scroll = true) {
+    APP_TIMES.validate = function (res, elmForm, cl = '.form-group', scroll = true) {
         let name, type, elms = elmForm.find('input, select, textarea'), elmMsg = $('#msg'),
             msg = $('meta[name=msg_input_error]').attr('content');
         msg = (typeof msg !== 'undefined') ? msg : '';
@@ -97,33 +97,24 @@ $(function () {
     };
 
     APP_TIMES.addErrorMsg = function (clElm, current, msg) {
-
         let elmName = $(current).attr('name').replace('[]', '');
         let elmInput = 'error_' + elmName;
-
-        if ($(current).attr('name') == 'onairKbn') {
-            $("#group_onairKbn").addClass('has-error text-danger');
-            let e = $("#group_onairKbn").find('p#' + elmInput);
-            if (e.length) {
-                e.text(msg);
-            } else {
-                $("#group_onairKbn").append("<p class='error' id='" + elmInput + "'>" + msg + "</p>");
-            }
+       ;
+        $(current).addClass('is-invalid');
+        (current).closest(clElm).find('label.col-form-label').addClass('text-danger');
+        let e = $(current).closest(clElm).find('div#' + elmInput);
+        if (e.length) {
+            e.html(msg);
         } else {
-            $(current).closest(clElm).addClass('error-group has-error text-danger');
-            let e = $(current).closest(clElm).find('p#' + elmInput);
-            if (e.length) {
-                e.text(msg);
-            } else {
-                $(current).closest(clElm).append("<p class='error' id='" + elmInput + "'>" + msg + "</p>");
-            }
+            $(current).closest(clElm).append("<div class='errors col-sm-12' id='" + elmInput + "'><div class='invalid-feedback d-block'>" + msg + "</div></div>");
         }
+
     };
     APP_TIMES.delErrorMsg = function (clElm, current) {
 
-        $(current).closest(clElm).removeClass('has-error text-danger');
-        $(current).closest(clElm).removeClass('error-group');
-        $(current).closest(clElm).find('p.error').remove();
+        $(current).closest(clElm).find('label.col-form-label').removeClass('text-danger');
+        $(current).removeClass('is-invalid');
+        $(current).closest(clElm).find('div.errors').remove();
     };
     APP_TIMES.alertDanger = function (msg) {
         return '<div class="alert alert-danger">' +

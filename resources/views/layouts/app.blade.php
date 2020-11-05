@@ -59,9 +59,6 @@
         @livewireScripts
 
         <script type="text/javascript">
-            $( ".datepicker" ).datepicker({
-                dateFormat: 'yy/mm/dd'
-            });
             $('.required').append(' <span class="text-danger">*</span>');
         </script>
 

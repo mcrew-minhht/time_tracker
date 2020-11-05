@@ -37,13 +37,17 @@
                                 {{ $item->start_working_day }}
                                 <input type="hidden" name="start_working_day" value="{{ $item->start_working_day }}">
                             </td>
-                            <td class="border px-4 py-2">{{ $item->start_working_time }}</td>
+                            <td class="border px-4 py-2">
+                                {{ $item->start_working_time }}
+                                <input type="hidden" name="start_working_time" value="{{ $item->start_working_time }}">
+                            </td>
                             <td class="border px-4 py-2">
                                 {{ $item->end_working_day }}
                                 <input type="hidden" name="end_working_day" value="{{ $item->end_working_day }}">
                             </td>
                             <td class="border px-4 py-2">
                                 {{ $item->end_working_time }}
+                                <input type="hidden" name="end_working_time" value="{{ $item->end_working_time }}">
                             </td>
                             <td class="border px-4 py-2">
                                 {{ $item->rest_time }}
@@ -73,8 +77,8 @@
     <input type="hidden" name="id" value="">
     {!! Form::close() !!}
     @section('javascript')
-        <script type="text/javascript" src="{{ asset('js/app_times.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/time_trackers.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/app_times.js?version='.config('setting.version')) }}"></script>
+        <script type="text/javascript" src="{{ asset('js/time_trackers.js?version='.config('setting.version')) }}"></script>
     @stop
 </x-app-layout>
 
