@@ -4,7 +4,8 @@
             {{ __('Edit project Mamanagers') }}
         </h2>
     </x-slot>
-    {!! Form::open(array('url' => url("project_managers/update"), 'id' => 'form-project')) !!}
+    {!! Form::open(array('url' => url("project_managers/update"), 'id' => 'form-update')) !!}
     @include('project_managers._form')
     {!! Form::close() !!}
 </x-app-layout>
+@section('javascript')

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectManagers extends Model
 {
@@ -43,14 +44,24 @@ class ProjectManagers extends Model
         $params['is_delete'] = 0;
         $params['created_at'] = now();
         $params['updated_at'] = now();
+        $params['created_user'] = Auth::id();
+        $params['updated_user'] = Auth::id();
         $result =  DB::table($this->table);
         $result = $result->insert($params);
         return $result;
     }
     public function updateProject($params, $id){
-        $params['is_delete'] = 0;
         $params['updated_at'] = now();
+        $params['updated_user'] = Auth::id();
         $result =  DB::table($this->table)->where('id','=', $id);
+        $result = $result->update($params);
+        return $result;
+    }
+    public function deleteProject($ids){
+        $params['updated_at'] = now();
+        $params['updated_user'] = Auth::id();
+        $params['is_delete'] = 1;
+        $result =  DB::table($this->table)->whereIn('id',$ids);
         $result = $result->update($params);
         return $result;
     }

@@ -32,12 +32,22 @@ class ProjectManagersController extends Controller
     }
 
     public function store(ProjectRequest $request){
-        $params = $this->getParams($request);
-        $result  = $this->projectManagers->insertProject($params);
-        $response = [
-            'message' => __('Create successfully')
-        ];
-        return redirect('project_managers/create')->with(['message' => $response['message'], 'alert-class' => 'alert-success']);
+        try {
+            $params = $this->getParams($request);
+            $result  = $this->projectManagers->insertProject($params);
+            $response = [
+                'message' => __('Create successfully')
+            ];
+            return redirect('project_managers/create')->with(['message' => $response['message'], 'alert-class' => 'alert-success']);
+        } catch (ValidatorException $e) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'error' => true,
+                    'message' => $e->getMessageBag()
+                ]);
+            }
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        }
     }
 
 
@@ -46,29 +56,46 @@ class ProjectManagersController extends Controller
         if(!$projectManagers){
             abort(404);
         }
-
         return view('project_managers.edit')->with('projectManagers',$projectManagers);
     }
 
 
     public function update(ProjectRequest $request) {
-        $params = $this->getParams($request);
-        $id = $request['id'];
-        $result  = $this->projectManagers->updateProject($params, $id);
-        $response = [
-            'message' => __('Update successfully')
-        ];
-        return redirect('project_managers/edit/'.$id)->with(['message' => $response['message'], 'alert-class' => 'alert-success']);
+        try {
+            $params = $this->getParams($request);
+            $id = $request['id'];
+            $result  = $this->projectManagers->updateProject($params, $id);
+            $response = [
+                'message' => __('Update successfully')
+            ];
+            return redirect('project_managers/edit/'.$id)->with(['message' => $response['message'], 'alert-class' => 'alert-success']);
+        } catch (ValidatorException $e) {
 
+            if ($request->wantsJson()) {
+
+                return response()->json([
+                    'error' => true,
+                    'message' => $e->getMessageBag()
+                ]);
+            }
+
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        }
     }
-
+    public function destroy(Request $request){
+        $ids = $request['id'];
+        $arr_ids = explode(",", $ids);
+        $result  = $this->projectManagers->deleteProject($arr_ids);
+        $response = [
+            'message' => __('Delete successfully')
+        ];
+        return redirect('project_managers')->with(['message' => $response['message'], 'alert-class' => 'alert-success']);
+    }
     public function getParams(Request $request){
         return [
             'name_project' => $request->name_project,
             'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'created_user'=>Auth::id(),
-            'updated_user'=>Auth::id(),
+            'end_date' => $request->end_date
         ];
     }
 
