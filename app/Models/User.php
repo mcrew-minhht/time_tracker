@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -19,6 +20,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
@@ -64,5 +66,42 @@ class User extends Authenticatable
         return DB::table('users')
             ->select('id','name','employee_code')
             ->get();
+    }
+
+    public function getAllUsers($params){
+        $result =  DB::table($this->table);
+        $result->whereRaw('is_delete != 1 OR is_delete is null');
+        if (!empty($params['search'])){
+            $result->where('name','like','%'.$params['search'].'%');
+        }
+        if (!empty($params['sortfield']) && !empty($params['sorttype'])){
+            $result->orderBy(DB::raw($params['sortfield']),$params['sorttype']);
+        }
+        return $result->select('users.*');
+    }
+    public function insertUser($params){
+        $params['is_delete'] = 0;
+        $params['created_at'] = now();
+        $params['updated_at'] = now();
+        $params['created_user'] = Auth::id();
+        $params['updated_user'] = Auth::id();
+        $result =  DB::table($this->table);
+        $result = $result->insert($params);
+        return $result;
+    }
+    public function updateUser($params, $id){
+        $params['updated_at'] = now();
+        $params['updated_user'] = Auth::id();
+        $result =  DB::table($this->table)->where('id','=', $id);
+        $result = $result->update($params);
+        return $result;
+    }
+    public function deleteUser($ids){
+        $params['updated_at'] = now();
+        $params['updated_user'] = Auth::id();
+        $params['is_delete'] = 1;
+        $result =  DB::table($this->table)->whereIn('id',$ids);
+        $result = $result->update($params);
+        return $result;
     }
 }

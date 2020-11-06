@@ -23,7 +23,6 @@ class CreateTimeTrackersTable extends Migration
             $table->time('end_working_time')->nullable();
             $table->integer('created_user')->nullable();
             $table->integer('updated_user')->nullable();
-            $table->timestamp('updated_at')->nullable();
             $table->integer('is_delete')->nullable();
             $table->float('rest_time')->nullable();
             $table->timestamps();

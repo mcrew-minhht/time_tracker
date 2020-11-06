@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TimeTrackersController;
 use App\Http\Controllers\ProjectManagersController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,4 +38,10 @@ Route::group(['prefix' => '/',  'middleware' => 'auth:sanctum','verified'], func
     Route::get('/project_managers/edit/{id}', [ProjectManagersController::class, 'edit'])->name('project_managers_edit');
     Route::post('/project_managers/update', [ProjectManagersController::class, 'update'])->name('project_managers_update');
     Route::post('/project_managers/destroy', [ProjectManagersController::class, 'destroy'])->name('project_managers_destroy');
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users_create');
+    Route::post('/users/store', [UserController::class, 'store'])->name('users_store');
+    Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users_edit');
+    Route::post('/users/update', [UserController::class, 'update'])->name('pusers_update');
+    Route::post('/users/destroy', [UserController::class, 'destroy'])->name('users_destroy');
 });
