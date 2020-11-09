@@ -43,6 +43,9 @@
                             </x-slot>
                         </x-jet-dropdown>
                     </div>
+                    <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                        {{ __('User Mamanagers') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 

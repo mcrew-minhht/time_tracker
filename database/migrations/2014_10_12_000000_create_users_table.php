@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->text('profile_photo_path')->nullable();
+            $table->boolean('is_delete')->nullable();
             $table->integer('created_user')->nullable();
             $table->integer('updated_user')->nullable();
             $table->timestamps();

@@ -148,7 +148,7 @@
                 $('#del_modal_id').val(idArr.join(","));
                 $('#deleteModal').modal('show');
             });
-            $("#btn-delete").on("click", function () {
+            $(".btn-delete").on("click", function () {
                 var routes = $(this).data("routes");
                 var id = $(this).data("id");
                 $('#form_modal_delete').attr('action', routes);
