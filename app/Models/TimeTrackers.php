@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+
 class TimeTrackers extends Model
 {
     use HasFactory;
@@ -13,13 +14,31 @@ class TimeTrackers extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public function getAllByIdEmployee(){
+    public function getAllByIdEmployee($params){
         //DATE_FORMAT(working_day, '%m-%Y')
-        return DB::table('time_trackers')
-            ->select('time_trackers.*','users.employee_code as employee_code','users.name as employee_name')
-            ->join('users','users.id','=','time_trackers.user_id')
-            ->get();
-
+        $result =  DB::table('time_trackers');
+        $result->join('users','users.id','=','time_trackers.user_id');
+        $result->join('project_time','project_time.id_time_tracker','=','time_trackers.id');
+        $result->where('time_trackers.is_delete', 0);
+        if (!empty($params['user_id'])){
+            $result->where('time_trackers.user_id','=',$params['user_id']);
+        }
+        if (!empty($params['id_project'])){
+            $result->where('project_time.id_project','=',$params['id_project']);
+        }
+        if (!empty($params['working_date'])){
+            $result->where('time_trackers.working_date','=',$params['working_date']);
+        }
+        if (!empty($params['start_working_day'])){
+            $result->where('time_trackers.start_working_day','>=',$params['start_working_day']);
+        }
+        if (!empty($params['end_working_day'])){
+            $result->where('time_trackers.end_working_day','<=',$params['end_working_day']);
+        }
+        if (!empty($params['sortfield']) && !empty($params['sorttype'])){
+            $result->orderBy(DB::raw($params['sortfield']),$params['sorttype']);
+        }
+        return $result->select('time_trackers.*', DB::raw('users.name as employee_name'), DB::raw('project_time.id_project as id_project'));
     }
 
     public function CheckDateByParams($params){

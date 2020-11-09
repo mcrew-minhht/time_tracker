@@ -33,9 +33,7 @@
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto pt-3 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
-                </div>
-                <div class="row m-0 p-0">
-                    <div class="col-12">
+                    <div class="col-12" style="padding-bottom: 20px">
                         <div id="flash_message">
                             @if(Session::has('message'))
                                 <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissable">
@@ -105,9 +103,6 @@
         @livewireScripts
 
         <script type="text/javascript">
-            $( ".datepicker" ).datepicker({
-                dateFormat: 'yy/mm/dd'
-            });
             $(document).ready(function(){
                 $('[data-toggle="tooltip"]').tooltip();
             });
@@ -170,9 +165,17 @@
             $("#updateModal #btn_yes").on('click',function (){
                 $('#deleteModal').modal('hide');
             });
+            $('.dropdown-toggle').dropdown();
+            $(document).ready(function() {
+                $.each($('#navbar').find('li'), function() {
+                    $(this).toggleClass('active',
+                        '/' + $(this).find('a').attr('href') == window.location.pathname);
+                });
+
+            });
         </script>
 
-        <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/app.js?version='.config('setting.version')) }}"></script>
         @yield('javascript')
 
     </body>

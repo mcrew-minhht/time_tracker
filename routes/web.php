@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TimeTrackersController;
 use App\Http\Controllers\ProjectManagersController;
+use App\Http\Controllers\StatisticalController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,12 +30,19 @@ Route::group(['prefix' => '/',  'middleware' => 'auth:sanctum','verified'], func
     })->name('dashboard');
 
     Route::resource('time_trackers', TimeTrackersController::class);
-    Route::get('/time_trackers/{id}/{id_project}/{employee_code}', [TimeTrackersController::class, 'show']);
+    Route::get('/time_trackers', [TimeTrackersController::class, 'index'])->name('time_trackers');
+    Route::post('/time_trackers', [TimeTrackersController::class, 'index']);
     Route::post('/time_trackers/add_project', [TimeTrackersController::class, 'store']);
+    Route::post('/time_trackers/destroy', [TimeTrackersController::class, 'destroy']);
     Route::get('/project_managers', [ProjectManagersController::class, 'index'])->name('project_managers');
     Route::get('/project_managers/create', [ProjectManagersController::class, 'create'])->name('project_managers_create');
     Route::post('/project_managers/store', [ProjectManagersController::class, 'store'])->name('project_managers_store');
     Route::get('/project_managers/edit/{id}', [ProjectManagersController::class, 'edit'])->name('project_managers_edit');
     Route::post('/project_managers/update', [ProjectManagersController::class, 'update'])->name('project_managers_update');
     Route::post('/project_managers/destroy', [ProjectManagersController::class, 'destroy'])->name('project_managers_destroy');
+
+    Route::get('/statistical_project', [StatisticalController::class, 'statistical_project'])->name('statistical_project');
+    Route::post('/statistical_project', [StatisticalController::class, 'statistical_project']);
+    Route::get('/statistical_month', [StatisticalController::class, 'statistical_month'])->name('statistical_month');
+    Route::post('/statistical_month', [StatisticalController::class, 'statistical_month']);
 });

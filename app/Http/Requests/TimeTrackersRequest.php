@@ -38,7 +38,6 @@ class TimeTrackersRequest extends FormRequest
             ],
             'start_working_time' => 'required',
             'end_working_time' => 'required',
-            //'rest_time' => 'numeric'
         ];
     }
     public function messages()

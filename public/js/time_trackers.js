@@ -1,10 +1,13 @@
 let TIME_TRACKERS = {};
-
+let frm_search = $('meta[name=frm_search]').attr('content');
 $(function () {
     'use strict';
     TIME_TRACKERS.init = function () {
         TIME_TRACKERS.Add_Project_User();
         TIME_TRACKERS.changeWorkingTime();
+        TIME_TRACKERS.reload();
+        TIME_TRACKERS.delTimeTracker();
+        TIME_TRACKERS.searchTimes();
     }
 
     TIME_TRACKERS.Add_Project_User = function () {
@@ -24,11 +27,14 @@ $(function () {
 
                 },
                 success: function (res) {
-                    $("#msg_modal").html(APP_TIMES.alertSuccess(res.msg));
+                    if(res.success == 1){
+                        $("#msg_modal").html(APP_TIMES.alertSuccess(res.msg));
+                    }else{
+                        $("#msg_modal").html(APP_TIMES.alertDanger(res.msg));
+                    }
                 },
                 error: function(json) {
                     APP_TIMES.validate(json.responseJSON, $('#frm_add_project'), '.form-group', false);
-                    //console.log(json.responseJSON.errors);
                 }
 
             });
@@ -54,11 +60,47 @@ $(function () {
             $("#modal_add_times").modal('show');
         })
 
+
+    }
+    TIME_TRACKERS.reload = function(){
         $('#btn_reload').click(function () {
-            //$('#frm_reload').submit();
+            $('#frm_reload').submit();
         })
     }
+    TIME_TRACKERS.delTimeTracker = function(){
+        $('.btn_del_times').click(function () {
+            let id = $(this).attr('data-id');
+            let formData = new FormData();
+            formData.append('id',id);
+            var r = confirm("'Del this row?");
+            if (r == true) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: '/time_trackers/destroy',
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (res) {
+                        $("#flash_message").html(APP_TIMES.alertSuccess(res.msg));
+                        $('#frm_reload').submit();
+                    },
+                });
 
+            }
+
+        })
+    }
+    TIME_TRACKERS.searchTimes = function(){
+        $('.btn_search').click(function () {
+            $('#'+ frm_search).find('[name=action]').val('search');
+            $('#'+ frm_search).submit();
+        })
+    }
     TIME_TRACKERS.changeWorkingTime = function () {
         $('.work_time').change(function () {
             TIME_TRACKERS.changeTime('[data-col=working_time]','.sum_time');
@@ -93,4 +135,5 @@ $(document).ready(function () {
         format: 'YYYY-MM-DD'
     });
     $('.timepicker').datetimepicker({ format: 'LT'});
+
 });

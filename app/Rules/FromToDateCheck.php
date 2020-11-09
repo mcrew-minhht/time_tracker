@@ -21,7 +21,6 @@ class FromToDateCheck implements Rule
 
     public function passes($attribute, $value)
     {
-
         $request = $this->request->all();
         if($attribute == 'end_working_day'){
             if(!empty($value) && !empty($request['end_working_time'])){
