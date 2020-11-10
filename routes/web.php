@@ -32,7 +32,7 @@ Route::group(['prefix' => '/',  'middleware' => 'auth:sanctum','verified'], func
 
     Route::resource('time_trackers', TimeTrackersController::class);
     Route::get('/time_trackers', [TimeTrackersController::class, 'index'])->name('time_trackers');
-    Route::post('/time_tracker_search', [TimeTrackersController::class, 'search'])->name('time_tracker_search');
+//    Route::post('/time_tracker_search', [TimeTrackersController::class, 'search'])->name('time_tracker_search');
     Route::post('/time_trackers', [TimeTrackersController::class, 'index']);
     Route::post('/time_trackers/add_project', [TimeTrackersController::class, 'store']);
     Route::post('/time_trackers/destroy', [TimeTrackersController::class, 'destroy']);
