@@ -33,6 +33,7 @@ class StatisticalController extends Controller
 
     public function statistical_project(Request $request)
     {
+        $data['old'] = $request;
         $data['projects'] = $this->projects->get();
         if($request->action == 'search'){
             $data['params'] = [
@@ -52,11 +53,19 @@ class StatisticalController extends Controller
 
     public function statistical_month(Request $request)
     {
+        $data['old'] = $request;
         $data['projects'] = $this->projects->get();
-        $start_working_day = (isset($request->year) && isset($request->month)) ? $request->year.'-'.$request->month.'-01' : null;
+        $start_working_day = null;
+        $end_working_day = null;
+        if(!empty($request->year) && !empty($request->month)){
+            $end = Carbon::parse($request->year.'-'.$request->month)->endOfMonth();
+            $start_working_day = $request->year.'-'.$request->month.'-01';
+            $end_working_day = isset($end) ? $end->format('Y-m-d') : null;
+        }
         if($request->action == 'search'){
             $data['params'] = [
                 'start_working_day' => $start_working_day,
+                'end_working_day' => $end_working_day,
                 'sortfield' => isset($request->sortfield) ? $request->sortfield : "id",
                 'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
             ];

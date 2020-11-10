@@ -36,13 +36,9 @@ class TimeTrackersController extends Controller
                     new FromToDateCheck($request)
                 ],
             ]);
+
             if ($validator->fails()) {
-                if (!$request->session()->exists('users')) {
-                    $request->session()->put('message', 'Error inputs form!');
-                    $data['errors'] = $validator->errors();
-                }
-            }else{
-                $request->session()->forget('message');
+                $data['errors'] = $validator->errors();
             }
         }
         $data['params'] = [
@@ -61,31 +57,6 @@ class TimeTrackersController extends Controller
         $data['projects'] = $this->projects->get();
         return view('time_trackers.index', $data);
     }
-
-    public function search(Request $request){
-        //if($request->action == 'search'){
-            $validator = Validator::make($request->all(), [
-                'end_working_day' => [
-                    new FromToDateCheck($request)
-                ],
-            ]);
-            if ($validator->fails()) {
-                if (!$request->session()->exists('users')) {
-                    $request->session()->put('message', 'Error inputs form!');
-                    $data['errors'] = $validator->errors();
-                    $msg = 'error';
-                    $success = 0;
-                }
-            }else{
-                $request->session()->forget('message');
-                $msg = 'ddd';
-                $success = 1;
-            }
-        //}
-
-        return $this->sendResponse(['msg' => $msg], $success);
-    }
-
 
     public function show($id, $id_project, $employee_code)
     {

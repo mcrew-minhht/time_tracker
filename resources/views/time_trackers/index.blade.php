@@ -7,15 +7,15 @@
                     <span>Time Trackers</span>
                 </h3>
             </div>
-{{--            <div class="col-12">--}}
-{{--            @if ($errors->any())--}}
-{{--                <ul class="ul_error">--}}
-{{--                    @foreach ($errors->all() as $error)--}}
-{{--                        <li>{{ $error }}</li>--}}
-{{--                    @endforeach--}}
-{{--                </ul>--}}
-{{--            @endif--}}
-{{--            </div>--}}
+            <div class="col-12">
+            @if ($errors->any())
+                <ul class="ul_error">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
+            </div>
         </div>
     </x-slot>
     <div class="max-w-7xl mx-auto">
@@ -69,12 +69,15 @@
                             <div class="col-md-3">
                                 <input name="end_working_day" class="form-control div-textfield--160 datepicker" value="{!! isset($params['end_working_day']) ? $params['end_working_day'] : '' !!}">
                             </div>
+                            @if($errors->has('end_working_day'))
+                                <p class="error px-3">{{ $errors->first('end_working_day')}}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
                 {!! Form::close() !!}
             </div>
-            <div class="text-right my-5">
+            <div class="text-right my-3">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_add_times">
                     <i class="fas fa-plus-square"></i> Add
                 </button>
@@ -83,13 +86,13 @@
             <table class="table table-bordered table-striped w-full">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2">User</th>
-                        <th class="px-4 py-2">Working date</th>
-                        <th class="px-4 py-2">Start working date</th>
-                        <th class="px-4 py-2">Start working time</th>
-                        <th class="px-4 py-2">End working date</th>
-                        <th class="px-4 py-2">End working time</th>
-                        <th class="px-4 py-2">Rest time</th>
+                        <th class="px-4 py-2">{!! sort_title('user_id', __('User')) !!}</th>
+                        <th class="px-4 py-2">{!! sort_title('working_date', __('Working date')) !!}</th>
+                        <th class="px-4 py-2">{!! sort_title('start_working_day', __('Start working date')) !!}</th>
+                        <th class="px-4 py-2">{!! sort_title('start_working_time', __('Start working time')) !!}</th>
+                        <th class="px-4 py-2">{!! sort_title('end_working_day', __('End working date')) !!}</th>
+                        <th class="px-4 py-2">{!! sort_title('start_working_time', __('End working time')) !!}</th>
+                        <th class="px-4 py-2">{!! sort_title('rest_time', __('Rest time')) !!}</th>
                         <th class="px-4 py-2"></th>
                     </tr>
                 </thead>

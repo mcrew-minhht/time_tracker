@@ -28,11 +28,11 @@
                         <div class="form-group row">
                             <label class="col-form-label col-md-1">Month</label>
                             <div class="col-md-2">
-                                <input type="text" name="month" class="form-control div-textfield--160"  value="">
+                                <input type="text" name="month" class="form-control div-textfield--160"  value="{!! isset($old->month) ? $old->month : '' !!}">
                             </div>
                             <label class="col-form-label col-md-1">Year</label>
                             <div class="col-md-2">
-                                <input type="text" name="year" class="form-control div-textfield--160" value="">
+                                <input type="text" name="year" class="form-control div-textfield--160" value="{!! isset($old->year) ? $old->year : '' !!}">
                             </div>
                             <div class="col-md-6">
                                 <button type="button" class="btn btn-primary btn_search">Search</button>

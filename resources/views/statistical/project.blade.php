@@ -30,7 +30,7 @@
                                 <select name="id_project" class="form-control">
                                     <option value=""></option>
                                     @foreach($projects as $item_project)
-                                        <option value="{{ $item_project->id }}" {!! (isset($params['id_project']) && $item_project->id == $params['id_project']) ? 'selected' : '' !!}>{{ $item_project->name_project }}</option>
+                                        <option value="{{ $item_project->id }}" {!! (isset($old->id_project) && $item_project->id == $old->id_project) ? 'selected' : '' !!}>{{ $item_project->name_project }}</option>
                                     @endforeach
                                 </select>
                             </div>
