@@ -13,6 +13,7 @@ use App\Http\Requests\TimeTrackersRequest;
 use App\Models\TimeTrackers;
 use App\Models\Projects;
 use App\Models\ProjectTime;
+use PDF;
 
 class StatisticalController extends Controller
 {
@@ -42,6 +43,9 @@ class StatisticalController extends Controller
             $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
             $result = $listTimeTrackers->paginate(5);
             $data['lists'] = $result;
+            if(isset($request->id_project)){
+                $data['project_info'] = $this->projects->find($request->id_project);
+            }
         }
         return view('statistical.project', $data);
     }
@@ -61,5 +65,41 @@ class StatisticalController extends Controller
             $data['lists'] = $result;
         }
         return view('statistical.month', $data);
+    }
+
+    public function pdf_project(Request $request){
+        $data['params'] = [
+            'id_project' => isset($request->id_project) ? $request->id_project : '',
+            'sortfield' => isset($request->sortfield) ? $request->sortfield : "id",
+            'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
+        ];
+        $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
+        if($request->get('all') != 1){
+            $result = $listTimeTrackers->paginate(5);
+            $data['lists'] = $result;
+        }else{
+            $data['lists'] = $listTimeTrackers->get();
+        }
+
+        $pdf = PDF::loadView('statistical.pdf_project', $data);
+        return $pdf->download('static_with_project.pdf');
+    }
+
+    public function pdf_month(Request $request){
+        $start_working_day = (isset($request->year) && isset($request->month)) ? $request->year.'-'.$request->month.'-01' : null;
+        $data['params'] = [
+            'start_working_day' => $start_working_day,
+            'sortfield' => isset($request->sortfield) ? $request->sortfield : "id",
+            'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
+        ];
+        $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
+        if($request->get('all') != 1){
+            $result = $listTimeTrackers->paginate(5);
+            $data['lists'] = $result;
+        }else{
+            $data['lists'] = $listTimeTrackers->get();
+        }
+        $pdf = PDF::loadView('statistical.pdf_project', $data);
+        return $pdf->download('static_with_month.pdf');
     }
 }

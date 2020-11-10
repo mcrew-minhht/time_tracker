@@ -165,14 +165,7 @@
             $("#updateModal #btn_yes").on('click',function (){
                 $('#deleteModal').modal('hide');
             });
-            $('.dropdown-toggle').dropdown();
-            $(document).ready(function() {
-                $.each($('#navbar').find('li'), function() {
-                    $(this).toggleClass('active',
-                        '/' + $(this).find('a').attr('href') == window.location.pathname);
-                });
 
-            });
         </script>
 
         <script type="text/javascript" src="{{ asset('js/app.js?version='.config('setting.version')) }}"></script>

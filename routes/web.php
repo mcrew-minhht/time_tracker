@@ -32,6 +32,7 @@ Route::group(['prefix' => '/',  'middleware' => 'auth:sanctum','verified'], func
 
     Route::resource('time_trackers', TimeTrackersController::class);
     Route::get('/time_trackers', [TimeTrackersController::class, 'index'])->name('time_trackers');
+    Route::post('/time_tracker_search', [TimeTrackersController::class, 'search'])->name('time_tracker_search');
     Route::post('/time_trackers', [TimeTrackersController::class, 'index']);
     Route::post('/time_trackers/add_project', [TimeTrackersController::class, 'store']);
     Route::post('/time_trackers/destroy', [TimeTrackersController::class, 'destroy']);
@@ -47,6 +48,9 @@ Route::group(['prefix' => '/',  'middleware' => 'auth:sanctum','verified'], func
     Route::post('/statistical_project', [StatisticalController::class, 'statistical_project']);
     Route::get('/statistical_month', [StatisticalController::class, 'statistical_month'])->name('statistical_month');
     Route::post('/statistical_month', [StatisticalController::class, 'statistical_month']);
+    Route::get('/pdf_project', [StatisticalController::class, 'pdf_project'])->name('pdf_project');
+    Route::get('/pdf_month', [StatisticalController::class, 'pdf_month'])->name('pdf_month');
+
 
     Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::get('/users/create', [UserController::class, 'create'])->name('users_create');

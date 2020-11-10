@@ -24,18 +24,20 @@
                 {!! Form::open(['method' => 'POST', 'id' => 'frm_search_month', 'class' => 'needs-validation']) !!}
                 <input type="hidden" name="action" value="">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group row">
-                            <label class="col-form-label col-md-2">Month</label>
-                            <div class="col-md-3">
+                            <label class="col-form-label col-md-1">Month</label>
+                            <div class="col-md-2">
                                 <input type="text" name="month" class="form-control div-textfield--160"  value="">
                             </div>
-                            <label class="col-form-label col-md-2">Year</label>
-                            <div class="col-md-3">
+                            <label class="col-form-label col-md-1">Year</label>
+                            <div class="col-md-2">
                                 <input type="text" name="year" class="form-control div-textfield--160" value="">
                             </div>
-                            <div>
+                            <div class="col-md-6">
                                 <button type="button" class="btn btn-primary btn_search">Search</button>
+                                <a href="{{ url('pdf_month?all=1') }}" class="btn btn-info">Export All</a>
+                                <a href="{{ url('pdf_month') }}" class="btn btn-info">Export Page</a>
                             </div>
                         </div>
                     </div>

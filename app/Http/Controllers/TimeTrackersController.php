@@ -31,16 +31,19 @@ class TimeTrackersController extends Controller
     public function index(Request $request)
     {
         if($request->action == 'search'){
-//            $validator = Validator::make($request->all(), [
-//                'end_working_day' => [
-//                    new FromToDateCheck($request)
-//                ],
-//            ]);
-//            if ($validator->fails()) {
-//                $data['errors'] = $validator->errors();
-//            }else{
-//                $data['errors'] = [];
-//            }
+            $validator = Validator::make($request->all(), [
+                'end_working_day' => [
+                    new FromToDateCheck($request)
+                ],
+            ]);
+            if ($validator->fails()) {
+                if (!$request->session()->exists('users')) {
+                    $request->session()->put('message', 'Error inputs form!');
+                    $data['errors'] = $validator->errors();
+                }
+            }else{
+                $request->session()->forget('message');
+            }
         }
         $data['params'] = [
             'user_id' => isset($request->user_id) ? intval($request->user_id) : '',
@@ -60,25 +63,27 @@ class TimeTrackersController extends Controller
     }
 
     public function search(Request $request){
-        $validator = Validator::make($request->all(), [
-            'working_date' => 'required',
-        ]);
-        if ($validator->fails()) {
-            $request->session()->flash('message', 'Task was successful!');
-        }
-        $data['params'] = [
-            'user_id' => isset($request->user_id) ? intval($request->user_id) : '',
-            'id_project' => isset($request->id_project) ? $request->id_project : '',
-            'working_date' => isset($request->working_date) ? $request->working_date : '',
-            'start_working_day' => isset($request->start_working_day) ? $request->start_working_day : '',
-            'end_working_day' => isset($request->end_working_day) ? $request->end_working_day : '',
-            'sortfield' => isset($request->sortfield) ? $request->sortfield : "id",
-            'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
-        ];
-        $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
-        $result = $listTimeTrackers->paginate(5);
-        $data['lists'] = $result;
-        return $data;
+        //if($request->action == 'search'){
+            $validator = Validator::make($request->all(), [
+                'end_working_day' => [
+                    new FromToDateCheck($request)
+                ],
+            ]);
+            if ($validator->fails()) {
+                if (!$request->session()->exists('users')) {
+                    $request->session()->put('message', 'Error inputs form!');
+                    $data['errors'] = $validator->errors();
+                    $msg = 'error';
+                    $success = 0;
+                }
+            }else{
+                $request->session()->forget('message');
+                $msg = 'ddd';
+                $success = 1;
+            }
+        //}
+
+        return $this->sendResponse(['msg' => $msg], $success);
     }
 
 

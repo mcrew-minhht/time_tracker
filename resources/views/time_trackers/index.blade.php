@@ -7,15 +7,15 @@
                     <span>Time Trackers</span>
                 </h3>
             </div>
-            <div class="col-12">
-            @if ($errors->any())
-                <ul class="ul_error">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-            </div>
+{{--            <div class="col-12">--}}
+{{--            @if ($errors->any())--}}
+{{--                <ul class="ul_error">--}}
+{{--                    @foreach ($errors->all() as $error)--}}
+{{--                        <li>{{ $error }}</li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            @endif--}}
+{{--            </div>--}}
         </div>
     </x-slot>
     <div class="max-w-7xl mx-auto">

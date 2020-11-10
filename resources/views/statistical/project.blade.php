@@ -23,10 +23,10 @@
             <div class="">
                 {!! Form::open(['method' => 'POST', 'id' => 'frm_search_project', 'class' => 'needs-validation']) !!}
                 <input type="hidden" name="action" value="">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group row">
-                            <label class="col-form-label col-md-2">Project</label>
-                            <div class="col-md-6">
+                            <label class="font-semibold col-md-1">Project</label>
+                            <div class="col-md-4">
                                 <select name="id_project" class="form-control">
                                     <option value=""></option>
                                     @foreach($projects as $item_project)
@@ -34,11 +34,19 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <button type="button" class="btn btn-primary btn_search">Search</button>
+                                <a href="{{ url('pdf_project?all=1') }}" class="btn btn-info">Export All</a>
+                                <a href="{{ url('pdf_project') }}" class="btn btn-info">Export Page</a>
                             </div>
                         </div>
+                        @if(!empty($project_info))
+                        <div>
+                            <label class="font-semibold">Begin:</label> {{ $project_info->start_date }} <label class="font-semibold">&nbsp&nbsp&nbsp     End:</label> {{ $project_info->end_date }}
+                        </div>
+                        @endif
                     </div>
+
                 {!! Form::close() !!}
             </div>
 
@@ -52,7 +60,6 @@
                         <th class="px-4 py-2">End working date</th>
                         <th class="px-4 py-2">End working time</th>
                         <th class="px-4 py-2">Rest time</th>
-                        <th class="px-4 py-2"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,14 +91,11 @@
                                 {{ $item->rest_time }}
                                 <input type="hidden" name="rest_time" value="{{ $item->rest_time }}">
                             </td>
-                            <td class="border px-4 py-2">
-                                <button class="btn btn-default btn-sm text-danger btn_del_times" data-id="{{ $item->id }}"><i class="fas fa-trash-alt"></i></button>
-                            </td>
                         </tr>
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="8" class="text-center">No result!</td>
+                            <td colspan="7" class="text-center">No result!</td>
                         </tr>
                     @endif
                 </tbody>

@@ -97,8 +97,31 @@ $(function () {
     }
     TIME_TRACKERS.searchTimes = function(){
         $('.btn_search').click(function () {
-            $('#'+ frm_search).find('[name=action]').val('search');
-            $('#'+ frm_search).submit();
+            // $('#'+ frm_search).find('[name=action]').val('search');
+            // $('#'+ frm_search).submit();
+            $('#frm_search_times').find('[name=action]').val('search');
+            let formData = APP_TIMES.getFormData($('#'+ frm_search));
+
+            $.ajax({
+                type: "POST",
+                url: '/time_tracker_search',
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: "json",
+                success: function (res) {
+                    // if(res.success == 1){
+                    //     $("#msg_modal").html(APP_TIMES.alertSuccess(res.msg));
+                    // }else{
+                    //     $("#msg_modal").html(APP_TIMES.alertDanger(res.msg));
+                    // }
+                },
+                error: function(json) {
+                    APP_TIMES.validate(json.responseJSON, $('#frm_search_times'), '.form-group', false);
+                }
+
+            });
         })
     }
     TIME_TRACKERS.changeWorkingTime = function () {
