@@ -70,7 +70,7 @@
                                 <input name="end_working_day" class="form-control div-textfield--160 datepicker" value="{!! isset($params['end_working_day']) ? $params['end_working_day'] : '' !!}">
                             </div>
                             @if($errors->has('end_working_day'))
-                                <p class="error px-3">{{ $errors->first('end_working_day')}}</p>
+                                <div class="text text-danger text-sm px-3">{{ $errors->first('end_working_day')}}</div>
                             @endif
                         </div>
                     </div>

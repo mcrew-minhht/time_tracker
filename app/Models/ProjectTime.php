@@ -17,6 +17,7 @@ class ProjectTime extends Model
         DB::table('project_time')->insert([
             'id_time_tracker' => $params['id_time_tracker'],
             'id_project' => $params['id_project'],
+            'ratio' => 1,
         ]);
     }
 }
