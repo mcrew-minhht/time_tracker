@@ -2,7 +2,7 @@
 
 if (!function_exists('format_date')) {
 
-    function format_date($date, $format = 'Y/m/d') {
+    function format_date($date, $format = 'd/m/Y') {
         if ($date) {
             return date_format(date_create($date),$format);
         }
@@ -59,6 +59,20 @@ if (!function_exists('base_url')) {
         //remove last '&'
 
         return rtrim($url, "&");
+    }
+
+}
+
+
+if (!function_exists('convert_dmy_to_ymd')) {
+
+    function convert_dmy_to_ymd($date) {
+        if ($date) {
+            $date_arr = explode('/',$date);
+            $date_str = $date_arr[2].'/'.$date_arr[1].'/'.$date_arr[0];
+            return $date_str;
+        }
+        return "";
     }
 
 }

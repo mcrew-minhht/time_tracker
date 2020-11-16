@@ -82,12 +82,28 @@ class TimeTrackersController extends Controller
     }
 
     public function store(TimeTrackersRequest $request){
+        $working_date_str = null;
+        $start_working_day_str = null;
+        $end_working_day_str = null;
+        if (!empty($request->working_date)){
+            $working_date_arr = explode('/',$request->working_date);
+            $working_date_str = $working_date_arr[2].'/'.$working_date_arr[1].'/'.$working_date_arr[0];
+        }
+        if (!empty($request->start_working_day)){
+            $start_working_day_arr = explode('/',$request->start_working_day);
+            $start_working_day_str = $start_working_day_arr[2].'/'.$start_working_day_arr[1].'/'.$start_working_day_arr[0];
+        }
+        if (!empty($request->end_working_day)){
+            $end_working_day_arr = explode('/',$request->end_working_day);
+            $end_working_day_str = $end_working_day_arr[2].'/'.$end_working_day_arr[1].'/'.$end_working_day_arr[0];
+        }
+
         $dataInsert = [
             'user_id' => $request->user_id,
-            'working_date' => !empty($request->working_date) ? date('Y-m-d', strtotime($request->working_date)) : null,
-            'start_working_day' => !empty($request->start_working_day) ? date('Y-m-d', strtotime($request->start_working_day)) : null,
+            'working_date' => $working_date_str,
+            'start_working_day' => $start_working_day_str,
             'start_working_time' => !empty($request->start_working_time) ? date("H:i:s", strtotime($request->start_working_time)) : null,
-            'end_working_day' => !empty($request->end_working_day) ? date('Y-m-d', strtotime($request->end_working_day)) : null,
+            'end_working_day' =>  $end_working_day_str,
             'end_working_time' => !empty($request->end_working_time) ? date("H:i:s", strtotime($request->end_working_time)) : null,
             'rest_time' => !empty($request->rest_time) ? $request->rest_time : null,
         ];

@@ -31,14 +31,14 @@ class UserRequest extends FormRequest
         $password = $this->request->all()['password'];
         $password_confirmation = $this->request->all()['password_confirmation'];
         $validate =  [
-            'name' => 'required|max:255',
-            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($id)],
-            'employee_code' => 'required|unique:users,employee_code,'.$id.'|max:255',
-            'birthdate' => 'nullable|date|max:10'
+            'name' => 'required|max:191',
+            'email' => ['required', 'email', 'max:191', Rule::unique('users')->ignore($id)],
+            'employee_code' => 'required|unique:users,employee_code,'.$id.'|max:191',
+            'birthdate' => 'nullable|date_format:d/m/Y|max:10'
         ];
         if (empty($id) || (!empty($password) || !empty($password_confirmation))){
-            $validate['password']='required|min:8';
-            $validate['password_confirmation']='required|min:8|same:password';
+            $validate['password']='required|min:8|max:191';
+            $validate['password_confirmation']='required|min:8|max:191|same:password';
         }
 
         return $validate;

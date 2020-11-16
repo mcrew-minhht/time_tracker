@@ -102,11 +102,11 @@
                         <tr>
                             <td class="border px-4 py-2">{{ $item->employee_name }}</td>
                             <td class="border px-4 py-2">
-                                {{ $item->working_date }}
+                                {{ format_date($item->working_date) }}
                                 <input type="hidden" name="working_date" value="{{ $item->working_date }}">
                             </td>
                             <td class="border px-4 py-2">
-                                {{ $item->start_working_day }}
+                                {{ format_date($item->start_working_day) }}
                                 <input type="hidden" name="start_working_day" value="{{ $item->start_working_day }}">
                             </td>
                             <td class="border px-4 py-2">
@@ -114,7 +114,7 @@
                                 <input type="hidden" name="start_working_time" value="{{ $item->start_working_time }}">
                             </td>
                             <td class="border px-4 py-2">
-                                {{ $item->end_working_day }}
+                                {{ format_date($item->end_working_day) }}
                                 <input type="hidden" name="end_working_day" value="{{ $item->end_working_day }}">
                             </td>
                             <td class="border px-4 py-2">

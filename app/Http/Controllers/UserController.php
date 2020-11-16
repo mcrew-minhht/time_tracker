@@ -97,7 +97,7 @@ class UserController extends Controller
             'email' => $request->email,
             'employee_code' => $request->employee_code,
             'address' => $request->address,
-            'birthdate' => $request->birthdate,
+            'birthdate' => convert_dmy_to_ymd($request->birthdate),
             'level' => $request->level ?? 0,
         ];
         if (empty($request->id) || (!empty($request->password) || !empty($request->password_confirmation))){

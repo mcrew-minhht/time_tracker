@@ -70,4 +70,8 @@
             </div>
         </div>
     </div>
+    @section('javascript')
+        <script type="text/javascript" src="{{ asset('js/app_times.js?version='.config('setting.version')) }}"></script>
+        <script type="text/javascript" src="{{ asset('js/time_trackers.js?version='.config('setting.version')) }}"></script>
+    @stop
 </x-app-layout>

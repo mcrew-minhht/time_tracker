@@ -5,6 +5,7 @@ use App\Http\Controllers\TimeTrackersController;
 use App\Http\Controllers\ProjectManagersController;
 use App\Http\Controllers\StatisticalController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,5 +58,9 @@ Route::group(['prefix' => '/',  'middleware' => 'auth:sanctum','verified'], func
     Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users_edit');
     Route::post('/users/update', [UserController::class, 'update'])->name('pusers_update');
     Route::post('/users/destroy', [UserController::class, 'destroy'])->name('users_destroy');
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile_update');
+    Route::post('/profile/confirm-password', [ProfileController::class, 'confirmPassword'])->name('profile-confirm-password');
 
 });

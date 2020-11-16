@@ -24,12 +24,17 @@ class FromToDateCheck implements Rule
         $request = $this->request->all();
         if($attribute == 'end_working_day'){
             if(!empty($value) || $value != null){
+                $start_working_day_arr = explode('/',$request['start_working_day']);
+                $start_working_day_str = $start_working_day_arr[2].'/'.$start_working_day_arr[1].'/'.$start_working_day_arr[0];
+                $end_working_day_arr = explode('/',$request['end_working_day']);
+                $end_working_day_str = $end_working_day_arr[2].'/'.$end_working_day_arr[1].'/'.$end_working_day_arr[0];
+
                 if(!empty($request['start_working_time'])){
-                    $begin = Carbon::parse($request['start_working_day'].' '. $request['start_working_time']);
-                    $end = Carbon::parse($request['end_working_day'].' '. $request['end_working_time']);
+                    $begin = Carbon::parse($start_working_day_str.' '. $request['start_working_time']);
+                    $end = Carbon::parse($end_working_day_str.' '. $request['end_working_time']);
                 }else{
-                    $begin = Carbon::parse($request['start_working_day']);
-                    $end = Carbon::parse($request['end_working_day']);
+                    $begin = Carbon::parse($start_working_day_str);
+                    $end = Carbon::parse($end_working_day_str);
                 }
 
                 if($begin->lte($end) == false){

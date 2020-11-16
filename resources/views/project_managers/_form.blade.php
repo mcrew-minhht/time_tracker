@@ -38,3 +38,11 @@
         </div>
     </div>
 </div>
+@section('javascript')
+    <script>
+        $('.datepicker').datetimepicker({
+            showClose: true,
+            format: 'DD/MM/YYYY'
+        });
+    </script>
+@stop

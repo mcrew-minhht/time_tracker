@@ -19,7 +19,7 @@ class TimeTrackers extends Model
         $result =  DB::table('time_trackers');
         $result->join('users','users.id','=','time_trackers.user_id');
         $result->join('project_time','project_time.id_time_tracker','=','time_trackers.id');
-        $result->where('time_trackers.is_delete', 0);
+        $result->whereRaw('time_trackers.is_delete != 1 OR time_trackers.is_delete is null');
         if (!empty($params['user_id'])){
             $result->where('time_trackers.user_id','=',$params['user_id']);
         }

@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
-class ProjectRequest extends FormRequest
+class ProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +25,12 @@ class ProjectRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name_project' => 'required|max:255',
-            'start_date' => 'required|date_format:d/m/Y|max:10',
-            'end_date' => 'nullable|date_format:d/m/Y|after:start_date|max:10',
+        $id = Auth::id();
+        $validate =  [
+            'name' => 'required|max:255',
+            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($id)],
+            'birthdate' => 'nullable|date_format:d/m/Y|max:10'
         ];
+        return $validate;
     }
 }

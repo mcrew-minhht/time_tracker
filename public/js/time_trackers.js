@@ -65,7 +65,10 @@ $(function () {
     TIME_TRACKERS.reload = function(){
         $('#btn_reload').click(function () {
             $('#frm_reload').submit();
-        })
+        });
+        $("#modal_add_times").on('hidden.bs.modal', function(){
+            $('#frm_reload').submit();
+        });
     }
     TIME_TRACKERS.delTimeTracker = function(){
         $('.btn_del_times').click(function () {
@@ -132,7 +135,7 @@ $(document).ready(function () {
     $('.datetimepicker').datetimepicker();
     $('.datepicker').datetimepicker({
         showClose: true,
-        format: 'YYYY-MM-DD'
+        format: 'DD/MM/YYYY'
     });
     $('.timepicker').datetimepicker({ format: 'LT'});
 

@@ -50,7 +50,7 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="required @error('password') text-danger @enderror" for="password">{{__('Password')}}</label>
-                    {!! Form::password('password' , array('class' => 'form-control'.($errors->has('password') ? ' is-invalid':''), 'id' => 'password', 'maxlength' => 255, 'value'=>"1111111111111")) !!}
+                    {!! Form::password('password' , array('class' => 'form-control'.($errors->has('password') ? ' is-invalid':''), 'id' => 'password', 'maxlength' => 255)) !!}
                     @error('password')
                     <div class="text text-danger text-sm">{{ $message }}</div>
                     @enderror
@@ -86,3 +86,11 @@
         </div>
     </div>
 </div>
+@section('javascript')
+    <script>
+        $('.datepicker').datetimepicker({
+            showClose: true,
+            format: 'DD/MM/YYYY'
+        });
+    </script>
+@stop
