@@ -17,14 +17,10 @@ class CreateTimeTrackersTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->date('working_date')->nullable();
-            $table->date('start_working_day')->nullable();
-            $table->time('start_working_time')->nullable();
-            $table->date('end_working_day')->nullable();
-            $table->time('end_working_time')->nullable();
+            $table->float('working_time')->nullable();
             $table->integer('created_user')->nullable();
             $table->integer('updated_user')->nullable();
             $table->integer('is_delete')->nullable();
-            $table->float('rest_time')->nullable();
             $table->timestamps();
         });
     }

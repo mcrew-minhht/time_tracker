@@ -15,30 +15,29 @@ class TimeTrackers extends Model
     public $timestamps = false;
 
     public function getAllByIdEmployee($params){
+        //dd($params);
         //DATE_FORMAT(working_day, '%m-%Y')
         $result =  DB::table('time_trackers');
         $result->join('users','users.id','=','time_trackers.user_id');
         $result->join('project_time','project_time.id_time_tracker','=','time_trackers.id');
-        $result->whereRaw('time_trackers.is_delete != 1 OR time_trackers.is_delete is null');
+        $result->join('projects','projects.id','=','project_time.id_project');
+        //$result->whereRaw('time_trackers.is_delete != 1 OR time_trackers.is_delete is null');
         if (!empty($params['user_id'])){
             $result->where('time_trackers.user_id','=',$params['user_id']);
         }
         if (!empty($params['id_project'])){
             $result->where('project_time.id_project','=',$params['id_project']);
         }
-        if (!empty($params['working_date'])){
-            $result->where('time_trackers.working_date','=',$params['working_date']);
-        }
         if (!empty($params['start_working_day'])){
-            $result->where('time_trackers.start_working_day','>=',$params['start_working_day']);
+            $result->where('time_trackers.working_date','>=',$params['start_working_day']);
         }
         if (!empty($params['end_working_day'])){
-            $result->where('time_trackers.end_working_day','<=',$params['end_working_day']);
+            $result->where('time_trackers.working_date','<=',$params['end_working_day']);
         }
         if (!empty($params['sortfield']) && !empty($params['sorttype'])){
             $result->orderBy(DB::raw($params['sortfield']),$params['sorttype']);
         }
-        return $result->select('time_trackers.*', DB::raw('users.name as employee_name'), DB::raw('project_time.id_project as id_project'));
+        return $result->select('time_trackers.*', DB::raw('users.name as employee_name'), DB::raw('project_time.id_project as id_project'), 'projects.name_project');
     }
 
     public function CheckDateByParams($params){
@@ -77,36 +76,30 @@ class TimeTrackers extends Model
     }
 
     public function CheckProjectByParams($params){
-        return DB::table('time_trackers')
-            ->where('user_id', $params['user_id'])
-            ->where('working_date','=',$params['working_date'])
-            ->first();
+        $result =  DB::table('time_trackers');
+        $result->join('project_time','project_time.id_time_tracker','=','time_trackers.id');
+        $result->where('time_trackers.user_id','=',$params['user_id']);
+        $result->where('time_trackers.working_date','=',$params['working_date']);
+        $result->where('project_time.id_project','=',$params['id_project']);
+        return $result->first();
+
     }
 
     public function InsertTrackersByParams($params){
         return DB::table('time_trackers')->insertGetId([
             'user_id' => $params['user_id'],
             'working_date' => $params['working_date'],
-            'start_working_day' => $params['start_working_day'],
-            'start_working_time' => $params['start_working_time'],
-            'end_working_day' => $params['end_working_day'],
-            'end_working_time' => $params['end_working_time'],
+            'working_time' => $params['working_time'],
             'created_user' => $params['created_user'],
-            'created_at' => $params['created_at'],
-            'rest_time' => $params['rest_time'],
+            'created_at' => $params['created_at']
         ]);
     }
 
     public function UpdateTrackersByParams($params){
         DB::table('time_trackers')->where('id', $params['id'])->update([
-            'user_id' => $params['user_id'],
-            'working_date' => $params['working_date'],
-            'start_working_day' => $params['start_working_day'],
-            'start_working_time' => $params['start_working_time'],
-            'end_working_day' => $params['end_working_day'],
-            'end_working_time' => $params['end_working_time'],
+            'working_time' => $params['working_time'],
             'updated_user' => $params['updated_user'],
-            'rest_time' => $params['rest_time'],
+            'updated_at' => $params['updated_at'],
         ]);
     }
 }

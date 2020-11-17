@@ -29,59 +29,35 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-form-label col-md-3">Working Date</label>
-                    <div class="col-md-9">
-                        <input name="working_date" class="form-control datepicker">
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-form-label col-md-6">Start Working Day</label>
+                            <label class="col-form-label col-md-6">Start Working Date</label>
                             <div class="col-md-6">
                                 <input name="start_working_day" class="form-control div-textfield--160 datepicker">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 gr_end_working_day">
                         <div class="form-group row">
-                            <label class="col-form-label col-md-6">Start Working Time</label>
-                            <div class="col-md-6">
-                                <input name="start_working_time" class="form-control div-textfield--160 timepicker">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-form-label col-md-6">End Working Day</label>
+                            <label class="col-form-label col-md-6">End Working Date</label>
                             <div class="col-md-6">
                                 <input name="end_working_day" class="form-control div-textfield--160 datepicker">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-form-label col-md-6">End Working Time</label>
-                            <div class="col-md-6">
-                                <input name="end_working_time" class="form-control div-textfield--160 timepicker">
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-form-label col-md-3">Rest time</label>
+                    <label class="col-form-label col-md-3">Working Time</label>
                     <div class="col-md-9">
-                        <input name="rest_time" class="form-control">
+                        <input name="working_time" class="form-control div-textfield--160">
                     </div>
                 </div>
                 {!! Form::close() !!}
             </div>
             <div class="modal-footer modal-footer-custom">
-                <button type="button" class="btn btn-default" id="btn_reload" data-dismiss="modal">キャンセル</button>
-                <button type="button" class="btn btn-primary" id="add_project">はい</button>
+                <button type="button" class="btn btn-default" id="btn_reload" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="add_project">Save</button>
             </div>
 
         </div>

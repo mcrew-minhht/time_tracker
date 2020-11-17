@@ -55,19 +55,11 @@
                     <div class="col-md-6">
                         <div class="form-group row">
                             <label class="col-form-label col-md-4">Working Date</label>
-                            <div class="col-md-6">
-                                <input name="working_date" class="form-control datepicker" value="{!! isset($params['working_date']) ? $params['working_date'] : '' !!}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-form-label col-md-4">Start Working Day</label>
                             <div class="col-md-3">
-                                <input name="start_working_day" class="form-control div-textfield--160 datepicker" value="{!! isset($params['start_working_day']) ? $params['start_working_day'] : '' !!}">
+                                <input name="start_working_day" class="form-control div-textfield--160 datepicker" value="{!! isset($params['start_working_day']) ? format_date($params['start_working_day']) : '' !!}">
                             </div>
                             <div class="col-md-3">
-                                <input name="end_working_day" class="form-control div-textfield--160 datepicker" value="{!! isset($params['end_working_day']) ? $params['end_working_day'] : '' !!}">
+                                <input name="end_working_day" class="form-control div-textfield--160 datepicker" value="{!! isset($params['end_working_day']) ? format_date($params['end_working_day']): '' !!}">
                             </div>
                             @if($errors->has('end_working_day'))
                                 <div class="text text-danger text-sm px-3">{{ $errors->first('end_working_day')}}</div>
@@ -78,6 +70,7 @@
                 {!! Form::close() !!}
             </div>
             <div class="text-right my-3">
+                <a href="{{ url('time_trackers_pdf') }}" class="btn btn-info">Export</a>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_add_times">
                     <i class="fas fa-plus-square"></i> Add
                 </button>
@@ -86,13 +79,10 @@
             <table class="table table-bordered table-striped w-full">
                 <thead>
                     <tr>
+                        <th class="px-4 py-2">{!! sort_title('user_id', __('Project')) !!}</th>
                         <th class="px-4 py-2">{!! sort_title('user_id', __('User')) !!}</th>
                         <th class="px-4 py-2">{!! sort_title('working_date', __('Working date')) !!}</th>
-                        <th class="px-4 py-2">{!! sort_title('start_working_day', __('Start working date')) !!}</th>
-                        <th class="px-4 py-2">{!! sort_title('start_working_time', __('Start working time')) !!}</th>
-                        <th class="px-4 py-2">{!! sort_title('end_working_day', __('End working date')) !!}</th>
-                        <th class="px-4 py-2">{!! sort_title('start_working_time', __('End working time')) !!}</th>
-                        <th class="px-4 py-2">{!! sort_title('rest_time', __('Rest time')) !!}</th>
+                        <th class="px-4 py-2">{!! sort_title('working_time', __('Working time')) !!}</th>
                         <th class="px-4 py-2"></th>
                     </tr>
                 </thead>
@@ -100,30 +90,21 @@
                 @if(isset($lists) && count($lists) > 0)
                         @foreach($lists as $item)
                         <tr>
-                            <td class="border px-4 py-2">{{ $item->employee_name }}</td>
+                            <td class="border px-4 py-2">
+                                {{ $item->name_project }}
+                                <input type="hidden" name="id_project" value="{{ $item->id_project }}">
+                            </td>
+                            <td class="border px-4 py-2">
+                                {{ $item->employee_name }}
+                                <input type="hidden" name="user_id" value="{{ $item->user_id }}">
+                            </td>
                             <td class="border px-4 py-2">
                                 {{ format_date($item->working_date) }}
-                                <input type="hidden" name="working_date" value="{{ $item->working_date }}">
+                                <input type="hidden" name="working_date" value="{{ format_date($item->working_date) }}">
                             </td>
                             <td class="border px-4 py-2">
-                                {{ format_date($item->start_working_day) }}
-                                <input type="hidden" name="start_working_day" value="{{ $item->start_working_day }}">
-                            </td>
-                            <td class="border px-4 py-2">
-                                {{ $item->start_working_time }}
-                                <input type="hidden" name="start_working_time" value="{{ $item->start_working_time }}">
-                            </td>
-                            <td class="border px-4 py-2">
-                                {{ format_date($item->end_working_day) }}
-                                <input type="hidden" name="end_working_day" value="{{ $item->end_working_day }}">
-                            </td>
-                            <td class="border px-4 py-2">
-                                {{ $item->end_working_time }}
-                                <input type="hidden" name="end_working_time" value="{{ $item->end_working_time }}">
-                            </td>
-                            <td class="border px-4 py-2">
-                                {{ $item->rest_time }}
-                                <input type="hidden" name="rest_time" value="{{ $item->rest_time }}">
+                                {{ $item->working_time }}
+                                <input type="hidden" name="working_time" value="{{ $item->working_time }}">
                             </td>
                             <td class="border px-4 py-2">
                                 <button class="btn btn-default btn-sm btn_edit_times" data-id="{{ $item->id }}"><i class="fas fa-edit"></i></button>

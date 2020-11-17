@@ -34,7 +34,10 @@ $(function () {
                     }
                 },
                 error: function(json) {
-                    APP_TIMES.validate(json.responseJSON, $('#frm_add_project'), '.form-group', false);
+                    //if(res.valid == 1){
+                        APP_TIMES.validate(json.responseJSON, $('#frm_add_project'), '.form-group', false);
+                    //}
+
                 }
 
             });
@@ -43,20 +46,22 @@ $(function () {
 
         $('.btn_edit_times').click(function () {
             let elm = $(this).closest('tr');
+            let id_project = elm.find('[name=id_project]').val();
+            let user_id = elm.find('[name=user_id]').val();
             let working_date = elm.find('[name=working_date]').val();
-            let start_working_day = elm.find('[name=start_working_day]').val();
-            let start_working_time = elm.find('[name=start_working_time]').val();
-            let end_working_day = elm.find('[name=end_working_day]').val();
-            let end_working_time = elm.find('[name=end_working_time]').val();
-            let rest_time = elm.find('[name=rest_time]').val();
+            let working_time = elm.find('[name=working_time]').val();
 
             $("#modal_add_times").find('[name=id]').val($(this).attr('data-id'));
-            $("#modal_add_times").find('[name=working_date]').val(working_date);
-            $("#modal_add_times").find('[name=start_working_day]').val(start_working_day);
-            $("#modal_add_times").find('[name=start_working_time]').val(start_working_time);
-            $("#modal_add_times").find('[name=rest_time]').val(rest_time);
-            $("#modal_add_times").find('[name=end_working_day]').val(end_working_day);
-            $("#modal_add_times").find('[name=end_working_time]').val(end_working_time);
+            $("#modal_add_times").find('[name=user_id]').val(user_id);
+            $("#modal_add_times").find('[name=id_project]').val(id_project);
+            $("#modal_add_times").find('[name=start_working_day]').val(working_date);
+            $("#modal_add_times").find('[name=working_time]').val(working_time);
+
+            $("#modal_add_times").find('[name=user_id]').prop('disabled', true);
+            $("#modal_add_times").find('[name=id_project]').prop('disabled', true);
+            $("#modal_add_times").find('[name=start_working_day]').prop('disabled', true);
+            $("#modal_add_times").find('.gr_end_working_day').css('display','none');
+
             $("#modal_add_times").modal('show');
         })
 

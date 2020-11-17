@@ -26,24 +26,21 @@ class TimeTrackersRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'user_id' => 'required|numeric',
-            'id_project' => 'required|numeric',
-            'working_date' => 'required',
+            'user_id' => !empty($request->id) ? 'numeric' : 'required|numeric',
+            'id_project' => !empty($request->id) ? 'numeric' : 'required|numeric',
             'start_working_day' => [
-                'required'
+                empty($request->id) ? 'required' : ''
             ],
             'end_working_day' => [
-                'required',
                 new FromToDateCheck($request)
             ],
-            'start_working_time' => 'required',
-            'end_working_time' => 'required',
+            'working_time' => 'numeric|nullable',
         ];
     }
     public function messages()
     {
         return [
-            'working_date.required' => 'working_date is required!',
+            'start_working_day.required' => 'working_date is required!',
         ];
     }
     public function response(array $errors)

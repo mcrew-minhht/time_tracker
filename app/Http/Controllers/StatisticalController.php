@@ -66,8 +66,8 @@ class StatisticalController extends Controller
             $data['params'] = [
                 'start_working_day' => $start_working_day,
                 'end_working_day' => $end_working_day,
-                'sortfield' => isset($request->sortfield) ? $request->sortfield : "id",
-                'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
+                'sortfield' => isset($request->sortfield) ? $request->sortfield : "working_date",
+                'sorttype' => isset($request->sorttype) ? $request->sorttype : "ASC",
             ];
             $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
             $result = $listTimeTrackers->paginate(5);
