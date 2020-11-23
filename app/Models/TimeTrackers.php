@@ -15,7 +15,6 @@ class TimeTrackers extends Model
     public $timestamps = false;
 
     public function getAllByIdEmployee($params){
-        //dd($params);
         //DATE_FORMAT(working_day, '%m-%Y')
         $result =  DB::table('time_trackers');
         $result->join('users','users.id','=','time_trackers.user_id');
@@ -39,13 +38,39 @@ class TimeTrackers extends Model
         }
         return $result->select('time_trackers.*', DB::raw('users.name as employee_name'), DB::raw('project_time.id_project as id_project'), 'projects.name_project');
     }
+    public function getExport($params){
+        $result =  DB::table('time_trackers');
+        $result->join('users','users.id','=','time_trackers.user_id');
+        $result->join('project_time','project_time.id_time_tracker','=','time_trackers.id');
+        $result->join('projects','projects.id','=','project_time.id_project');
+        if (!empty($params['user_id'])){
+            $result->where('time_trackers.user_id','=',$params['user_id']);
+        }
+        if (!empty($params['id_project'])){
+            $result->where('project_time.id_project','=',$params['id_project']);
+        }
+        if (!empty($params['start_working_day'])){
+            $result->where('time_trackers.working_date','>=',$params['start_working_day']);
+        }
+        if (!empty($params['end_working_day'])){
+            $result->where('time_trackers.working_date','<=',$params['end_working_day']);
+        }
+        if (!empty($params['sortfield']) && !empty($params['sorttype'])){
+            $result->orderBy(DB::raw($params['sortfield']),$params['sorttype']);
+        }
+        return $result->select('time_trackers.*', DB::raw('users.name as employee_name'), DB::raw('project_time.id_project as id_project'), 'projects.name_project')->get();
+    }
 
     public function CheckDateByParams($params){
-        return DB::table('time_trackers')
-            ->where('employee_code', $params['employee_code'])
-            ->where('id_project', $params['id_project'])
-            ->where('working_day', $params['working_day'])
-            ->first();
+        $result =  DB::table('time_trackers');
+        $result->join('users','users.id','=','time_trackers.user_id');
+        if (!empty($params['user_id'])){
+            $result->where('time_trackers.user_id','=',$params['user_id']);
+        }
+        if (!empty($params['working_date'])){
+            $result->where('time_trackers.working_date','=',$params['working_date']);
+        }
+        return $result->select('time_trackers.*', DB::raw('users.name as employee_name'))->first();
     }
     public function updateByDateAndProject($params){
         DB::table('time_trackers')

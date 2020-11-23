@@ -26,6 +26,16 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group row">
+                            <label class="col-form-label col-md-1">User</label>
+                            <div class="col-md-2">
+                                <select name="user_id" class="form-control">
+                                    <option value=""></option>
+                                    @foreach($employees as $item_user)
+                                        <option value="{{ $item_user->id }}" {!! (isset($params['user_id']) && $item_user->id == $params['user_id']) ? 'selected' : '' !!}>{{ $item_user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <label class="col-form-label col-md-1">Month</label>
                             <div class="col-md-2">
                                 <input type="text" name="month" class="form-control div-textfield--160"  value="{!! isset($old->month) ? $old->month : '' !!}">
@@ -34,10 +44,9 @@
                             <div class="col-md-2">
                                 <input type="text" name="year" class="form-control div-textfield--160" value="{!! isset($old->year) ? $old->year : '' !!}">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <button type="button" class="btn btn-primary btn_search">Search</button>
-                                <a href="{{ url('pdf_month?all=1') }}" class="btn btn-info">Export All</a>
-                                <a href="{{ url('pdf_month') }}" class="btn btn-info">Export Page</a>
+                                <a class="btn btn-info btn_export_month">Export All</a>
                             </div>
                         </div>
                     </div>

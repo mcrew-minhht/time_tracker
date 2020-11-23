@@ -105,8 +105,16 @@ $(function () {
     }
     TIME_TRACKERS.searchTimes = function(){
         $('.btn_search').click(function () {
+             $('#'+ frm_search).attr('target', '');
+             $('#'+ frm_search).attr('action', '');
              $('#'+ frm_search).find('[name=action]').val('search');
              $('#'+ frm_search).submit();
+        })
+        $('.btn_export_month').click(function () {
+            $('#frm_search_month').attr('action', $('#frm_search_month').attr('action').replace('/statistical_month', '/pdf_month'));
+            $('#frm_search_month').attr('target', '_blank');
+            $('#frm_search_month').submit();
+
         })
     }
     TIME_TRACKERS.changeWorkingTime = function () {

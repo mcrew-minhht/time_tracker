@@ -13,6 +13,7 @@ use App\Http\Requests\TimeTrackersRequest;
 use App\Models\TimeTrackers;
 use App\Models\Projects;
 use App\Models\ProjectTime;
+use App\Models\User;
 use PDF;
 
 class StatisticalController extends Controller
@@ -23,6 +24,7 @@ class StatisticalController extends Controller
     {
         $this->time_trackers = new TimeTrackers;
         $this->projects = new Projects();
+        $this->employees = new User();
         $this->project_time = new ProjectTime();
     }
 
@@ -55,6 +57,7 @@ class StatisticalController extends Controller
     {
         $data['old'] = $request;
         $data['projects'] = $this->projects->get();
+        $data['employees'] = $this->employees->getEmployees();
         $start_working_day = null;
         $end_working_day = null;
         if(!empty($request->year) && !empty($request->month)){
@@ -62,8 +65,9 @@ class StatisticalController extends Controller
             $start_working_day = $request->year.'-'.$request->month.'-01';
             $end_working_day = isset($end) ? $end->format('Y-m-d') : null;
         }
-        if($request->action == 'search'){
+        //if($request->action == 'search'){
             $data['params'] = [
+                'user_id' => isset($request->user_id) ? intval($request->user_id) : '',
                 'start_working_day' => $start_working_day,
                 'end_working_day' => $end_working_day,
                 'sortfield' => isset($request->sortfield) ? $request->sortfield : "working_date",
@@ -72,7 +76,7 @@ class StatisticalController extends Controller
             $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
             $result = $listTimeTrackers->paginate(5);
             $data['lists'] = $result;
-        }
+        //}
         return view('statistical.month', $data);
     }
 
@@ -95,20 +99,34 @@ class StatisticalController extends Controller
     }
 
     public function pdf_month(Request $request){
+        $data['request'] = $request->all();
+        $data['time_trackers'] = $this->time_trackers;
         $start_working_day = (isset($request->year) && isset($request->month)) ? $request->year.'-'.$request->month.'-01' : null;
         $data['params'] = [
+            'user_id' => isset($request->user_id) ? intval($request->user_id) : '',
             'start_working_day' => $start_working_day,
-            'sortfield' => isset($request->sortfield) ? $request->sortfield : "id",
-            'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
         ];
-        $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
-        if($request->get('all') != 1){
-            $result = $listTimeTrackers->paginate(5);
-            $data['lists'] = $result;
+        if(isset($request->user_id) && $request->user_id != null){
+            $month = (isset($request->year) && isset($request->month)) ? $request->year.'-'.$request->month : date('Y-m');
+            $start = Carbon::parse($month)->startOfMonth();
+            $end = Carbon::parse($month)->endOfMonth();
+            $data['period'] = CarbonPeriod::create($start, $end);
+            $data['weekMap'] = [
+                0 => 'Sunday',
+                1 => 'Monday',
+                2 => 'Tuesday',
+                3 => 'Wednesday',
+                4 => 'Thursday',
+                5 => 'Friday',
+                6 => 'Saturday',
+            ];
+            $data['info'] = $this->time_trackers->CheckDateByParams(['user_id' => $request->user_id]);
+            $pdf = PDF::loadView('statistical.pdf_month_user', $data);
         }else{
-            $data['lists'] = $listTimeTrackers->get();
+            $data['lists'] = $this->time_trackers->getExport($data['params']);
+            $pdf = PDF::loadView('statistical.pdf_project', $data);
         }
-        $pdf = PDF::loadView('statistical.pdf_project', $data);
-        return $pdf->download('static_with_month.pdf');
+        return $pdf->stream();
+
     }
 }

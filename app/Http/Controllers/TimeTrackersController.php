@@ -162,10 +162,13 @@ class TimeTrackersController extends Controller
             'start_working_day' => isset($request->start_working_day) ? format_date(str_replace('/','-',$request->start_working_day),"Y-m-d") : '',
             'end_working_day' => isset($request->end_working_day) ? format_date(str_replace('/','-',$request->end_working_day),"Y-m-d") : '',
         ];
-        $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
-        $result = $listTimeTrackers->paginate(5);
-        $data['lists'] = $result;
+        $data['lists'] = $this->time_trackers->getExport($data['params']);
         $pdf = PDF::loadView('time_trackers.pdf', $data);
-        return $pdf->download('time_tracker_'.time().'.pdf');
+
+        //return $pdf->download('time_tracker_'.time().'.pdf');
+        //$pdf = \App::make('dompdf.wrapper');
+        //$pdf->loadHTML($this->convert_customer_data_to_html());
+        return $pdf->stream();
     }
+
 }

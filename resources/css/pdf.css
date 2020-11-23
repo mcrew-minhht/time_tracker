@@ -1,0 +1,41 @@
+body {
+    font-family: ipag;
+}
+table.content
+{
+    width: 100%;
+    border-collapse: collapse;
+    padding: 0px;
+    margin: 0px;
+    font-family: Arial;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.content th
+{
+    border: solid 1px #000000;
+    text-align: left;
+    background-color: #cccccc;
+}
+
+.content .row
+{
+    border-top: solid 1px #000000;
+}
+
+.content tr td{
+    border: solid 1px #000000;
+}
+.font-20{
+    font-size: 20px;
+}
+.text_uppercase{
+    text-transform: uppercase;
+}
+.text_underline{
+    text-decoration: underline;
+}
+.text-center{
+    text-align: center;
+}

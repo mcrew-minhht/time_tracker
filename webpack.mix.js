@@ -18,3 +18,4 @@ mix.js('resources/js/app.js', 'public/js')
     ]);
 mix.js('resources/js/common.js', 'public/js');
 mix.styles('resources/css/style.css', 'public/css/style.css');
+mix.styles('resources/css/pdf.css', 'public/css/pdf.css');
