@@ -68,6 +68,7 @@ class User extends Authenticatable
             ->get();
     }
 
+
     public function getAllUsers($params){
         $result =  DB::table($this->table);
         $result->whereRaw('is_delete != 1 OR is_delete is null');

@@ -8,29 +8,47 @@
         <link href="{{ public_path('css/pdf.css?version='.config('setting.version')) }}" rel="stylesheet">
     </head>
     <body>
-        <table style="width: 50%; margin-bottom: 20px">
+        <div class="font-20 mb-25">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $request['year'].'/'.$request['month'] }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            S E R V I C E &nbsp;&nbsp;  R E P O R T
+        </div>
+        <table width="100%">
             <tr>
-                <td class="font-20" style="margin-left: 50px">{{ $request['year'].'/'.$request['month'] }}</td>
-            </tr>
-            <tr>
-                <td class="text_underline">Company: <span class="text_uppercase">MCRew - Tech</span></td>
-            </tr>
-            <tr>
-                <td class="text_underline">Name: {{ $info->employee_name }}</td>
+                <td style="vertical-align: top;width: 50%">
+                    <div class="text_underline">Company: <span class="text_uppercase">MCRew - Tech</span></div>
+                    <div class="text_underline">Name: {{ $info->employee_name }}</div>
+                </td>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <td class="text-center">Responsible</td>
+                            <td class="text-center">Person in charge</td>
+                            <td class="text-center">Reporter</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">
+                                <img src="{{ public_path('images/dau.png') }}">
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
         </table>
-        <table class="content">
+
+        <table class="content" style="margin-top: 20px">
             <thead>
                 <tr>
-                    <th class="px-4 py-2">Day</th>
-                    <th class="px-4 py-2">Day of the week</th>
-                    <th class="px-4 py-2">Time of work(h)</th>
-                    <th class="px-4 py-2">Memo</th>
+                    <th style="width: 20%">Day</th>
+                    <th style="width: 20%">Day of the week</th>
+                    <th style="width: 20%">Time of work(h)</th>
+                    <th style="width: 40%">Memo</th>
                 </tr>
             </thead>
             <tbody>
             @php
-                $total_work = $total_over = $total_off = 0;
+                $total_work = 0;
             @endphp
             @foreach($period as $i=>$date)
                 @php
@@ -40,6 +58,7 @@
                         'working_date' => $date->format('Y-m-d'),
                     ];
                     $time_trackers_item = $time_trackers->CheckDateByParams($param);
+                    $total_work = isset($time_trackers_item) ? $total_work + $time_trackers_item->working_time : $total_work;
                 @endphp
                 <tr>
                     <td class="border px-4 py-2">
@@ -50,7 +69,14 @@
                     <td></td>
                 </tr>
             @endforeach
+            <tr>
+                <td colspan="2">Total</td>
+                <td class="text-center">{{ $total_work }}</td>
+                <td></td>
+            </tr>
+            <tr><td colspan="4" style="height: 100px;vertical-align: top">NOTE</td></tr>
             </tbody>
         </table>
+
     </body>
 </html>

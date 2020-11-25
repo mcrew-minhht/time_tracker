@@ -51,7 +51,6 @@ Route::group(['prefix' => '/',  'middleware' => 'auth:sanctum','verified'], func
     Route::get('/statistical_month', [StatisticalController::class, 'statistical_month'])->name('statistical_month');
     Route::post('/statistical_month', [StatisticalController::class, 'statistical_month']);
     Route::get('/pdf_project', [StatisticalController::class, 'pdf_project'])->name('pdf_project');
-    //Route::get('/pdf_month', [StatisticalController::class, 'pdf_month'])->name('pdf_month');
     Route::post('/pdf_month', [StatisticalController::class, 'pdf_month']);
 
 

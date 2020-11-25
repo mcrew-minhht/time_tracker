@@ -9,8 +9,6 @@ use App\Models\TimeTrackers;
 use App\Models\User;
 use App\Models\Projects;
 use App\Models\ProjectTime;
-use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\TimeTrackersRequest;
@@ -31,6 +29,7 @@ class TimeTrackersController extends Controller
 
     public function index(Request $request)
     {
+        $is_admin = (Auth::user()->level == 1) ? true : false;
         if($request->action == 'search'){
             $validator = Validator::make($request->all(), [
                 'end_working_day' => [
@@ -53,32 +52,13 @@ class TimeTrackersController extends Controller
         $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
         $result = $listTimeTrackers->paginate(5);
         $data['lists'] = $result;
-        $data['employees'] = $this->employees->getEmployees();
+        if($is_admin == true){
+            $data['employees'] = $this->employees->getEmployees();
+        }else{
+            $data['employees'] = DB::table('users')->where('id' ,'=', 2)->get();;
+        }
         $data['projects'] = $this->projects->get();
         return view('time_trackers.index', $data);
-    }
-
-    public function show($id, $id_project, $employee_code)
-    {
-        $time = explode('-', $id);
-        $data['id'] = $id;
-        $data['id_project'] = $id_project;
-        $data['employee_code'] = $employee_code;
-        $data['time_trackers'] = $this->time_trackers;
-        $month = $time[1] . '-' . $time[0];
-        $start = Carbon::parse($month)->startOfMonth();
-        $end = Carbon::parse($month)->endOfMonth();
-        $data['period'] = CarbonPeriod::create($start, $end);
-        $data['weekMap'] = [
-            0 => '日',
-            1 => '月',
-            2 => '火',
-            3 => '水',
-            4 => '木',
-            5 => '金',
-            6 => '土',
-        ];
-        return view('time_trackers.update', $data);
     }
 
     public function store(TimeTrackersRequest $request){

@@ -1,6 +1,14 @@
 body {
     font-family: ipag;
 }
+table.table
+{
+    width: 100%;
+    border-collapse: collapse;
+    padding: 0px;
+    margin: 0px;
+    line-height: 1.6;
+}
 table.content
 {
     width: 100%;
@@ -15,7 +23,7 @@ table.content
 .content th
 {
     border: solid 1px #000000;
-    text-align: left;
+    text-align: center;
     background-color: #cccccc;
 }
 
@@ -24,6 +32,7 @@ table.content
     border-top: solid 1px #000000;
 }
 
+.table tr td,
 .content tr td{
     border: solid 1px #000000;
 }
@@ -32,10 +41,14 @@ table.content
 }
 .text_uppercase{
     text-transform: uppercase;
+    line-height: 1.4;
 }
 .text_underline{
     text-decoration: underline;
 }
 .text-center{
     text-align: center;
+}
+.mb-25{
+    margin-bottom: 25px;
 }

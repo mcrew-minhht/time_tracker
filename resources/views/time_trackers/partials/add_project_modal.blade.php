@@ -14,7 +14,7 @@
                     <div class="col-md-9">
                         <select name="user_id" class="form-control">
                             @foreach($employees as $item_user)
-                                <option value="{{ $item_user->id }}">{{ $item_user->name }}</option>
+                                <option value="{{ $item_user->id }}" {{ Auth::user()->id == $item_user->id ? 'selected' : '' }}>{{ $item_user->name }}</option>
                             @endforeach
                         </select>
                     </div>
