@@ -1,30 +1,41 @@
-<table class="table table-bordered table-striped w-full">
-    <thead>
-    <tr>
-        <th class="px-4 py-2">User</th>
-        <th class="px-4 py-2">Working date</th>
-        <th class="px-4 py-2">Working time</th>
-    </tr>
-    </thead>
-    <tbody>
-    @if(isset($lists) && count($lists) > 0)
-        @foreach($lists as $item)
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{ public_path('css/pdf.css?version='.config('setting.version')) }}" rel="stylesheet">
+</head>
+<body>
+    <table class="content">
+        <thead>
             <tr>
-                <td class="border px-4 py-2">{{ $item->employee_name }}</td>
-                <td class="border px-4 py-2">
-                    {{ $item->working_date }}
-                    <input type="hidden" name="working_date" value="{{ $item->working_date }}">
-                </td>
-                <td class="border px-4 py-2">
-                    {{ $item->working_time }}
-                    <input type="hidden" name="working_time" value="{{ $item->working_time }}">
-                </td>
+                <th>User</th>
+                <th>Working date</th>
+                <th>Working time</th>
             </tr>
-        @endforeach
-    @else
-        <tr>
-            <td colspan="7" class="text-center">No result!</td>
-        </tr>
-    @endif
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        @if(isset($lists) && count($lists) > 0)
+            @foreach($lists as $item)
+                <tr>
+                    <td>{{ $item->employee_name }}</td>
+                    <td>
+                        {{ $item->working_date }}
+                    </td>
+                    <td class="text-center">
+                        {{ $item->working_time }}
+                    </td>
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="7" class="text-center">No result!</td>
+            </tr>
+        @endif
+        </tbody>
+    </table>
+</body>
+</html>
+

@@ -15,12 +15,11 @@ class TimeTrackers extends Model
     public $timestamps = false;
 
     public function getAllByIdEmployee($params){
-        //DATE_FORMAT(working_day, '%m-%Y')
         $result =  DB::table('time_trackers');
         $result->join('users','users.id','=','time_trackers.user_id');
         $result->join('project_time','project_time.id_time_tracker','=','time_trackers.id');
         $result->join('projects','projects.id','=','project_time.id_project');
-        //$result->whereRaw('time_trackers.is_delete != 1 OR time_trackers.is_delete is null');
+        $result->where('time_trackers.is_delete','=', 0);
         if (!empty($params['user_id'])){
             $result->where('time_trackers.user_id','=',$params['user_id']);
         }
