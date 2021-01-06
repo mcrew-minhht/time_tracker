@@ -18,13 +18,17 @@
                     <x-jet-nav-link href="{{ route('time_trackers') }}" :active="request()->routeIs('time_trackers')">
                         {{ __('Time Trackers') }}
                     </x-jet-nav-link>
+                    @if(is_admin())
                     <x-jet-nav-link href="{{ route('project_managers') }}" :active="request()->routeIs('project_managers')">
                         {{ __('Project Mamanagers') }}
                     </x-jet-nav-link>
-
+                    @endif
+                    @if(is_admin())
                     <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                         {{ __('User Mamanagers') }}
                     </x-jet-nav-link>
+                    @endif
+                    @if(is_admin())
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
                         <x-jet-dropdown align="right" width="48" >
                             <x-slot name="trigger">
@@ -47,6 +51,7 @@
                             </x-slot>
                         </x-jet-dropdown>
                     </div>
+                    @endif
                 </div>
             </div>
 

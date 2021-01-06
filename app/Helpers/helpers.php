@@ -76,3 +76,13 @@ if (!function_exists('convert_dmy_to_ymd')) {
     }
 
 }
+
+if (!function_exists('is_admin')) {
+    function is_admin() {
+        $user = Auth::user();
+        if ($user->level == 1){
+            return true;
+        }
+        return false;
+    }
+}
