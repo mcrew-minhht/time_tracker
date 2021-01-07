@@ -40,7 +40,7 @@ class TimeTrackersRequest extends FormRequest
     public function messages()
     {
         return [
-            'start_working_day.required' => 'working_date is required!',
+            'start_working_day.required' => 'Start working date is required!',
         ];
     }
     public function response(array $errors)

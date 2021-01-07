@@ -29,6 +29,7 @@ $(function () {
                 success: function (res) {
                     if(res.success == 1){
                         $("#msg_modal").html(APP_TIMES.alertSuccess(res.msg));
+                        APP_TIMES.delAllErrorMsg('#frm_add_project');
                     }else{
                         $("#msg_modal").html(APP_TIMES.alertDanger(res.msg));
                     }

@@ -49,13 +49,15 @@ class TimeTrackersController extends Controller
             'sortfield' => isset($request->sortfield) ? $request->sortfield : "working_date",
             'sorttype' => isset($request->sorttype) ? $request->sorttype : "ASC",
         ];
+        $request->session()->put('time_trackers_search_params', $data['params']);
         $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
         $result = $listTimeTrackers->paginate(5);
         $data['lists'] = $result;
         if($is_admin == true){
             $data['employees'] = $this->employees->getEmployees();
         }else{
-            $data['employees'] = DB::table('users')->where('id' ,'=', 2)->get();;
+            $id_employee = Auth::id();
+            $data['employees'] = DB::table('users')->where('id' ,'=', $id_employee)->get();;
         }
         $data['projects'] = $this->projects->get();
         return view('time_trackers.index', $data);
@@ -136,13 +138,11 @@ class TimeTrackersController extends Controller
     }
 
     public function time_trackers_pdf(Request $request){
-        $data['params'] = [
-            'user_id' => isset($request->user_id) ? intval($request->user_id) : '',
-            'id_project' => isset($request->id_project) ? $request->id_project : '',
-            'start_working_day' => isset($request->start_working_day) ? format_date(str_replace('/','-',$request->start_working_day),"Y-m-d") : '',
-            'end_working_day' => isset($request->end_working_day) ? format_date(str_replace('/','-',$request->end_working_day),"Y-m-d") : '',
-        ];
-        $data['lists'] = $this->time_trackers->getExport($data['params']);
+        $params = null;
+        if($request->session()->has('time_trackers_search_params')){
+            $params = $request->session()->get('time_trackers_search_params');
+        }
+        $data['lists'] = $this->time_trackers->getExport($params);
         $pdf = PDF::loadView('time_trackers.pdf', $data);
 
         //return $pdf->download('time_tracker_'.time().'.pdf');

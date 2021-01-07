@@ -116,6 +116,12 @@ $(function () {
         $(current).removeClass('is-invalid');
         $(current).closest(clElm).find('div.errors').remove();
     };
+    APP_TIMES.delAllErrorMsg = function (elmForm) {
+        $(elmForm).find('label.col-form-label').removeClass('text-danger');
+        $(elmForm).find('input, select, textarea').removeClass('is-invalid');
+        $(elmForm).find('div.errors').remove();
+    };
+
     APP_TIMES.alertDanger = function (msg) {
         return '<div class="alert alert-danger">' +
             '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
