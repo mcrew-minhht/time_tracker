@@ -93,11 +93,11 @@ class UserController extends Controller
     }
     public function getParams(Request $request){
         $params = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'employee_code' => $request->employee_code,
+            'name' => $request->name ?? null,
+            'email' => $request->email ?? null,
+            'employee_code' => $request->employee_code ?? null,
             'address' => $request->address,
-            'birthdate' => convert_dmy_to_ymd($request->birthdate),
+            'birthdate' => !empty(convert_dmy_to_ymd($request->birthdate)) ? convert_dmy_to_ymd($request->birthdate) :  null,
             'level' => $request->level ?? 0,
         ];
         if (empty($request->id) || (!empty($request->password) || !empty($request->password_confirmation))){

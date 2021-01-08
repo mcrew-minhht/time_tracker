@@ -28,7 +28,7 @@ class checkIsAdmin
             $user = Auth::user();
             if ($user->level != 1){
                 if (in_array($permission, $permissionCurrent)) {
-                    abort(404);
+                    abort(403);
                 }
             }
         }

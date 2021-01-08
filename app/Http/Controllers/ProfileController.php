@@ -76,10 +76,10 @@ class ProfileController extends Controller
     public function getParams(Request $request){
 
         $params = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'address' => $request->address,
-            'birthdate' => convert_dmy_to_ymd($request->birthdate)
+            'name' => $request->name ?? null,
+            'email' => $request->email ?? null,
+            'address' => $request->address ?? null,
+            'birthdate' => !empty(convert_dmy_to_ymd($request->birthdate)) ? convert_dmy_to_ymd($request->birthdate) :  null,
         ];
         return $params;
     }

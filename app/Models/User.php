@@ -71,7 +71,7 @@ class User extends Authenticatable
 
     public function getAllUsers($params){
         $result =  DB::table($this->table);
-        $result->whereRaw('is_delete != 1 OR is_delete is null');
+        $result->whereRaw('(is_delete != 1 OR is_delete is null)');
         if (!empty($params['search'])){
             $result->where('name','like','%'.$params['search'].'%');
         }

@@ -31,7 +31,7 @@ class ProjectManagers extends Model
         $result =  DB::table($this->table);
         $result->leftJoin(DB::raw('users as users_insert'), 'users_insert.id', '=', 'projects.created_user');
         $result->leftJoin(DB::raw('users as users_update'), 'users_update.id', '=', 'projects.updated_user');
-        $result->whereRaw('projects.is_delete != 1 OR projects.is_delete is null');
+        $result->whereRaw('(projects.is_delete != 1 OR projects.is_delete is null)');
         if (!empty($params['search'])){
             $result->where('name_project','like','%'.$params['search'].'%');
         }
