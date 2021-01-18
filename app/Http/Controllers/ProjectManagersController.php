@@ -94,12 +94,15 @@ class ProjectManagersController extends Controller
     public function getParams(Request $request){
         $start_date_arr = explode('/',$request->start_date);
         $start_date_str = $start_date_arr[2].'/'.$start_date_arr[1].'/'.$start_date_arr[0];
-        $end_date_arr = explode('/',$request->end_date);
-        $end_date_str = $end_date_arr[2].'/'.$end_date_arr[1].'/'.$end_date_arr[0];
+        $end_date_str = null;
+        if ($request->end_date!=null){
+            $end_date_arr = explode('/',$request->end_date);
+            $end_date_str = $end_date_str ?? $end_date_arr[2].'/'.$end_date_arr[1].'/'.$end_date_arr[0];
+        }
         return [
             'name_project' => $request->name_project,
             'start_date' => $start_date_str,
-            'end_date' => $end_date_str
+            'end_date' => $end_date_str ?? null
         ];
     }
 
