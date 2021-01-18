@@ -54,7 +54,7 @@
                 @php
                     $bg = '#cccdd0';
                     $param = [
-                        'user_id' => 1,
+                        'user_id' => $user_id,
                         'working_date' => $date->format('Y-m-d'),
                     ];
                     $time_trackers_item = $time_trackers->CheckDateByParams($param);
@@ -77,6 +77,5 @@
             <tr><td colspan="4" style="height: 100px;vertical-align: top">NOTE</td></tr>
             </tbody>
         </table>
-
     </body>
 </html>

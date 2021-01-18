@@ -106,6 +106,7 @@ class StatisticalController extends Controller
             'user_id' => isset($request->user_id) ? intval($request->user_id) : '',
             'start_working_day' => $start_working_day,
         ];
+        $data['user_id'] = $data['params']['user_id'];
         if(isset($request->user_id) && $request->user_id != null){
             $month = (isset($request->year) && isset($request->month)) ? $request->year.'-'.$request->month : date('Y-m');
             $start = Carbon::parse($month)->startOfMonth();
@@ -120,7 +121,7 @@ class StatisticalController extends Controller
                 5 => 'Friday',
                 6 => 'Saturday',
             ];
-            $data['info'] = $this->time_trackers->CheckDateByParams(['user_id' => $request->user_id]);
+            $data['info'] = $this->time_trackers->CheckDateByParams(['user_id' => $data['user_id']]);
             $pdf = PDF::loadView('statistical.pdf_month_user', $data);
         }else{
             $data['lists'] = $this->time_trackers->getExport($data['params']);

@@ -56,10 +56,21 @@
                         <div class="form-group row">
                             <label class="col-form-label col-md-4">Working Date</label>
                             <div class="col-md-3">
-                                <input name="start_working_day" class="form-control div-textfield--160 datepicker" value="{!! isset($params['start_working_day']) ? format_date($params['start_working_day']) : '' !!}">
+                                <select name="month" class="form-control div-textfield--160">
+                                    <option value=""></option>
+                                    @for($i=1;$i<=12;$i++)
+                                        @php($month = date('F', mktime(0, 0, 0, $i, 10)))
+                                    <option value="{!! $i !!}" {!! isset($request['month']) && $request['month'] == $i ? 'selected' : '' !!}>{{ $month }}</option>
+                                    @endfor
+                                </select>
                             </div>
                             <div class="col-md-3">
-                                <input name="end_working_day" class="form-control div-textfield--160 datepicker" value="{!! isset($params['end_working_day']) ? format_date($params['end_working_day']): '' !!}">
+                                <select name="year" class="form-control div-textfield--160">
+                                    <option value=""></option>
+                                    @for($i=2019;$i<=2025;$i++)
+                                        <option value="{!! $i !!}" {!! isset($request['year']) && $request['year'] == $i ? 'selected' :'' !!}>{{ $i }}</option>
+                                    @endfor
+                                </select>
                             </div>
                             @if($errors->has('end_working_day'))
                                 <div class="text text-danger text-sm px-3">{{ $errors->first('end_working_day')}}</div>
