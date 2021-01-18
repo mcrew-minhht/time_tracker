@@ -90,7 +90,13 @@
             </table>
             <div class="row">
                 <div class="col-sm-12">
-                    {{ isset($lists) ? $lists->appends(['sortfield'=> Request::get('sortfield'), 'sorttype'=> Request::get('sorttype')])->links() : '' }}
+                    {{ isset($lists) ? $lists->appends([
+                    'user_id'=> Request::get('user_id'),
+                    'month'=> Request::get('month'),
+                    'year'=> Request::get('year'),
+                    'sortfield'=> Request::get('sortfield'),
+                    'sorttype'=> Request::get('sorttype')])->links() : ''
+                    }}
                 </div>
             </div>
         </div>
