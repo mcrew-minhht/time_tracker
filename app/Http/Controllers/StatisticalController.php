@@ -53,6 +53,17 @@ class StatisticalController extends Controller
 
     public function statistical_month(Request $request)
     {
+        $validator = '';
+        if($request->action == 'search') {
+            $validator = Validator::make($request->all(), [
+                'month' => 'required',
+                'year' => 'required',
+            ]);
+            if ($validator->fails()) {
+                $data['errors'] = $validator->errors();
+            }
+        }
+
         $data['old'] = $request;
         $data['projects'] = $this->projects->get();
         $data['employees'] = $this->employees->getEmployees();
@@ -63,21 +74,18 @@ class StatisticalController extends Controller
             $start_working_day = $request->year.'-'.$request->month.'-01';
             $end_working_day = isset($end) ? $end->format('Y-m-d') : null;
         }
-        //if($request->action == 'search'){
-            $data['params'] = [
-                'user_id' => isset($request->user_id) ? intval($request->user_id) : '',
-                'start_working_day' => $start_working_day,
-                'end_working_day' => $end_working_day,
-                'sortfield' => isset($request->sortfield) ? $request->sortfield : "working_date",
-                'sorttype' => isset($request->sorttype) ? $request->sorttype : "ASC",
-            ];
-            $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
-            $result = $listTimeTrackers->paginate(5);
-            $data['lists'] = $result;
-        //}
-        return view('statistical.month', $data);
+        $data['params'] = [
+            'user_id' => isset($request->user_id) ? intval($request->user_id) : '',
+            'start_working_day' => $start_working_day,
+            'end_working_day' => $end_working_day,
+            'sortfield' => isset($request->sortfield) ? $request->sortfield : "working_date",
+            'sorttype' => isset($request->sorttype) ? $request->sorttype : "ASC",
+        ];
+        $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
+        $result = $listTimeTrackers->paginate(5);
+        $data['lists'] = $result;
+        return view('statistical.month', $data)->withErrors($validator);
     }
-
     public function pdf_project(Request $request){
         $data['params'] = [
             'id_project' => isset($request->id_project) ? $request->id_project : '',
@@ -97,6 +105,7 @@ class StatisticalController extends Controller
     }
 
     public function pdf_month(Request $request){
+        
         $data['request'] = $request->all();
         $data['time_trackers'] = $this->time_trackers;
         $start_working_day = (isset($request->year) && isset($request->month)) ? $request->year.'-'.$request->month.'-01' : null;
