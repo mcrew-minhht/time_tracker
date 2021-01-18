@@ -37,18 +37,16 @@ class StatisticalController extends Controller
     {
         $data['old'] = $request;
         $data['projects'] = $this->projects->get();
-        if($request->action == 'search'){
-            $data['params'] = [
-                'id_project' => isset($request->id_project) ? $request->id_project : '',
-                'sortfield' => isset($request->sortfield) ? $request->sortfield : "id",
-                'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
-            ];
-            $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
-            $result = $listTimeTrackers->paginate(5);
-            $data['lists'] = $result;
-            if(isset($request->id_project)){
-                $data['project_info'] = $this->projects->find($request->id_project);
-            }
+        $data['params'] = [
+            'id_project' => isset($request->id_project) ? $request->id_project : '',
+            'sortfield' => isset($request->sortfield) ? $request->sortfield : "id",
+            'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
+        ];
+        $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
+        $result = $listTimeTrackers->paginate(5);
+        $data['lists'] = $result;
+        if(isset($request->id_project)){
+            $data['project_info'] = $this->projects->find($request->id_project);
         }
         return view('statistical.project', $data);
     }

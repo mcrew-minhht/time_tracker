@@ -166,7 +166,7 @@ class TimeTrackersController extends Controller
             6 => 'Saturday',
         ];
         $data['info'] = $this->time_trackers->CheckDateByParams(['user_id' => $data['user_id']]);
-        $pdf = PDF::loadView('statistical.pdf_month_user', $data);
+        $pdf = PDF::loadView('time_trackers.pdf_month_user', $data);
         return $pdf->stream();
     }
 

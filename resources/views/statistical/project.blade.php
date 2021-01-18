@@ -30,7 +30,7 @@
                                 <select name="id_project" class="form-control">
                                     <option value=""></option>
                                     @foreach($projects as $item_project)
-                                        <option value="{{ $item_project->id }}" {!! (isset($old->id_project) && $item_project->id == $old->id_project) ? 'selected' : '' !!}>{{ $item_project->name_project }}</option>
+                                        <option value="{{ $item_project->id }}" {!! (isset($old->id_project) && $item_project->id == $params['id_project']) ? 'selected' : '' !!}>{{ $item_project->name_project }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -82,7 +82,7 @@
             </table>
             <div class="row">
                 <div class="col-sm-12">
-                    {{ isset($lists) ? $lists->appends(['sortfield'=> Request::get('sortfield'), 'sorttype'=> Request::get('sorttype')])->links() : '' }}
+                    {{ isset($lists) ? $lists->appends(['id_project' => Request::get('id_project'),'sortfield'=> Request::get('sortfield'), 'sorttype'=> Request::get('sorttype')])->links() : '' }}
                 </div>
             </div>
         </div>
