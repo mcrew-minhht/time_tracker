@@ -28,7 +28,7 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label class="col-form-label">Month</label>
-                        <input type="number" name="month" class="form-control div-textfield--160 @error('month') is-invalid @enderror"  value="{!! isset($old->month) ? $old->month : '' !!}">
+                        <input type="number" name="month" class="form-control div-textfield--160 @error('month') is-invalid @enderror"  value="{!! isset($request['month']) ? $request['month'] : '' !!}">
                         @error('month')
                         <div class="text text-danger text-sm">{{ $message }}</div>
                         @enderror
@@ -37,14 +37,14 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label class="col-form-label">Year</label>
-                        <input type="number" name="year" class="form-control div-textfield--160 @error('year') is-invalid @enderror" value="{!! isset($old->year) ? $old->year : '' !!}">
+                        <input type="number" name="year" class="form-control div-textfield--160 @error('year') is-invalid @enderror" value="{!! isset($request['year']) ? $request['year'] : '' !!}">
                         @error('year')
                         <div class="text text-danger text-sm">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
                 <div class="col-sm-3" style="margin-top: 35px">
-                    <button type="button" class="btn btn-primary btn_search">Search</button>
+                    <button type="button" class="btn btn-primary btn_search_month">Search</button>
                     <a class="btn btn-info btn_export_month">Export All</a>
                 </div>
             </div>

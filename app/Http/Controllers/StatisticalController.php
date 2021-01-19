@@ -16,6 +16,7 @@ use App\Models\ProjectTime;
 use App\Models\User;
 use PDF;
 use App\Http\Requests\ExportMonthRequest;
+use App\Http\Requests\StatisticalMonthRequest;
 
 class StatisticalController extends Controller
 {
@@ -54,45 +55,50 @@ class StatisticalController extends Controller
 
     public function statistical_month(Request $request)
     {
-
-        $validator = '';
-        if($request->action == 'search') {
-            $current_year          = Carbon::now()->year;
-            $hundred_years_ago     = (new Carbon("100 years ago"))->year;
-            $validator = Validator::make($request->all(), [
-                'month' => 'required|integer|between:1,12',
-                'year' => 'required|integer|between:'.$hundred_years_ago.','.$current_year,
-            ]);
-            if ($validator->fails()) {
-                $data['errors'] = $validator->errors();
-                return redirect('statistical_month')
-                    ->withErrors($validator)
-                    ->withInput();
-            }
-        }
         $data['old'] = $request;
         $data['projects'] = $this->projects->get();
         $data['employees'] = $this->employees->getEmployees();
         $start_working_day = null;
         $end_working_day = null;
-        if(!empty($request->year) && !empty($request->month)){
-            $end = Carbon::parse($request->year.'-'.$request->month)->endOfMonth();
-            $start_working_day = $request->year.'-'.$request->month.'-01';
-            $end_working_day = isset($end) ? $end->format('Y-m-d') : null;
-        }
         $data['params'] = [
-            'user_id' => isset($request->user_id) ? intval($request->user_id) : '',
-            'start_working_day' => $start_working_day,
-            'end_working_day' => $end_working_day,
-            'sortfield' => isset($request->sortfield) ? $request->sortfield : "working_date",
-            'sorttype' => isset($request->sorttype) ? $request->sorttype : "ASC",
+            'user_id' => null,
+            'start_working_day' => null,
+            'end_working_day' => null,
+            'sortfield' => 'working_date',
+            'sorttype' => 'ASC',
         ];
         $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
         $result = $listTimeTrackers->paginate(5);
         $data['lists'] = $result;
-        return view('statistical.month', $data)->withErrors($validator);
+        return view('statistical.month', $data);
+    }
+
+    public function search_statistical_month(StatisticalMonthRequest $request)
+    {
+        if($request->ajax()){
+            return response()->json(['success' => 1]);
+        }
+        $data['projects'] = $this->projects->get();
+        $data['employees'] = $this->employees->getEmployees();
+        $end = Carbon::parse($request['year'].'-'.$request['month'])->endOfMonth();
+        $start_working_day = $request['year'].'-'.$request['month'].'-01';
+        $end_working_day = isset($end) ? $end->format('Y-m-d') : null;
+        $data['request'] = $request->all();
+        $data['params'] = [
+            'user_id' => isset($request['user_id']) ? intval($request['user_id']) : '',
+            'start_working_day' => $start_working_day,
+            'end_working_day' => $end_working_day,
+            'sortfield' => isset($request['sortfield']) ? $request['sortfield'] : "working_date",
+            'sorttype' => isset($request['sorttype']) ? $request['sorttype'] : "ASC",
+        ];
+        $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
+        $result = $listTimeTrackers->paginate(5);
+        $data['lists'] = $result;
+        return view('statistical.month', $data);
 
     }
+
+
     public function pdf_project(Request $request){
         $data['params'] = [
             'id_project' => isset($request->id_project) ? $request->id_project : '',

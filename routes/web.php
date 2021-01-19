@@ -52,6 +52,8 @@ Route::group(['prefix' => '/',  'middleware' => ['auth:sanctum','checkIsAdmin'],
     Route::post('/statistical_month', [StatisticalController::class, 'statistical_month']);
     Route::get('/pdf_project', [StatisticalController::class, 'pdf_project'])->name('pdf_project');
     Route::post('/pdf_month', [StatisticalController::class, 'pdf_month']);
+    Route::post('/search_statistical_month', [StatisticalController::class, 'search_statistical_month']);
+    Route::get('/search_statistical_month', [StatisticalController::class, 'search_statistical_month'])->name('search_statistical_month');
 
 
     Route::get('/users', [UserController::class, 'index'])->name('users');

@@ -112,6 +112,36 @@ $(function () {
              $('#'+ frm_search).find('[name=action]').val('search');
              $('#'+ frm_search).submit();
         })
+
+        $('.btn_search_month').click(function () {
+            let formData = APP_TIMES.getFormData($('#frm_search_month'));
+            $.ajax({
+                type: "POST",
+                url: '/search_statistical_month',
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: "json",
+                beforeSend: function () {
+                },
+                done: function(error){
+
+                },
+                success: function (res) {
+                    if(res.success == 1){
+                        $("#frm_search_month").attr('action','search_statistical_month');
+                        $("#frm_search_month").submit();
+                        APP_TIMES.delAllErrorMsg('#frm_search_month');
+                    }
+                },
+                error: function(json) {
+                    APP_TIMES.validate(json.responseJSON, $('#frm_search_month'), '.form-group', false);
+                }
+
+            });
+            return false;
+        })
         $('.btn_export_month').click(function () {
             let formData = APP_TIMES.getFormData($('#frm_search_month'));
             $.ajax({
