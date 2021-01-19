@@ -23,21 +23,23 @@
             <div class="">
                 {!! Form::open(['method' => 'POST', 'id' => 'frm_search_project', 'class' => 'needs-validation']) !!}
                 <input type="hidden" name="action" value="">
-                    <div class="col-md-12">
-                        <div class="form-group row">
-                            <label class="font-semibold col-md-1">Project</label>
-                            <div class="col-md-4">
-                                <select name="id_project" class="form-control">
-                                    <option value=""></option>
-                                    @foreach($projects as $item_project)
-                                        <option value="{{ $item_project->id }}" {!! (isset($old->id_project) && $item_project->id == $params['id_project']) ? 'selected' : '' !!}>{{ $item_project->name_project }}</option>
-                                    @endforeach
-                                </select>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="font-semibold col-md-2">Project</label>
+                                <div class="col-md-8">
+                                    <select name="id_project" class="form-control">
+                                        <option value=""></option>
+                                        @foreach($projects as $item_project)
+                                            <option value="{{ $item_project->id }}" {!! (isset($old->id_project) && $item_project->id == $params['id_project']) ? 'selected' : '' !!}>{{ $item_project->name_project }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <button type="button" class="btn btn-primary btn_search">Search</button>
-                                <a class="btn btn-info btn_export_project">Export PDF</a>
-                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-primary btn_search">Search</button>
+                            <a class="btn btn-info btn_export_project">Export PDF</a>
                         </div>
                         @if(!empty($project_info))
                         <div>

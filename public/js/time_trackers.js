@@ -204,7 +204,7 @@ $(function () {
                     }
                 },
                 error: function(json) {
-                    APP_TIMES.validate(json.responseJSON, $('#frm_search_month'), '.form-group', false);
+                    APP_TIMES.validate(json.responseJSON, $('#frm_search_project'), '.form-group', false);
                 }
 
             });

@@ -17,6 +17,7 @@ use App\Models\User;
 use PDF;
 use App\Http\Requests\ExportMonthRequest;
 use App\Http\Requests\StatisticalMonthRequest;
+use App\Http\Requests\ExportProjectRequest;
 
 class StatisticalController extends Controller
 {
@@ -100,15 +101,18 @@ class StatisticalController extends Controller
     }
 
 
-    public function pdf_project(Request $request){
-        if($request->ajax()){
-            return response()->json(['success' => 1]);
-        }
+    public function pdf_project(ExportProjectRequest $request){
         $data['request'] = $request->all();
         $data['users'] = $this->users->getEmployees();
         $data['time_trackers'] = $this->time_trackers;
+        $data['weekMap'] = config('setting.weekMap');
+        if($request->ajax()){
+            if(empty($data['users'])){
+                return response()->json(['success' => 0,'message' => 'No data export']);
+            }
+            return response()->json(['success' => 1]);
+        }
         $pdf = PDF::loadView('statistical.pdf_project', $data);
-        //return $pdf->download('static_with_project.pdf');
         return $pdf->stream();
     }
 
