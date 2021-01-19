@@ -1,38 +1,56 @@
 <!doctype html>
 <html lang="ja">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <link href="{{ public_path('css/pdf.css?version='.config('setting.version')) }}" rel="stylesheet">
+        <style>
+            @font-face{
+                font-family: ipag;
+                font-style: normal;
+                font-weight: normal;
+                src:url('{{ storage_path('fonts/ipag.ttf')}}');
+
+            }
+
+            @font-face{
+                font-family: ipag;
+                font-style: bold;
+                font-weight: bold;
+                src:url('{{ storage_path('fonts/ipag.ttf')}}');
+
+            }
+        </style>
     </head>
     <body>
-        <div class="font-20 mb-25">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $request['year'].'/'.$request['month'] }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            S E R V I C E &nbsp;&nbsp;  R E P O R T
-        </div>
+
         <table width="100%">
             <tr>
-                <td style="vertical-align: top;width: 50%">
+                <td class="font-20" style="height: 60px; vertical-align: top; text-align: center; width: 40%">{{ $request['year'].'/'.$request['month'] }}</td>
+                <td colspan="2" style="vertical-align: top; font-family: ipag" class="font-20">勤&nbsp;&nbsp;務&nbsp;&nbsp;報&nbsp;&nbsp;告&nbsp;&nbsp;書</td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top;">
                     <div class="text_underline">Company: <span class="text_uppercase">MCRew - Tech</span></div>
                     <div class="text_underline">Name: {{ $info->employee_name }}</div>
+                </td>
+                <td style="width: 30%">
                 </td>
                 <td>
                     <table class="table">
                         <tr>
-                            <td class="text-center">Responsible</td>
-                            <td class="text-center">Person in charge</td>
-                            <td class="text-center">Reporter</td>
+                            <td class="text-center" style="font-size: 12px;">責任者</td>
+                            <td class="text-center" style="font-size: 12px;">担当者</td>
+                            <td class="text-center" style="font-size: 12px;">報告者</td>
                         </tr>
                         <tr>
-                            <td class="text-center" style="height: 80px;">
-                                <img src="{{ public_path('images/dau.png') }}" style="width: 70px">
+                            <td class="text-center" style="height: 55px;">
+                                <img src="{{ public_path('images/dau.png') }}" style="width: 50px">
                             </td>
                             <td></td>
                             <td></td>
                         </tr>
                     </table>
+
                 </td>
             </tr>
         </table>
@@ -65,17 +83,17 @@
                     <td class="border px-4 py-2">
                         {{ $date->format('d/m/Y') }}
                     </td>
-                    <td style="background: {{ in_array($date->dayOfWeek,[0,6]) ? $bg : '' }}">{{ $weekMap[$date->dayOfWeek] }}</td>
+                    <td class="text-center" style="background: {{ in_array($date->dayOfWeek,[0,6]) ? $bg : '' }}; font-family: ipag">{{ $weekMap[$date->dayOfWeek] }}</td>
                     <td class="text-center">{{ isset($time_trackers_item) ? $time_trackers_item->working_time : '' }}</td>
                     <td></td>
                 </tr>
             @endforeach
             <tr>
-                <td colspan="2">Total</td>
+                <td class="text-center" colspan="2" style="font-family: ipag">合計</td>
                 <td class="text-center">{{ $total_work }}</td>
                 <td></td>
             </tr>
-            <tr><td colspan="4" style="height: 100px;vertical-align: top">NOTE</td></tr>
+            <tr><td colspan="4" style="height: 100px;vertical-align: top; font-family: ipag">補足</td></tr>
             </tbody>
         </table>
     </body>

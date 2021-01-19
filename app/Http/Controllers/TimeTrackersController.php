@@ -158,13 +158,13 @@ class TimeTrackersController extends Controller
         $end = Carbon::parse($month)->endOfMonth();
         $data['period'] = CarbonPeriod::create($start, $end);
         $data['weekMap'] = [
-            0 => 'Sunday',
-            1 => 'Monday',
-            2 => 'Tuesday',
-            3 => 'Wednesday',
-            4 => 'Thursday',
-            5 => 'Friday',
-            6 => 'Saturday',
+            0 => '日曜日',
+            1 => '月曜日',
+            2 => '火曜日',
+            3 => '水曜日',
+            4 => '木曜日',
+            5 => '金曜日',
+            6 => '土曜日',
         ];
         $data['info'] = $this->time_trackers->CheckDateByParams(['user_id' => $data['user_id']]);
         $pdf = PDF::loadView('time_trackers.pdf_month_user', $data);
