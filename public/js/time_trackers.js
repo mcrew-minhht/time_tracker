@@ -165,6 +165,9 @@ $(function () {
                         $("#frm_search_month").submit();
                         APP_TIMES.delAllErrorMsg('#frm_search_month');
                         $("#frm_search_month").attr('action','statistical_month');
+                    }else{
+                        APP_TIMES.delAllErrorMsg('#frm_search_month');
+                        $("#flash_message").html(APP_TIMES.alertDanger(res.message));
                     }
                 },
                 error: function(json) {
@@ -257,6 +260,9 @@ $(function () {
                         $("#frm_search_times").submit();
                         APP_TIMES.delAllErrorMsg('#frm_search_times');
                         $("#frm_search_times").attr('action','time_trackers');
+                    }else{
+                        APP_TIMES.delAllErrorMsg('#frm_search_times');
+                        $("#flash_message").html(APP_TIMES.alertDanger(res.message));
                     }
                 },
                 error: function(json) {
