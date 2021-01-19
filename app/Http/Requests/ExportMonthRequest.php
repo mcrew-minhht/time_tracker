@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
-class ExportTimeTrackerRequest extends FormRequest
+class ExportMonthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,13 +31,6 @@ class ExportTimeTrackerRequest extends FormRequest
             'user_id' => 'required|numeric',
             'month' => 'required|integer|between:1,12',
             'year' => 'required|integer|between:'.$hundred_years_ago.','.$current_year,
-            'id_project' => 'required|numeric',
-        ];
-    }
-    public function messages()
-    {
-        return [
-            'id_project.required' => 'Project is required',
         ];
     }
 

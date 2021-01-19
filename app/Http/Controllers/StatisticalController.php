@@ -15,7 +15,7 @@ use App\Models\Projects;
 use App\Models\ProjectTime;
 use App\Models\User;
 use PDF;
-use App\Http\Requests\ExportTimeTrackerRequest;
+use App\Http\Requests\ExportMonthRequest;
 
 class StatisticalController extends Controller
 {
@@ -111,7 +111,7 @@ class StatisticalController extends Controller
         return $pdf->download('static_with_project.pdf');
     }
 
-    public function pdf_month(ExportTimeTrackerRequest $request){
+    public function pdf_month(ExportMonthRequest $request){
         if($request->ajax()){
             return response()->json(['success' => 1]);
         }
