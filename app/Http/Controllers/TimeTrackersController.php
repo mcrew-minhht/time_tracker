@@ -12,6 +12,7 @@ use App\Models\ProjectTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\TimeTrackersRequest;
+use App\Http\Requests\ExportTimeTrackerRequest;
 use App\Rules\FromToDateCheck;
 use PDF;
 use Carbon\Carbon;
@@ -143,11 +144,11 @@ class TimeTrackersController extends Controller
         return $this->sendResponse(['msg' => 'Del successful!'], 1);
     }
 
-    public function time_trackers_pdf(Request $request){
-        $params = null;
-        if($request->session()->has('time_trackers_search_params')){
-            $params = $request->session()->get('time_trackers_search_params');
+    public function time_trackers_pdf(ExportTimeTrackerRequest $request){
+        if($request->ajax()){
+            return response()->json(['success' => 1]);
         }
+        $params = $request->all();
 
         $data['request'] = $params;
         $data['user_id'] = $params['user_id'];
