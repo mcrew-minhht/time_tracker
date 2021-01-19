@@ -90,11 +90,11 @@
             <table class="table table-bordered table-striped w-full">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2">{!! sort_title('user_id', __('Project')) !!}</th>
-                        <th class="px-4 py-2">{!! sort_title('user_id', __('User')) !!}</th>
+                        <th class="px-4 py-2" width="30%">{!! sort_title('user_id', __('Project')) !!}</th>
+                        <th class="px-4 py-2" width="35%">{!! sort_title('user_id', __('User')) !!}</th>
                         <th class="px-4 py-2">{!! sort_title('working_date', __('Working date')) !!}</th>
                         <th class="px-4 py-2">{!! sort_title('working_time', __('Working time')) !!}</th>
-                        <th class="px-4 py-2"></th>
+                        <th class="px-4 py-2" width="10%"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -113,7 +113,7 @@
                                 {{ format_date($item->working_date) }}
                                 <input type="hidden" name="working_date" value="{{ format_date($item->working_date) }}">
                             </td>
-                            <td class="border px-4 py-2">
+                            <td class="border px-4 py-2" align="right">
                                 {{ $item->working_time }}
                                 <input type="hidden" name="working_time" value="{{ $item->working_time }}">
                             </td>

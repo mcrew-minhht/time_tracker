@@ -52,7 +52,7 @@
             <table class="table table-bordered table-striped w-full">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2">User</th>
+                        <th class="px-4 py-2" width="70%">User</th>
                         <th class="px-4 py-2">Working date</th>
                         <th class="px-4 py-2">working time</th>
                     </tr>
@@ -66,7 +66,7 @@
                                 {{ $item->working_date }}
                                 <input type="hidden" name="working_date" value="{{ $item->working_date }}">
                             </td>
-                            <td class="border px-4 py-2">
+                            <td class="border px-4 py-2" align="right">
                                 {{ $item->working_time }}
                                 <input type="hidden" name="end_working_time" value="{{ $item->working_time }}">
                             </td>
