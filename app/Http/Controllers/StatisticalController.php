@@ -15,6 +15,7 @@ use App\Models\Projects;
 use App\Models\ProjectTime;
 use App\Models\User;
 use PDF;
+use App\Http\Requests\ExportTimeTrackerRequest;
 
 class StatisticalController extends Controller
 {
@@ -110,7 +111,10 @@ class StatisticalController extends Controller
         return $pdf->download('static_with_project.pdf');
     }
 
-    public function pdf_month(Request $request){
+    public function pdf_month(ExportTimeTrackerRequest $request){
+        if($request->ajax()){
+            return response()->json(['success' => 1]);
+        }
         $data['request'] = $request->all();
         $data['time_trackers'] = $this->time_trackers;
         $start_working_day = (isset($request->year) && isset($request->month)) ? $request->year.'-'.$request->month.'-01' : null;
@@ -119,26 +123,21 @@ class StatisticalController extends Controller
             'start_working_day' => $start_working_day,
         ];
         $data['user_id'] = $data['params']['user_id'];
-        if(isset($request->user_id) && $request->user_id != null){
-            $month = (isset($request->year) && isset($request->month)) ? $request->year.'-'.$request->month : date('Y-m');
-            $start = Carbon::parse($month)->startOfMonth();
-            $end = Carbon::parse($month)->endOfMonth();
-            $data['period'] = CarbonPeriod::create($start, $end);
-            $data['weekMap'] = [
-                0 => 'Sunday',
-                1 => 'Monday',
-                2 => 'Tuesday',
-                3 => 'Wednesday',
-                4 => 'Thursday',
-                5 => 'Friday',
-                6 => 'Saturday',
-            ];
-            $data['info'] = $this->time_trackers->CheckDateByParams(['user_id' => $data['user_id']]);
-            $pdf = PDF::loadView('statistical.pdf_month_user', $data);
-        }else{
-            $data['lists'] = $this->time_trackers->getExport($data['params']);
-            $pdf = PDF::loadView('statistical.pdf_project', $data);
-        }
+        $month = (isset($request->year) && isset($request->month)) ? $request->year.'-'.$request->month : date('Y-m');
+        $start = Carbon::parse($month)->startOfMonth();
+        $end = Carbon::parse($month)->endOfMonth();
+        $data['period'] = CarbonPeriod::create($start, $end);
+        $data['weekMap'] = [
+            0 => 'Sunday',
+            1 => 'Monday',
+            2 => 'Tuesday',
+            3 => 'Wednesday',
+            4 => 'Thursday',
+            5 => 'Friday',
+            6 => 'Saturday',
+        ];
+        $data['info'] = $this->time_trackers->CheckDateByParams(['user_id' => $data['user_id']]);
+        $pdf = PDF::loadView('statistical.pdf_month_user', $data);
         return $pdf->stream();
 
     }

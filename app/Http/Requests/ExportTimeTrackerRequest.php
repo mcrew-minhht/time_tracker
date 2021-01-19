@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\FromToDateCheck;
 use Illuminate\Http\Request;
 
 class ExportTimeTrackerRequest extends FormRequest
@@ -25,18 +25,15 @@ class ExportTimeTrackerRequest extends FormRequest
      */
     public function rules(Request $request)
     {
+        $current_year          = Carbon::now()->year;
+        $hundred_years_ago     = (new Carbon("100 years ago"))->year;
         return [
             'user_id' => 'required|numeric',
-            'month' => 'required|numeric',
-            'year' => 'required|numeric'
+            'month' => 'required|integer|between:1,12',
+            'year' => 'required|integer|between:'.$hundred_years_ago.','.$current_year,
         ];
     }
-//    public function messages()
-//    {
-//        return [
-//            'start_working_day.required' => 'Start working date is required!',
-//        ];
-//    }
+
     public function response(array $errors)
     {
         if ($this->expectsJson()) {

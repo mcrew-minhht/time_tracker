@@ -11,45 +11,44 @@
     </x-slot>
     <div class="max-w-7xl mx-auto">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-6 py-6">
-            <div class="col-xs-12">
-                {!! Form::open(['method' => 'POST', 'id' => 'frm_search_month', 'class' => 'needs-validation']) !!}
-                <input type="hidden" name="action" value="">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group row">
-                            <label class="col-form-label col-md-1">User</label>
-                            <div class="col-md-2">
-                                <select name="user_id" class="form-control">
-                                    <option value=""></option>
-                                    @foreach($employees as $item_user)
-                                        <option value="{{ $item_user->id }}" {!! (isset($params['user_id']) && $item_user->id == $params['user_id']) ? 'selected' : '' !!}>{{ $item_user->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <label class="col-form-label col-md-1">Month</label>
-                            <div class="col-md-2">
-                                <input type="number" name="month" class="form-control div-textfield--160 @error('month') is-invalid @enderror"  value="{!! isset($old->month) ? $old->month : '' !!}">
-                                @error('month')
-                                <div class="text text-danger text-sm">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <label class="col-form-label col-md-1">Year</label>
-                            <div class="col-md-2">
-                                <input type="number" name="year" class="form-control div-textfield--160 @error('year') is-invalid @enderror" value="{!! isset($old->year) ? $old->year : '' !!}">
-                                @error('year')
-                                <div class="text text-danger text-sm">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-3">
-                                <button type="button" class="btn btn-primary btn_search">Search</button>
-                                <a class="btn btn-info btn_export_month">Export All</a>
-                            </div>
-                        </div>
+            {!! Form::open(['method' => 'POST', 'id' => 'frm_search_month', 'class' => 'needs-validation']) !!}
+            <input type="hidden" name="action" value="">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-form-label">User</label>
+                        <select name="user_id" class="form-control">
+                            <option value=""></option>
+                            @foreach($employees as $item_user)
+                                <option value="{{ $item_user->id }}" {!! (isset($params['user_id']) && $item_user->id == $params['user_id']) ? 'selected' : '' !!}>{{ $item_user->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-                {!! Form::close() !!}
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-form-label">Month</label>
+                        <input type="number" name="month" class="form-control div-textfield--160 @error('month') is-invalid @enderror"  value="{!! isset($old->month) ? $old->month : '' !!}">
+                        @error('month')
+                        <div class="text text-danger text-sm">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-form-label">Year</label>
+                        <input type="number" name="year" class="form-control div-textfield--160 @error('year') is-invalid @enderror" value="{!! isset($old->year) ? $old->year : '' !!}">
+                        @error('year')
+                        <div class="text text-danger text-sm">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-sm-3" style="margin-top: 35px">
+                    <button type="button" class="btn btn-primary btn_search">Search</button>
+                    <a class="btn btn-info btn_export_month">Export All</a>
+                </div>
             </div>
+            {!! Form::close() !!}
 
             <table class="table table-bordered table-striped w-full">
                 <thead>
