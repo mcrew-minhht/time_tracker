@@ -7,15 +7,6 @@
                     <span>Time Trackers</span>
                 </h3>
             </div>
-            {{--<div class="col-12">
-            @if ($errors->any())
-                <ul class="ul_error">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-            </div>--}}
         </div>
     </x-slot>
     <div class="max-w-7xl mx-auto">
@@ -38,14 +29,14 @@
 
                             <label class="col-form-label col-md-1">Month</label>
                             <div class="col-md-2">
-                                <input type="text" name="month" class="form-control div-textfield--160 @error('month') is-invalid @enderror"  value="{!! isset($old->month) ? $old->month : '' !!}">
+                                <input type="number" name="month" class="form-control div-textfield--160 @error('month') is-invalid @enderror"  value="{!! isset($old->month) ? $old->month : '' !!}">
                                 @error('month')
                                 <div class="text text-danger text-sm">{{ $message }}</div>
                                 @enderror
                             </div>
                             <label class="col-form-label col-md-1">Year</label>
                             <div class="col-md-2">
-                                <input type="text" name="year" class="form-control div-textfield--160 @error('year') is-invalid @enderror" value="{!! isset($old->year) ? $old->year : '' !!}">
+                                <input type="number" name="year" class="form-control div-textfield--160 @error('year') is-invalid @enderror" value="{!! isset($old->year) ? $old->year : '' !!}">
                                 @error('year')
                                 <div class="text text-danger text-sm">{{ $message }}</div>
                                 @enderror
