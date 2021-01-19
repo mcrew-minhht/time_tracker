@@ -78,8 +78,8 @@
     'normal' => $rootDir . '/lib/fonts/DejaVuSerif',
   ),
   'ipag' => array(
-    'normal' => $fontDir . '/ipag_normal_01498b6a827242f5b72f2b6b9b182f60',
-    'bold' => $fontDir . '/ipag_bold_01498b6a827242f5b72f2b6b9b182f60',
+    'normal' => $fontDir . '/ipag-normal_02a2b95334efd0f6bd08787febe7632d',
+    'bold' => $fontDir . '/ipag-bold_02a2b95334efd0f6bd08787febe7632d',
   ),
   'ms-gothic' => array(
     'normal' => $fontDir . '/ms_gothic_normal_69051171faa520ae8a2a1ad165348834',
