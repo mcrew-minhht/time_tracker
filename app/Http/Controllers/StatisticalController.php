@@ -53,17 +53,22 @@ class StatisticalController extends Controller
 
     public function statistical_month(Request $request)
     {
+
         $validator = '';
         if($request->action == 'search') {
+            $current_year          = Carbon::now()->year;
+            $hundred_years_ago     = (new Carbon("100 years ago"))->year;
             $validator = Validator::make($request->all(), [
-                'month' => 'required',
-                'year' => 'required',
+                'month' => 'required|integer|between:1,12',
+                'year' => 'required|integer|between:'.$hundred_years_ago.','.$current_year,
             ]);
             if ($validator->fails()) {
                 $data['errors'] = $validator->errors();
+                return redirect('statistical_month')
+                    ->withErrors($validator)
+                    ->withInput();
             }
         }
-
         $data['old'] = $request;
         $data['projects'] = $this->projects->get();
         $data['employees'] = $this->employees->getEmployees();
@@ -85,6 +90,7 @@ class StatisticalController extends Controller
         $result = $listTimeTrackers->paginate(5);
         $data['lists'] = $result;
         return view('statistical.month', $data)->withErrors($validator);
+
     }
     public function pdf_project(Request $request){
         $data['params'] = [
@@ -105,7 +111,6 @@ class StatisticalController extends Controller
     }
 
     public function pdf_month(Request $request){
-        
         $data['request'] = $request->all();
         $data['time_trackers'] = $this->time_trackers;
         $start_working_day = (isset($request->year) && isset($request->month)) ? $request->year.'-'.$request->month.'-01' : null;
