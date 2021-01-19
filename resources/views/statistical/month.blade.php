@@ -45,7 +45,7 @@
                 </div>
                 <div class="col-sm-3" style="margin-top: 35px">
                     <button type="button" class="btn btn-primary btn_search_month">Search</button>
-                    <a class="btn btn-info btn_export_month">Export All</a>
+                    <a class="btn btn-info btn_export_month">Export PDF</a>
                 </div>
             </div>
             {!! Form::close() !!}

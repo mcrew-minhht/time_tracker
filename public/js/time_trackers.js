@@ -114,6 +114,7 @@ $(function () {
         })
 
         $('.btn_search_month').click(function () {
+            $("#frm_search_month").attr('target','');
             let formData = APP_TIMES.getFormData($('#frm_search_month'));
             $.ajax({
                 type: "POST",
