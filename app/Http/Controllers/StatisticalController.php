@@ -113,9 +113,7 @@ class StatisticalController extends Controller
     }
 
     public function pdf_month(ExportMonthRequest $request){
-        if($request->ajax()){
-            return response()->json(['success' => 1]);
-        }
+
         $data['request'] = $request->all();
         $data['time_trackers'] = $this->time_trackers;
         $start_working_day = (isset($request->year) && isset($request->month)) ? $request->year.'-'.$request->month.'-01' : null;
@@ -128,16 +126,14 @@ class StatisticalController extends Controller
         $start = Carbon::parse($month)->startOfMonth();
         $end = Carbon::parse($month)->endOfMonth();
         $data['period'] = CarbonPeriod::create($start, $end);
-        $data['weekMap'] = [
-            0 => 'Sunday',
-            1 => 'Monday',
-            2 => 'Tuesday',
-            3 => 'Wednesday',
-            4 => 'Thursday',
-            5 => 'Friday',
-            6 => 'Saturday',
-        ];
+        $data['weekMap'] = config('setting.weekMap');
         $data['info'] = $this->time_trackers->CheckDateByParams(['user_id' => $data['user_id']]);
+        if($request->ajax()){
+            if(empty($data['info'])){
+                return response()->json(['success' => 0,'message' => 'No data export']);
+            }
+            return response()->json(['success' => 1]);
+        }
         $pdf = PDF::loadView('statistical.pdf_month_user', $data);
         return $pdf->stream();
 

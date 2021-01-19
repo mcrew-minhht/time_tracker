@@ -145,11 +145,8 @@ class TimeTrackersController extends Controller
     }
 
     public function time_trackers_pdf(ExportTimeTrackerRequest $request){
-        if($request->ajax()){
-            return response()->json(['success' => 1]);
-        }
-        $params = $request->all();
 
+        $params = $request->all();
         $data['request'] = $params;
         $data['user_id'] = $params['user_id'];
         $data['time_trackers'] = $this->time_trackers;
@@ -157,16 +154,14 @@ class TimeTrackersController extends Controller
         $start = Carbon::parse($month)->startOfMonth();
         $end = Carbon::parse($month)->endOfMonth();
         $data['period'] = CarbonPeriod::create($start, $end);
-        $data['weekMap'] = [
-            0 => '日曜日',
-            1 => '月曜日',
-            2 => '火曜日',
-            3 => '水曜日',
-            4 => '木曜日',
-            5 => '金曜日',
-            6 => '土曜日',
-        ];
+        $data['weekMap'] = config('setting.weekMap');
         $data['info'] = $this->time_trackers->CheckDateByParams(['user_id' => $data['user_id']]);
+        if($request->ajax()){
+            if(empty($data['info'])){
+                return response()->json(['success' => 0,'message' => 'No data export']);
+            }
+            return response()->json(['success' => 1]);
+        }
         $pdf = PDF::loadView('time_trackers.pdf_month_user', $data);
         return $pdf->stream();
     }
