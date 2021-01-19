@@ -8,6 +8,7 @@ $(function () {
         TIME_TRACKERS.reload();
         TIME_TRACKERS.delTimeTracker();
         TIME_TRACKERS.searchTimes();
+        TIME_TRACKERS.export();
     }
 
     TIME_TRACKERS.Add_Project_User = function () {
@@ -141,6 +142,44 @@ $(function () {
             total = total + parseFloat(value);
         })
         $(sum).html(total);
+    }
+
+    TIME_TRACKERS.export = function (){
+        $('#btn_export_pdf').click(function () {
+            let formData = APP_TIMES.getFormData($('#frm_search_times'));
+            $.ajax({
+                type: "POST",
+                url: '/time_trackers_pdf',
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: "json",
+                beforeSend: function () {
+                },
+                done: function(error){
+
+                },
+                success: function (res) {
+                    if(res.success == 1){
+                        $("#frm_search_times").attr('target','_blank');
+                        $("#frm_search_times").attr('action','time_trackers_pdf');
+                        $("#frm_search_times").submit();
+                        APP_TIMES.delAllErrorMsg('#frm_search_times');
+                        $("#frm_search_times").attr('action','time_trackers');
+                    }
+                },
+                error: function(json) {
+                    //if(res.valid == 1){
+                    APP_TIMES.validate(json.responseJSON, $('#frm_search_times'), '.form-group', false);
+
+                    //}
+
+                }
+
+            });
+            return false;
+        })
     }
 
 })

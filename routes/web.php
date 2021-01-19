@@ -36,7 +36,7 @@ Route::group(['prefix' => '/',  'middleware' => ['auth:sanctum','checkIsAdmin'],
     Route::post('/time_trackers', [TimeTrackersController::class, 'index']);
     Route::post('/time_trackers/add_project', [TimeTrackersController::class, 'store']);
     Route::post('/time_trackers/destroy', [TimeTrackersController::class, 'destroy']);
-    Route::get('/time_trackers_pdf', [TimeTrackersController::class, 'time_trackers_pdf']);
+    Route::post('/time_trackers_pdf', [TimeTrackersController::class, 'time_trackers_pdf']);
 
     Route::get('/project_managers', [ProjectManagersController::class, 'index'])->name('project_managers');
     Route::get('/project_managers/create', [ProjectManagersController::class, 'create'])->name('project_managers_create');
