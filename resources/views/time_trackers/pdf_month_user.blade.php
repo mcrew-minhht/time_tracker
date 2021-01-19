@@ -26,8 +26,8 @@
                             <td class="text-center">Reporter</td>
                         </tr>
                         <tr>
-                            <td class="text-center">
-                                <img src="{{ public_path('images/dau.png') }}">
+                            <td class="text-center" style="height: 80px;">
+                                <img src="{{ public_path('images/dau.png') }}" style="width: 70px">
                             </td>
                             <td></td>
                             <td></td>
@@ -56,6 +56,7 @@
                     $param = [
                         'user_id' => $user_id,
                         'working_date' => $date->format('Y-m-d'),
+                        'id_project' => $request['id_project']
                     ];
                     $time_trackers_item = $time_trackers->CheckDateByParams($param);
                     $total_work = isset($time_trackers_item) ? $total_work + $time_trackers_item->working_time : $total_work;

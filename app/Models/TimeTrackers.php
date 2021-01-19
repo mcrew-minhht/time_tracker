@@ -64,11 +64,15 @@ class TimeTrackers extends Model
     public function CheckDateByParams($params){
         $result =  DB::table('time_trackers');
         $result->join('users','users.id','=','time_trackers.user_id');
+        $result->join('project_time','project_time.id_time_tracker','=','time_trackers.id');
         if (!empty($params['user_id'])){
             $result->where('time_trackers.user_id','=',$params['user_id']);
         }
         if (!empty($params['working_date'])){
             $result->where('time_trackers.working_date','=',$params['working_date']);
+        }
+        if(!empty($params['id_project'])){
+            $result->where('project_time.id_project', $params['id_project']);
         }
         return $result->select('time_trackers.*', DB::raw('users.name as employee_name'))->first();
     }

@@ -28,15 +28,16 @@ class ExportTimeTrackerRequest extends FormRequest
         return [
             'user_id' => 'required|numeric',
             'month' => 'required|numeric',
-            'year' => 'required|numeric'
+            'year' => 'required|numeric',
+            'id_project' => 'required|numeric',
         ];
     }
-//    public function messages()
-//    {
-//        return [
-//            'start_working_day.required' => 'Start working date is required!',
-//        ];
-//    }
+    public function messages()
+    {
+        return [
+            'id_project.required' => 'Project is required',
+        ];
+    }
     public function response(array $errors)
     {
         if ($this->expectsJson()) {
