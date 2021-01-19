@@ -67,7 +67,7 @@
                             <div class="col-md-3">
                                 <select name="year" class="form-control div-textfield--160">
                                     <option value=""></option>
-                                    @for($i=2019;$i<=2025;$i++)
+                                    @for($i=date('Y');$i >= date('Y') - 10;$i--)
                                         <option value="{!! $i !!}" {!! isset($request['year']) && $request['year'] == $i ? 'selected' :'' !!}>{{ $i }}</option>
                                     @endfor
                                 </select>

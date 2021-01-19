@@ -175,6 +175,39 @@ $(function () {
             return false;
 
         })
+
+        $('.btn_export_project').click(function () {
+            let formData = APP_TIMES.getFormData($('#frm_search_project'));
+            $.ajax({
+                type: "POST",
+                url: '/pdf_project',
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: "json",
+                beforeSend: function () {
+                },
+                done: function(error){
+
+                },
+                success: function (res) {
+                    if(res.success == 1){
+                        $("#frm_search_project").attr('target','_blank');
+                        $("#frm_search_project").attr('action','pdf_project');
+                        $("#frm_search_project").submit();
+                        APP_TIMES.delAllErrorMsg('#frm_search_project');
+                        $("#frm_search_month").attr('action','statistical_project');
+                    }
+                },
+                error: function(json) {
+                    APP_TIMES.validate(json.responseJSON, $('#frm_search_month'), '.form-group', false);
+                }
+
+            });
+            return false;
+
+        })
     }
     TIME_TRACKERS.changeWorkingTime = function () {
         $('.work_time').change(function () {

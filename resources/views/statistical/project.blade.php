@@ -36,8 +36,7 @@
                             </div>
                             <div class="col-md-6">
                                 <button type="button" class="btn btn-primary btn_search">Search</button>
-                                <a href="{{ url('pdf_project?all=1') }}" class="btn btn-info">Export All</a>
-                                <a href="{{ url('pdf_project') }}" class="btn btn-info">Export Page</a>
+                                <a class="btn btn-info btn_export_project">Export PDF</a>
                             </div>
                         </div>
                         @if(!empty($project_info))

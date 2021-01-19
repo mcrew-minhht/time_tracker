@@ -50,6 +50,7 @@ Route::group(['prefix' => '/',  'middleware' => ['auth:sanctum','checkIsAdmin'],
     Route::post('/statistical_project', [StatisticalController::class, 'statistical_project']);
     Route::get('/statistical_month', [StatisticalController::class, 'statistical_month'])->name('statistical_month');
     Route::post('/statistical_month', [StatisticalController::class, 'statistical_month']);
+    Route::post('/pdf_project', [StatisticalController::class, 'pdf_project']);
     Route::get('/pdf_project', [StatisticalController::class, 'pdf_project'])->name('pdf_project');
     Route::post('/pdf_month', [StatisticalController::class, 'pdf_month']);
     Route::post('/search_statistical_month', [StatisticalController::class, 'search_statistical_month']);

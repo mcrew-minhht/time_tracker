@@ -28,6 +28,7 @@ class StatisticalController extends Controller
         $this->projects = new Projects();
         $this->employees = new User();
         $this->project_time = new ProjectTime();
+        $this->users = new User();
     }
 
     public function index(Request $request)
@@ -100,21 +101,15 @@ class StatisticalController extends Controller
 
 
     public function pdf_project(Request $request){
-        $data['params'] = [
-            'id_project' => isset($request->id_project) ? $request->id_project : '',
-            'sortfield' => isset($request->sortfield) ? $request->sortfield : "id",
-            'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
-        ];
-        $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
-        if($request->get('all') != 1){
-            $result = $listTimeTrackers->paginate(5);
-            $data['lists'] = $result;
-        }else{
-            $data['lists'] = $listTimeTrackers->get();
+        if($request->ajax()){
+            return response()->json(['success' => 1]);
         }
-
+        $data['request'] = $request->all();
+        $data['users'] = $this->users->getEmployees();
+        $data['time_trackers'] = $this->time_trackers;
         $pdf = PDF::loadView('statistical.pdf_project', $data);
-        return $pdf->download('static_with_project.pdf');
+        //return $pdf->download('static_with_project.pdf');
+        return $pdf->stream();
     }
 
     public function pdf_month(ExportMonthRequest $request){

@@ -28,7 +28,13 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label class="col-form-label">Month</label>
-                        <input type="number" name="month" class="form-control div-textfield--160 @error('month') is-invalid @enderror"  value="{!! isset($request['month']) ? $request['month'] : '' !!}">
+                        <select name="month" class="form-control div-textfield--160 @error('month') is-invalid @enderror">
+                            <option value=""></option>
+                            @for($i=1;$i<=12;$i++)
+                                @php($month = date('F', mktime(0, 0, 0, $i, 10)))
+                                <option value="{!! $i !!}" {!! isset($request['month']) && $request['month'] == $i ? 'selected' : '' !!}>{{ $month }}</option>
+                            @endfor
+                        </select>
                         @error('month')
                         <div class="text text-danger text-sm">{{ $message }}</div>
                         @enderror
@@ -37,7 +43,12 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label class="col-form-label">Year</label>
-                        <input type="number" name="year" class="form-control div-textfield--160 @error('year') is-invalid @enderror" value="{!! isset($request['year']) ? $request['year'] : '' !!}">
+                        <select name="year" class="form-control div-textfield--160 @error('year') is-invalid @enderror">
+                            <option value=""></option>
+                            @for($i=date('Y');$i >= date('Y') - 10;$i--)
+                                <option value="{!! $i !!}" {!! isset($request['year']) && $request['year'] == $i ? 'selected' :'' !!}>{{ $i }}</option>
+                            @endfor
+                        </select>
                         @error('year')
                         <div class="text text-danger text-sm">{{ $message }}</div>
                         @enderror
