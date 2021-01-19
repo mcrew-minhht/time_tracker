@@ -16,16 +16,16 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('time_trackers') }}" :active="request()->routeIs('time_trackers')">
-                        {{ __('Time Trackers') }}
+                        {{ __('Time Tracker') }}
                     </x-jet-nav-link>
                     @if(is_admin())
                     <x-jet-nav-link href="{{ route('project_managers') }}" :active="request()->routeIs('project_managers')">
-                        {{ __('Project Mamanagers') }}
+                        {{ __('Project Manager') }}
                     </x-jet-nav-link>
                     @endif
                     @if(is_admin())
                     <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
-                        {{ __('User Mamanagers') }}
+                        {{ __('User Manager') }}
                     </x-jet-nav-link>
                     @endif
                     @if(is_admin())

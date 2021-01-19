@@ -4,7 +4,7 @@
         <div class="box-header with-border overflow-hidden row">
             <div class="col-6">
                 <h3 class="box-title">
-                    <span>Time Trackers</span>
+                    <span>Time Tracker</span>
                 </h3>
             </div>
             <div class="col-12">

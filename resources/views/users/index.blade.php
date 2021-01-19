@@ -3,9 +3,6 @@
         <div class="box-header with-border overflow-hidden row">
             <div class="col-6">
                 <h3 class="box-title">
-                    <span class="ui-icon-bullet ">
-                        <i class="fas fa-cubes "></i>
-                    </span>
                     <span>User Lists</span>
                 </h3>
             </div>

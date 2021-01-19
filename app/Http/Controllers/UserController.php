@@ -21,7 +21,7 @@ class UserController extends Controller
             'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
         ];
         $listUsers = $this->users->getAllUsers($params);
-        $result = $listUsers->paginate(10);
+        $result = $listUsers->paginate(20);
         $data['lists'] = $result;
         return view('users.index', compact('data', $data));
     }
