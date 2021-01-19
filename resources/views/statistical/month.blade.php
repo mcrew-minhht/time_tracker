@@ -64,10 +64,10 @@
             <table class="table table-bordered table-striped w-full">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2">User</th>
+                        <th class="px-4 py-2" width="62%">User</th>
                         <th class="px-4 py-2">Working date</th>
                         <th class="px-4 py-2">Working time</th>
-                        <th class="px-4 py-2"></th>
+                        <th class="px-4 py-2" width="8%"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,11 +79,11 @@
                                 {{ $item->working_date }}
                                 <input type="hidden" name="working_date" value="{{ $item->working_date }}">
                             </td>
-                            <td class="border px-4 py-2">
+                            <td class="border px-4 py-2" align="right">
                                 {{ $item->working_time }}
                                 <input type="hidden" name="start_working_time" value="{{ $item->working_time }}">
                             </td>
-                            <td class="border px-4 py-2">
+                            <td class="border px-4 py-2" align="center">
                                 <button class="btn btn-default btn-sm text-danger btn_del_times" data-id="{{ $item->id }}"><i class="fas fa-trash-alt"></i></button>
                             </td>
                         </tr>
