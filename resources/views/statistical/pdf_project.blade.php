@@ -37,7 +37,7 @@
             <tr>
                 <td style="vertical-align: top;">
                     <div class="text_underline">Company: <span class="text_uppercase">MCRew - Tech</span></div>
-                    <div class="text_underline">Name: {!! $item->name !!}</div>
+                    <div class="text_underline">Name: <span class="font-vi">{!! $item->name !!}</span></div>
                 </td>
                 <td style="width: 30%">
                 </td>
