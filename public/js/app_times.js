@@ -104,7 +104,7 @@ $(function () {
         (current).closest(clElm).find('label.col-form-label').addClass('text-danger');
         let e = $(current).closest(clElm).find('div#' + elmInput);
         if (e.length) {
-            e.html(msg);
+            e.html("<div class='invalid-feedback d-block'>" + msg + "</div>");
         } else {
             $(current).closest(clElm).append("<div class='errors col-sm-12' id='" + elmInput + "'><div class='invalid-feedback d-block'>" + msg + "</div></div>");
         }

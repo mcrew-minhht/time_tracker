@@ -31,13 +31,7 @@ class ExportTimeTrackerRequest extends FormRequest
             'user_id' => 'required|numeric',
             'month' => 'required|integer|between:1,12',
             'year' => 'required|integer|between:'.$hundred_years_ago.','.$current_year,
-            'id_project' => 'required|numeric',
-        ];
-    }
-    public function messages()
-    {
-        return [
-            'id_project.required' => 'Project is required',
+            'id_project' => 'numeric|nullable',
         ];
     }
 
