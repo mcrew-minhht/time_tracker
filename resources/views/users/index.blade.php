@@ -32,14 +32,14 @@
         <table class="table table-bordered table-striped w-full" id="table-main">
             <thead class="thead-light">
             <tr>
-                <th class="px-4 py-2" style="width: 30px;"><input type="checkbox" id="checkAll" /></th>
-                <th class="px-4 py-2" style="">{!! sort_title('name', __('Name')) !!}</th>
-                <th class="px-4 py-2" style="width: 250px;">{!! sort_title('email', __('Email')) !!}</th>
-                <th class="px-4 py-2" style="width: 200px;">{!! sort_title('employee_code', __('Employee code')) !!}</th>
-                <th class="px-4 py-2" style="width: 100px;">{!! sort_title('birthdate', __('Birthdate')) !!}</th>
-                <th class="px-4 py-2" style="width: 250px;">{!! sort_title('address', __('Address')) !!}</th>
-                <th class="px-4 py-2" style="width: 100px;">{!! sort_title('level', __('Level')) !!}</th>
-                <th style="width: 100px;"></th>
+                <th class="px-4 py-2" style="width: 3%;"><input type="checkbox" id="checkAll" /></th>
+                <th class="px-4 py-2" style="width: 25%;">{!! sort_title('name', __('Name')) !!}</th>
+                <th class="px-4 py-2" style="width: 25%;">{!! sort_title('email', __('Email')) !!}</th>
+{{--                <th class="px-4 py-2" style="width: 100px;">{!! sort_title('employee_code', __('Employee code')) !!}</th>--}}
+                <th class="px-4 py-2" style="width: 10%;">{!! sort_title('birthdate', __('Birthdate')) !!}</th>
+                <th class="px-4 py-2" style="width: 25%;">{!! sort_title('address', __('Address')) !!}</th>
+                <th class="px-4 py-2" style="width: 5%;">{!! sort_title('level', __('Level')) !!}</th>
+                <th style="width: 7%;"></th>
             </tr>
             </thead>
             <tbody>
@@ -49,10 +49,10 @@
                         <td class="px-4 py-2"><input type="checkbox" class="checkItem" value="{{$item->id}}" /></td>
                         <td class="px-4 py-2">{{ $item->name ?? '' }}</td>
                         <td class="px-4 py-2">{{ $item->email ?? '' }}</td>
-                        <td class="px-4 py-2">{{ $item->employee_code ?? '' }}</td>
+{{--                        <td class="px-4 py-2">{{ $item->employee_code ?? '' }}</td>--}}
                         <td class="px-4 py-2">{{ format_date("$item->birthdate") }}</td>
                         <td class="px-4 py-2">{{ $item->address ?? '' }}</td>
-                        <td class="px-4 py-2">{{ $item->level ?? '' }}</td>
+                        <td class="px-4 py-2">{{ \PHPUnit\Framework\isNull($item->level) && $item->level == 1 ? 'Admin' : ''}}</td>
                         <td class="px-4 py-2 overflow-hidden">
                             <a href="{{url('users/edit/'.$item->id)}}" class="float-left text-primary"><i class="fas fa-edit"></i></a>
                             <a href="javascript:;" class="float-right text-danger btn-delete" data-routes="{{url('users/destroy')}}" data-id="{{$item->id}}" ><i class="fas fa-trash-alt"></i></a>
