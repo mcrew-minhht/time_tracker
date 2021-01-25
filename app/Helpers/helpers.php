@@ -88,12 +88,14 @@ if (!function_exists('is_admin')) {
 }
 
 if (!function_exists('listRegion')) {
-    function listRegion($isString = false, $key= null) {
-        $region = array(
-            1=>"Ha Noi",
-            2=>"Da Nang",
-            3=>"TP Ho Chi Minh"
-        );
+    function listRegion($isString = false, $key= null, $addNullItem = false) {
+        if ($addNullItem){
+            $region[""] = "";
+        }
+        $region[1] = "Ha Noi";
+        $region[2] = "Da Nang";
+        $region[3] = "TP Ho Chi Minh";
+
         if ($isString){
             if ($key != null &&$key>=1 && $key<=3){
                 return $region[$key];
@@ -107,11 +109,12 @@ if (!function_exists('listRegion')) {
 }
 
 if (!function_exists('listPartTime')) {
-    function listPartTime($isString = false, $key= null) {
-        $parttime = array(
-            0=>"Official",
-            1=>"Part-time"
-        );
+    function listPartTime($isString = false, $key= null, $addNullItem = false) {
+        if ($addNullItem){
+            $parttime[""] = "";
+        }
+        $parttime[0]="Official";
+        $parttime[1]="Part-time";
         if ($isString){
             if ($key==1){
                 return $parttime[$key];

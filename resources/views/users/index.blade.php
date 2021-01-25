@@ -16,17 +16,43 @@
             </div>
         </div>
     </x-slot>
-    <div class="bg-white shadow max-w-7xl mx-auto py-10 mt-2 px-1">
-
+    <div class="bg-white shadow max-w-7xl mx-auto py-3 mt-2 px-1">
+        <div class="box-search-table overflow-hidden mb-2">
+            {!! Form::open(array('url' => url("./users"), 'id' => 'form-search', 'method' => 'GET','class'=>'overflow-hidden')) !!}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">Username</label>
+                        <div class="col-md-6">
+                            {!! Form::text('username', Request::get('username'), array('class' => 'form-control', 'maxlength' => 50, 'id' => 'input_source', 'placeholder' => __('Enter Username'))) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">Region</label>
+                        <div class="col-md-6">
+                            {!! Form::select('region',listRegion(false,null, true) , ($errors->has('region') ? old('region') : Request::get('region')) , array('class' => 'form-control'.($errors->has('region') ? ' is-invalid':''), 'id' => 'region')) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">Part-time</label>
+                        <div class="col-md-6">
+                            {!! Form::select('part_time',listPartTime(false, null, true) , ($errors->has('part_time') ? old('part_time') : Request::get('part_time')) , array('class' => 'form-control'.($errors->has('part_time') ? ' is-invalid':''), 'id' => 'part_time')) !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="float-right">
+                <button class="btn btn-primary float-right" type="submit"><i class="fa fa-search"></i> {{__('search')}}</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
         <div class="box-search-table overflow-hidden mb-2">
             <div class="float-left">
                 <a href="javascript:;" id="btn-delete-all" data-routes="{{url('users/destroy')}}" class="btn btn-danger disabled"><i class="fas fa-trash-alt"></i> {{__("Delete")}}</a>
-            </div>
-            <div class="float-right">
-                {!! Form::open(array('url' => url("./users"), 'id' => 'form-search', 'method' => 'GET','class'=>'overflow-hidden')) !!}
-                <button class="btn btn-primary float-right" type="submit"><i class="fa fa-search"></i> {{__('search')}}</button>
-                {!! Form::text('search', Request::get('search'), array('class' => 'form-control form-inline float-left', 'maxlength' => 50, 'id' => 'input_source', 'placeholder' => __('Enter keyword'), 'style'=>'width:200px;')) !!}
-                {!! Form::close() !!}
             </div>
         </div>
         <table class="table table-bordered table-striped w-full" id="table-main">

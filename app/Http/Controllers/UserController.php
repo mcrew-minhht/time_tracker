@@ -16,7 +16,9 @@ class UserController extends Controller
     }
     public function index(Request $request){
         $params = [
-            'search' => isset($request->search) ? $request->search : "",
+            'username' => isset($request->username) ? $request->username : "",
+            'region' => isset($request->region) ? $request->region : "",
+            'part_time' => isset($request->part_time) ? $request->part_time : "",
             'sortfield' => isset($request->sortfield) ? $request->sortfield : "id",
             'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
         ];
