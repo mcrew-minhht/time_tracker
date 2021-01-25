@@ -63,6 +63,7 @@ Route::group(['prefix' => '/',  'middleware' => ['auth:sanctum','checkIsAdmin'],
     Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users_edit');
     Route::post('/users/update', [UserController::class, 'update'])->name('pusers_update');
     Route::post('/users/destroy', [UserController::class, 'destroy'])->name('users_destroy');
+    Route::get('/users/export_users', [UserController::class, 'export_users'])->name('users_export_users');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile_update');

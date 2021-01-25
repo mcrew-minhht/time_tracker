@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProjectRequest;
 use App\Http\Requests\UserRequest;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use PDF;
 
 class UserController extends Controller
 {
@@ -108,5 +111,19 @@ class UserController extends Controller
             $params['password']=Hash::make($request->password);
         }
         return $params;
+    }
+    public function export_users(Request $request){
+        $params = [
+            'username' => isset($request->username) ? $request->username : "",
+            'region' => isset($request->region) ? $request->region : "",
+            'part_time' => isset($request->part_time) ? $request->part_time : "",
+            'sortfield' => isset($request->sortfield) ? $request->sortfield : "id",
+            'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
+        ];
+        $listUsers = $this->users->getAllUsers($params);
+        $result = $listUsers->get();
+        $data['lists'] = $result;
+        $pdf = PDF::loadView('users.export_user_pdf', $data);
+        return $pdf->stream();
     }
 }

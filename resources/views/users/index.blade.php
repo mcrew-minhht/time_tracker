@@ -22,9 +22,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row">
-                        <label class="col-form-label col-md-4">Username</label>
+                        <label class="col-form-label col-md-4">Name</label>
                         <div class="col-md-6">
-                            {!! Form::text('username', Request::get('username'), array('class' => 'form-control', 'maxlength' => 50, 'id' => 'input_source', 'placeholder' => __('Enter Username'))) !!}
+                            {!! Form::text('username', Request::get('username'), array('class' => 'form-control', 'maxlength' => 50, 'id' => 'input_source', 'placeholder' => __('Enter Name'))) !!}
                         </div>
                     </div>
                 </div>
@@ -46,6 +46,7 @@
                 </div>
             </div>
             <div class="float-right">
+                <button class="btn btn-info float-left mr-1" type="button" id="export_users"><i class="fa fa-file-export"></i> {{__('Export')}}</button>
                 <button class="btn btn-primary float-right" type="submit"><i class="fa fa-search"></i> {{__('search')}}</button>
             </div>
             {!! Form::close() !!}
