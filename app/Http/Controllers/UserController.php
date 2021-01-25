@@ -98,6 +98,8 @@ class UserController extends Controller
             'employee_code' => $request->employee_code ?? null,
             'address' => $request->address,
             'birthdate' => !empty(convert_dmy_to_ymd($request->birthdate)) ? convert_dmy_to_ymd($request->birthdate) :  null,
+            'region' => $request->region ?? null,
+            'part_time' => $request->part_time ?? 0,
             'level' => $request->level ?? 0,
         ];
         if (empty($request->id) || (!empty($request->password) || !empty($request->password_confirmation))){

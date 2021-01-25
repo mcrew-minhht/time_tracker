@@ -86,3 +86,58 @@ if (!function_exists('is_admin')) {
         return false;
     }
 }
+
+if (!function_exists('listRegion')) {
+    function listRegion($isString = false, $key= null) {
+        $region = array(
+            1=>"Ha Noi",
+            2=>"Da Nang",
+            3=>"TP Ho Chi Minh"
+        );
+        if ($isString){
+            if ($key != null &&$key>=1 && $key<=3){
+                return $region[$key];
+            }else{
+                return "";
+            }
+        }
+
+        return $region;
+    }
+}
+
+if (!function_exists('listPartTime')) {
+    function listPartTime($isString = false, $key= null) {
+        $parttime = array(
+            0=>"Official",
+            1=>"Part-time"
+        );
+        if ($isString){
+            if ($key==1){
+                return $parttime[$key];
+            }else{
+                return $parttime[0];;
+            }
+        }
+
+        return $parttime;
+    }
+}
+
+if (!function_exists('listLevel')) {
+    function listLevel($isString = false, $key= null) {
+        $level = array(
+            0=>"Employee",
+            1=>"Admin"
+        );
+        if ($isString){
+            if ($key==0 || $key==1){
+                return $level[$key];
+            }else{
+                return "";
+            }
+        }
+
+        return $level;
+    }
+}
