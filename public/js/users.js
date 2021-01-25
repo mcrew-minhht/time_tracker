@@ -1,0 +1,14 @@
+const USERS = {};
+$(function () {
+    'use strict';
+    $(document).ready(function (){
+        $("#export_users").on('click',function (){
+            $("#form-search").attr('target','_blank');
+            $('#form-search').attr('action', 'http://time_tracker.local:82/users/export_users');
+            $('#form-search').submit();
+        });
+    });
+})
+
+
+

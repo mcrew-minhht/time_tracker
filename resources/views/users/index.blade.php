@@ -19,6 +19,7 @@
     <div class="bg-white shadow max-w-7xl mx-auto py-3 mt-2 px-1">
         <div class="box-search-table overflow-hidden mb-2">
             {!! Form::open(array('url' => url("./users"), 'id' => 'form-search', 'method' => 'GET','class'=>'overflow-hidden')) !!}
+            <div id="hidden_form" style="display: none;"></div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row">
@@ -104,4 +105,7 @@
             </div>
         </div>
     </div>
+    @section('javascript')
+        <script type="text/javascript" src="{{ asset('js/users.js?version='.config('setting.version')) }}"></script>
+    @stop
 </x-app-layout>
