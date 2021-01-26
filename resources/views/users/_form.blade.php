@@ -56,7 +56,15 @@
                     @enderror
                 </div>
             </div>
-            <div class="col-sm-6"></div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="required @error('region') text-danger @enderror" for="region">{{__('Region')}}</label>
+                    {!! Form::select('region',listRegion() , ($errors->has('region') ? old('region') : $users->region) , array('class' => 'form-control'.($errors->has('region') ? ' is-invalid':''), 'id' => 'region')) !!}
+                    @error('region')
+                    <div class="text text-danger text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="required @error('password_confirmation') text-danger @enderror" for="password_confirmation">{{__('Confirm Password')}}</label>
@@ -66,11 +74,19 @@
                     @enderror
                 </div>
             </div>
-            <div class="col-sm-6"></div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="required @error('part_time') text-danger @enderror" for="region">{{__('Part-time')}}</label>
+                    {!! Form::select('part_time',listPartTime() , ($errors->has('part_time') ? old('part_time') : $users->part_time) , array('class' => 'form-control'.($errors->has('part_time') ? ' is-invalid':''), 'id' => 'part_time')) !!}
+                    @error('part_time')
+                    <div class="text text-danger text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="required @error('level') text-danger @enderror" for="level">{{__('Level')}}</label>
-                    {!! Form::select('level',["0" => "Employee", "1" => "Admin"] , ($errors->has('level') ? old('level') : $users->level) , array('class' => 'form-control'.($errors->has('level') ? ' is-invalid':''), 'id' => 'level')) !!}
+                    {!! Form::select('level',listLevel() , ($errors->has('level') ? old('level') : $users->level) , array('class' => 'form-control'.($errors->has('level') ? ' is-invalid':''), 'id' => 'level')) !!}
                     @error('level')
                     <div class="text text-danger text-sm">{{ $message }}</div>
                     @enderror

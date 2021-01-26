@@ -72,8 +72,18 @@ class User extends Authenticatable
     public function getAllUsers($params){
         $result =  DB::table($this->table);
         $result->whereRaw('(is_delete != 1 OR is_delete is null)');
-        if (!empty($params['search'])){
-            $result->where('name','like','%'.$params['search'].'%');
+        if (!empty($params['username'])){
+            $result->where('name','like','%'.$params['username'].'%');
+        }
+        if (!empty($params['region'])){
+            $result->where('region','=',$params['region']);
+        }
+        if ($params['part_time'] != ""){
+            if ($params['part_time']==0){
+                $result->whereRaw(" (part_time = ".$params['part_time']." or part_time is null) ");
+            }else{
+                $result->where('part_time','=',$params['part_time']);
+            }
         }
         if (!empty($params['sortfield']) && !empty($params['sorttype'])){
             $result->orderBy(DB::raw($params['sortfield']),$params['sorttype']);

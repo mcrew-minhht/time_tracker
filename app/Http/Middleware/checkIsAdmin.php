@@ -23,7 +23,7 @@ class checkIsAdmin
             $permission = Route::currentRouteName();
             $permissionCurrent = ['project_managers', 'project_managers_create','project_managers_store'
                 ,'project_managers_edit','project_managers_update','project_managers_destroy','users','users_create'
-                ,'users_store','users_edit','pusers_update','users_destroy','statistical_project'
+                ,'users_store','users_edit','pusers_update','users_destroy','export_users','statistical_project'
                 ,'statistical_project_post','statistical_month','statistical_month_post','pdf_project','pdf_month'];
             $user = Auth::user();
             if ($user->level != 1){

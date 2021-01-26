@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProjectRequest;
 use App\Http\Requests\UserRequest;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use PDF;
 
 class UserController extends Controller
 {
@@ -16,7 +19,9 @@ class UserController extends Controller
     }
     public function index(Request $request){
         $params = [
-            'search' => isset($request->search) ? $request->search : "",
+            'username' => isset($request->username) ? $request->username : "",
+            'region' => isset($request->region) ? $request->region : "",
+            'part_time' => isset($request->part_time) ? $request->part_time : "",
             'sortfield' => isset($request->sortfield) ? $request->sortfield : "id",
             'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
         ];
@@ -98,11 +103,27 @@ class UserController extends Controller
             'employee_code' => $request->employee_code ?? null,
             'address' => $request->address,
             'birthdate' => !empty(convert_dmy_to_ymd($request->birthdate)) ? convert_dmy_to_ymd($request->birthdate) :  null,
+            'region' => $request->region ?? null,
+            'part_time' => $request->part_time ?? 0,
             'level' => $request->level ?? 0,
         ];
         if (empty($request->id) || (!empty($request->password) || !empty($request->password_confirmation))){
             $params['password']=Hash::make($request->password);
         }
         return $params;
+    }
+    public function export_users(Request $request){
+        $params = [
+            'username' => isset($request->username) ? $request->username : "",
+            'region' => isset($request->region) ? $request->region : "",
+            'part_time' => isset($request->part_time) ? $request->part_time : "",
+            'sortfield' => isset($request->sortfield) ? $request->sortfield : "id",
+            'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
+        ];
+        $listUsers = $this->users->getAllUsers($params);
+        $result = $listUsers->get();
+        $data['lists'] = $result;
+        $pdf = PDF::loadView('users.export_user_pdf', $data);
+        return $pdf->stream();
     }
 }
