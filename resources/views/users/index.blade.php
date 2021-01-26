@@ -17,7 +17,7 @@
         </div>
     </x-slot>
     <div class="bg-white shadow max-w-7xl mx-auto py-3 mt-2 px-1">
-        <div class="box-search-table overflow-hidden mb-2">
+        <div class="box-search-table overflow-hidden mb-2 pl-4">
             {!! Form::open(array('url' => url("./users"), 'id' => 'form-search', 'method' => 'GET','class'=>'overflow-hidden')) !!}
             <div id="hidden_form" style="display: none;"></div>
             <div class="row">
@@ -93,7 +93,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="8" class="text-center">{{__('No data')}}</td>
+                    <td colspan="10" class="text-center">{{__('No data')}}</td>
                 </tr>
             @endif
 
