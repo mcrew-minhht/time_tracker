@@ -19,7 +19,7 @@
                 <td class="px-2 py-2">{{ $item->email ?? '' }}</td>
                 {{--<td class="px-2 py-2">{{ $item->employee_code ?? '' }}</td>--}}
                 <td class="px-2 py-2">{{ format_date("$item->birthdate") }}</td>
-                <td class="px-2 py-2">{{ $item->address ?? '' }}dashd ashdkahsd kahshdajsd asdjagsd akhgsdkgas asjgdjsa</td>
+                <td class="px-2 py-2">{{ $item->address ?? '' }}</td>
                 <td class="px-2 py-2">{{ listRegion(true,$item->region ?? null) }}</td>
                 <td class="px-2 py-2">{{ listPartTime(true,$item->part_time ?? null) }}</td>
                 <td class="px-2 py-2">{{ listLevel(true,$item->level ?? null) }}</td>
