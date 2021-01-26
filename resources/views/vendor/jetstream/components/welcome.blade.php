@@ -1,6 +1,6 @@
-<div class="py-12 sm:px-20 bg-white border-b border-gray-200">
+<div class="py-12 sm:px-20 bg-white border-b border-gray-200" style="align: center">
 
-    <img src="{{ public_path('images/main-image.png') }}" >
+    <img src="{{url('images/main-image.png')}}">
 
 </div>
 
