@@ -29,7 +29,7 @@
                             <label class="col-form-label col-md-4">Employee</label>
                             <div class="col-md-6">
                                 <select name="user_id" class="form-control">
-                                    <option value=""></option>
+                                    <option value="0"></option>
                                     @foreach($employees as $item_user)
                                         <option value="{{ $item_user->id }}" {!! (isset($params['user_id']) && $item_user->id == $params['user_id']) ? 'selected' : '' !!}>{{ $item_user->name }}</option>
                                     @endforeach
@@ -57,18 +57,18 @@
                             <label class="col-form-label col-md-4">Working Date</label>
                             <div class="col-md-3">
                                 <select name="month" class="form-control div-textfield--160">
-                                    <option value=""></option>
+                                    <option value="0"></option>
                                     @for($i=1;$i<=12;$i++)
                                         @php($month = date('F', mktime(0, 0, 0, $i, 10)))
-                                    <option value="{!! $i !!}" {!! isset($request['month']) && $request['month'] == $i ? 'selected' : '' !!}>{{ $month }}</option>
+                                    <option value="{!! $i !!}" {!! isset($params['month']) && $params['month'] == $i ? 'selected' : '' !!}>{{ $month }}</option>
                                     @endfor
                                 </select>
                             </div>
                             <div class="col-md-3">
                                 <select name="year" class="form-control div-textfield--160">
-                                    <option value=""></option>
+                                    <option value="0"></option>
                                     @for($i=date('Y');$i >= date('Y') - 10;$i--)
-                                        <option value="{!! $i !!}" {!! isset($request['year']) && $request['year'] == $i ? 'selected' :'' !!}>{{ $i }}</option>
+                                        <option value="{!! $i !!}" {!! isset($params['year']) && $params['year'] == $i ? 'selected' :'' !!}>{{ $i }}</option>
                                     @endfor
                                 </select>
                             </div>
@@ -90,9 +90,10 @@
             <table class="table table-bordered table-striped w-full">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2" width="30%">{!! sort_title('user_id', __('Project')) !!}</th>
-                        <th class="px-4 py-2" width="35%">{!! sort_title('user_id', __('User')) !!}</th>
+                        <th class="px-4 py-2" width="25%">{!! sort_title('user_id', __('Project')) !!}</th>
+                        <th class="px-4 py-2" width="25%">{!! sort_title('user_id', __('User')) !!}</th>
                         <th class="px-4 py-2">{!! sort_title('working_date', __('Working date')) !!}</th>
+                        <th class="px-4 py-2 text-primary">{!!  __('Weekday') !!}</th>
                         <th class="px-4 py-2">{!! sort_title('working_time', __('Working time')) !!}</th>
                         <th class="px-4 py-2" width="10%"></th>
                     </tr>
@@ -113,11 +114,15 @@
                                 {{ format_date($item->working_date) }}
                                 <input type="hidden" name="working_date" value="{{ format_date($item->working_date) }}">
                             </td>
+                            <td class="border px-4 py-2">
+                                {{ format_date($item->working_date,'l') }}
+                            </td>
                             <td class="border px-4 py-2" align="right">
                                 {{ $item->working_time }}
                                 <input type="hidden" name="working_time" value="{{ $item->working_time }}">
                             </td>
                             <td class="border px-4 py-2">
+                                <input type="hidden" name="memo" value="{{ $item->memo }}">
                                 <button class="btn btn-default btn-sm btn_edit_times" data-id="{{ $item->id }}"><i class="fas fa-edit"></i></button>
                                 <button class="btn btn-default btn-sm text-danger btn_del_times" data-id="{{ $item->id }}"><i class="fas fa-trash-alt"></i></button>
                             </td>
@@ -125,7 +130,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="8" class="text-center">No result!</td>
+                            <td colspan="9" class="text-center">No result!</td>
                         </tr>
                     @endif
                 </tbody>

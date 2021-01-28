@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-pop" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add project</h4>
+                <h4 class="modal-title">Add time</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body modal-body-custom">
@@ -50,7 +50,13 @@
                 <div class="form-group row">
                     <label class="col-form-label col-md-3">Working Time</label>
                     <div class="col-md-9">
-                        <input name="working_time" class="form-control div-textfield--160">
+                        <input name="working_time" class="form-control div-textfield--160" value="8">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-md-3">Memo</label>
+                    <div class="col-md-9">
+                        <textarea name="memo" class="form-control  div-textfield--160" cols="3"></textarea>
                     </div>
                 </div>
                 {!! Form::close() !!}

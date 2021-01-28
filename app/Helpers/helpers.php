@@ -134,7 +134,7 @@ if (!function_exists('listLevel')) {
             1=>"Admin"
         );
         if ($isString){
-            if ($key==0 || $key==1){
+            if ($key!= null &&($key==0 || $key==1)){
                 return $level[$key];
             }else{
                 return "";

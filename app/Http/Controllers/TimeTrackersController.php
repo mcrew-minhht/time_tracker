@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use Faker\Provider\DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\TimeTrackers;
@@ -44,18 +45,20 @@ class TimeTrackersController extends Controller
                 $data['errors'] = $validator->errors();
             }
         }
+
         $data['request'] = $request;
         $end_working_day = (!empty($request->month) && !empty($request->year))?Carbon::parse($request->year.'-'.$request->month)->endOfMonth()->format('Y-m-d') : ($is_admin == false ? Carbon::parse(date('Y-m'))->endOfMonth()->format('Y-m-d') : '');
         $data['params'] = [
-            'user_id' => isset($request->user_id) ? intval($request->user_id) : ($is_admin == false ? Auth::id() : ''),
+            'user_id' => $is_admin && isset($request->user_id) ? intval($request->user_id) : Auth::id(),
             'id_project' => isset($request->id_project) ? $request->id_project : '',
             'start_working_day' => (!empty($request->year) && !empty($request->month)) ? $request->year.'-'.$request->month.'-01' : ($is_admin == false ? date('Y-m').'-01' : ''),
             'end_working_day' => $end_working_day,
-            'year' => (!empty($request->year))? $request->year : date('Y'),
-            'month' => (!empty($request->month))? $request->month : date('m'),
+            'year' => ($request->year != "" ) ? $request->year : date('Y'),
+            'month' => ($request->month != "" ) ? $request->month : date('m'),
             'sortfield' => isset($request->sortfield) ? $request->sortfield : "working_date",
             'sorttype' => isset($request->sorttype) ? $request->sorttype : "ASC",
         ];
+
         $request->session()->put('time_trackers_search_params', $data['params']);
         $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
         $result = $listTimeTrackers->paginate(20);
@@ -72,19 +75,25 @@ class TimeTrackersController extends Controller
 
     public function store(TimeTrackersRequest $request){
         $start = explode('/', $request->start_working_day);
+
         if (empty($request->id)) {
             if (!empty($request->end_working_day)) {
                 $end = explode('/', $request->end_working_day);
                 for ($i = $start[0]; $i <= $end[0]; $i++) {
+                    $_date = $start[2] . '/' . $start[1] . '/' . $i;
+                    if (format_date($_date,'l') == 'Saturday' || format_date($_date,'l') == 'Sunday'){
+                        continue;
+                    }
                     $dataInsert = [
                         'user_id' => $request->user_id,
                         'working_date' => $start[2] . '/' . $start[1] . '/' . $i,
                         'working_time' => !empty($request->working_time) ? $request->working_time : null,
+                        'memo' => $request->memo,
                     ];
                     $params = [
                         'user_id' => $request->user_id,
                         'working_date' => $start[2] . '/' . $start[1] . '/' . $i,
-                        'id_project' => $request->id_project
+                        'id_project' => $request->id_project,
                     ];
                     $check_project = $this->time_trackers->CheckProjectByParams($params);
                     if(isset($check_project)) {
@@ -103,6 +112,7 @@ class TimeTrackersController extends Controller
                     'user_id' => $request->user_id,
                     'working_date' => format_date(str_replace('/','-',$request->start_working_day),"Y-m-d"),
                     'working_time' => !empty($request->working_time) ? $request->working_time : null,
+                    'memo' => $request->memo,
                 ];
                 $params = [
                     'user_id' => $request->user_id,
@@ -129,7 +139,8 @@ class TimeTrackersController extends Controller
                 'id' => $request->id,
                 'working_time' => !empty($request->working_time) ? $request->working_time : null,
                 'updated_user' => Auth::user()->id,
-                'updated_at' => date('Y-m-d')
+                'updated_at' => date('Y-m-d'),
+                'memo' => $request->memo,
             ];
             $this->time_trackers->UpdateTrackersByParams($dataUpdate);
             $msg = 'Update successful!';

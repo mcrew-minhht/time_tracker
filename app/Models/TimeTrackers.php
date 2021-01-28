@@ -120,7 +120,8 @@ class TimeTrackers extends Model
             'working_date' => $params['working_date'],
             'working_time' => $params['working_time'],
             'created_user' => $params['created_user'],
-            'created_at' => $params['created_at']
+            'created_at' => $params['created_at'],
+            'memo' => $params['memo']
         ]);
     }
 
@@ -129,6 +130,7 @@ class TimeTrackers extends Model
             'working_time' => $params['working_time'],
             'updated_user' => $params['updated_user'],
             'updated_at' => $params['updated_at'],
+            'memo' => $params['memo'],
             'is_delete' => 0,
         ]);
     }

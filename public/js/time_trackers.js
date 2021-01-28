@@ -52,12 +52,14 @@ $(function () {
             let user_id = elm.find('[name=user_id]').val();
             let working_date = elm.find('[name=working_date]').val();
             let working_time = elm.find('[name=working_time]').val();
+            let memo = elm.find('[name=memo]').val();
 
             $("#modal_add_times").find('[name=id]').val($(this).attr('data-id'));
             $("#modal_add_times").find('[name=user_id]').val(user_id);
             $("#modal_add_times").find('[name=id_project]').val(id_project);
             $("#modal_add_times").find('[name=start_working_day]').val(working_date);
             $("#modal_add_times").find('[name=working_time]').val(working_time);
+            $("#modal_add_times").find('[name=memo]').val(memo);
 
             $("#modal_add_times").find('[name=user_id]').prop('disabled', true);
             $("#modal_add_times").find('[name=id_project]').prop('disabled', true);
