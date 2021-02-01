@@ -47,7 +47,7 @@ class StatisticalController extends Controller
             'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
         ];
         $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
-        $result = $listTimeTrackers->paginate(20);
+        $result = $listTimeTrackers->paginate(35);
         $data['lists'] = $result;
         if(isset($request->id_project)){
             $data['project_info'] = $this->projects->find($request->id_project);
@@ -70,7 +70,7 @@ class StatisticalController extends Controller
             'sorttype' => 'ASC',
         ];
         $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
-        $result = $listTimeTrackers->paginate(20);
+        $result = $listTimeTrackers->paginate(35);
         $data['lists'] = $result;
         return view('statistical.month', $data);
     }
@@ -94,7 +94,7 @@ class StatisticalController extends Controller
             'sorttype' => isset($request['sorttype']) ? $request['sorttype'] : "ASC",
         ];
         $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
-        $result = $listTimeTrackers->paginate(20);
+        $result = $listTimeTrackers->paginate(35);
         $data['lists'] = $result;
         return view('statistical.month', $data);
 

@@ -61,7 +61,7 @@ class TimeTrackersController extends Controller
 
         $request->session()->put('time_trackers_search_params', $data['params']);
         $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
-        $result = $listTimeTrackers->paginate(20);
+        $result = $listTimeTrackers->paginate(35);
         $data['lists'] = $result;
         if($is_admin == true){
             $data['employees'] = $this->employees->getEmployees();
