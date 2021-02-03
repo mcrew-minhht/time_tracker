@@ -42,6 +42,19 @@
                                 {{Session::get('message')}}
                             </div>
                         @endif
+                        @if(Session::has('failures'))
+                                <?php $failures = Session::get('failures'); ?>
+                                <div class="alert alert-danger alert-dismissable">
+                                <button data-dismiss="alert" class="close" type="button">
+                                    <i class="ace-icon fa fa-times"></i>
+                                </button>
+                                    <ul>
+                                        @foreach ($failures as $failure)
+                                            <li>Row {{ $failure->row() }}: {{ $failure->errors()[0] }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                        @endif
                     </div>
                 </div>
             </header>

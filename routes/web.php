@@ -66,6 +66,8 @@ Route::group(['prefix' => '/',  'middleware' => ['auth:sanctum','checkIsAdmin'],
     Route::post('/users/destroy', [UserController::class, 'destroy'])->name('users_destroy');
     Route::post('/users/export_users', [UserController::class, 'export_users'])->name('users_export_users');
     Route::get('/users/export_users', [UserController::class, 'export_users'])->name('users_export_users');
+    Route::post('/users/import_users', [UserController::class, 'import_users'])->name('users_import_users');
+    Route::get('/users/download', [UserController::class, 'get_download'])->name('users_get_download');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile_update');

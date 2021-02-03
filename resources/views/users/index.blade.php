@@ -47,6 +47,7 @@
                 </div>
             </div>
             <div class="float-right">
+                <button class="btn btn-info float-left mr-1" type="button" id="import_users" data-toggle="modal" data-target="#importModal"><i class="fa fa-file-export"></i> {{__('Import')}}</button>
                 <button class="btn btn-info float-left mr-1" type="button" id="export_users"><i class="fa fa-file-export"></i> {{__('Export')}}</button>
                 <button class="btn btn-primary float-right" type="submit"><i class="fa fa-search"></i> {{__('search')}}</button>
             </div>
@@ -105,7 +106,41 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                {!! Form::open(array('url' => url("./users/import_users"), 'id' => 'form-import', 'method' => 'POST','enctype'=>'multipart/form-data')) !!}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Import user</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="file"  name="file" >
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    <div class="text text-danger text-sm" id="file_error"></div>
+                </div>
+                <div class="modal-footer">
+                    <a class="float-left  mr-auto" href="{{url('users/download')}}">Download file import</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Import data</button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+
     @section('javascript')
         <script type="text/javascript" src="{{ asset('js/users.js?version='.config('setting.version')) }}"></script>
+        <script>
+            $(".custom-file-input").on("change", function() {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
     @stop
 </x-app-layout>

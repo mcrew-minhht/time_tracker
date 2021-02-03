@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProjectRequest;
 use App\Http\Requests\UserRequest;
+use App\Imports\UsersImport;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 
 class UserController extends Controller
@@ -125,5 +127,28 @@ class UserController extends Controller
         $data['lists'] = $result;
         $pdf = PDF::loadView('users.export_user_pdf', $data);
         return $pdf->stream();
+    }
+    public function import_users(Request $request)
+    {
+        try {
+            $import = Excel::import(new UsersImport(), $request->file('file')->store('temp'));
+            $response = [
+                'message' => __('Import successfully')
+            ];
+            return redirect()->back()->with(['message' => $response['message'], 'alert-class' => 'alert-success']);
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            return redirect()->back()->with('failures',$failures);
+        }
+        return redirect()->back();
+    }
+
+    public function get_download()
+    {
+        $file= public_path(). "/downloads/file_import.xlsx";
+        $headers = array(
+            'Content-Type: application/xlsx',
+        );
+        return response()->download($file, 'file_import.xlsx', $headers);
     }
 }
