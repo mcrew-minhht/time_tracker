@@ -21,7 +21,7 @@ class ProjectManagersController extends Controller
             'sorttype' => isset($request->sorttype) ? $request->sorttype : "DESC",
         ];
         $listAllProject = $this->projectManagers->getAllProject($params);
-        $result = $listAllProject->paginate(20);
+        $result = $listAllProject->paginate(35);
         $data['lists'] = $result;
         return view('project_managers.index', compact('data', $data));
     }
