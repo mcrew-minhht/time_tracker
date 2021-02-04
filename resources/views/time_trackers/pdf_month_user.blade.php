@@ -85,7 +85,7 @@
                     </td>
                     <td class="text-center" style="background: {{ in_array($date->dayOfWeek,[0,6]) ? $bg : '' }}; font-family: ipag">{{ $weekMap[$date->dayOfWeek] }}</td>
                     <td class="text-center">{{ isset($time_trackers_item) ? $time_trackers_item->working_time : '' }}</td>
-                    <td></td>
+                    <td>{{ isset($time_trackers_item) ? $time_trackers_item->memo : '' }}</td>
                 </tr>
             @endforeach
             <tr>

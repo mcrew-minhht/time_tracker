@@ -76,7 +76,7 @@ $(function () {
             $('#frm_reload').submit();
         });
         $("#modal_add_times").on('hidden.bs.modal', function(){
-            $('#frm_reload').submit();
+            $('#frm_search_times').submit();
         });
     }
     TIME_TRACKERS.delTimeTracker = function(){
