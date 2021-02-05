@@ -67,7 +67,7 @@ class TimeTrackers extends Model
         $result->join('project_time','project_time.id_time_tracker','=','time_trackers.id');
         if (!empty($params['user_id'])){
             $result->where('time_trackers.user_id','=',$params['user_id']);
-            $result->where('time_trackers.is_delete','=',null);
+            $result->whereRaw(' (time_trackers.is_delete is null or time_trackers.is_delete = 0) ');
         }
         if (!empty($params['working_date'])){
             $result->where('time_trackers.working_date','=',$params['working_date']);
