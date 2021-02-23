@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProjectRequest;
 use App\Http\Requests\UserRequest;
 use App\Imports\UsersImport;
+use App\Models\UserType;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
@@ -12,12 +13,14 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
+use function GuzzleHttp\Promise\all;
 
 class UserController extends Controller
 {
     public function __construct()
     {
         $this->users = new User();
+        $this->user_type = new UserType();
     }
     public function index(Request $request){
         $params = [
@@ -35,7 +38,9 @@ class UserController extends Controller
 
     public function create(){
         $users = new User();
-        return view('users.create')->with('users',$users);
+        $userType = $this->user_type->pluck('name','id')->all();
+
+        return view('users.create')->with(['users' => $users, 'userType' => $userType]);
     }
 
     public function store(UserRequest $request){
@@ -63,7 +68,8 @@ class UserController extends Controller
         if(!$users){
             abort(404);
         }
-        return view('users.edit')->with('users',$users);
+        $userType = $this->user_type->pluck('name','id')->all();
+        return view('users.edit')->with(['users' => $users, 'userType' => $userType]);
     }
 
 

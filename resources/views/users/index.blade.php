@@ -84,7 +84,7 @@
                         <td class="px-2 py-2">{{ format_date("$item->birthdate") }}</td>
                         <td class="px-2 py-2">{{ $item->address ?? '' }}</td>
                         <td class="px-2 py-2">{{ listRegion(true,$item->region ?? null) }}</td>
-                        <td class="px-2 py-2">{{ listPartTime(true,$item->part_time ?? null) }}</td>
+                        <td class="px-2 py-2">{{ $item->type_name ?? null }}</td>
                         <td class="px-2 py-2">{{ listLevel(true,$item->level ?? null) }}</td>
                         <td class="px-2 py-2 overflow-hidden">
                             <a href="{{url('users/edit/'.$item->id)}}" class="float-left text-primary"><i class="fas fa-edit"></i></a>

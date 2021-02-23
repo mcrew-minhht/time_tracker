@@ -77,6 +77,7 @@ class User extends Authenticatable
 
     public function getAllUsers($params){
         $result =  DB::table($this->table);
+        $result->join('users_type','users_type.id','=',$this->table.'.part_time', 'left');
         $result->whereRaw('(is_delete != 1 OR is_delete is null)');
         if (!empty($params['username'])){
             $result->where('name','like','%'.$params['username'].'%');
@@ -94,7 +95,7 @@ class User extends Authenticatable
         if (!empty($params['sortfield']) && !empty($params['sorttype'])){
             $result->orderBy(DB::raw($params['sortfield']),$params['sorttype']);
         }
-        return $result->select('users.*');
+        return $result->select('users.*', 'users_type.name as type_name');
     }
     public function insertUser($params){
         $params['is_delete'] = 0;

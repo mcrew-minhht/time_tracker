@@ -77,7 +77,7 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="required @error('part_time') text-danger @enderror" for="region">{{__('Part-time')}}</label>
-                    {!! Form::select('part_time',listPartTime() , ($errors->has('part_time') ? old('part_time') : $users->part_time) , array('class' => 'form-control'.($errors->has('part_time') ? ' is-invalid':''), 'id' => 'part_time')) !!}
+                    {!! Form::select('part_time',$userType , ($errors->has('part_time') ? old('part_time') : $users->part_time) , array('class' => 'form-control'.($errors->has('part_time') ? ' is-invalid':''), 'id' => 'part_time')) !!}
                     @error('part_time')
                     <div class="text text-danger text-sm">{{ $message }}</div>
                     @enderror
