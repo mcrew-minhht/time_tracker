@@ -87,7 +87,7 @@ class TimeTrackersController extends Controller
                     $dataInsert = [
                         'user_id' => $request->user_id,
                         'working_date' => $start[2] . '/' . $start[1] . '/' . $i,
-                        'working_time' => !empty($request->working_time) ? $request->working_time : null,
+                        'working_time' => $request->working_time != '' ? $request->working_time : null,
                         'memo' => $request->memo,
                     ];
                     $params = [
@@ -111,7 +111,7 @@ class TimeTrackersController extends Controller
                 $dataInsert = [
                     'user_id' => $request->user_id,
                     'working_date' => format_date(str_replace('/','-',$request->start_working_day),"Y-m-d"),
-                    'working_time' => !empty($request->working_time) ? $request->working_time : null,
+                    'working_time' => $request->working_time != '' ? $request->working_time : null,
                     'memo' => $request->memo,
                 ];
                 $params = [
@@ -137,7 +137,7 @@ class TimeTrackersController extends Controller
         } else {
             $dataUpdate = [
                 'id' => $request->id,
-                'working_time' => !empty($request->working_time) ? $request->working_time : null,
+                'working_time' => $request->working_time != '' ? $request->working_time : null,
                 'updated_user' => Auth::user()->id,
                 'updated_at' => date('Y-m-d'),
                 'memo' => $request->memo,

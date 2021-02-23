@@ -12,6 +12,13 @@ $(function () {
     }
 
     TIME_TRACKERS.Add_Project_User = function () {
+        $('#open_modal_add').on('click',function (){
+            TIME_TRACKERS.SetMemo();
+            $('#modal_add_times').modal('show');
+        });
+
+
+
         $('#add_project').click(function () {
             let formData = APP_TIMES.getFormData($('#frm_add_project'));
             $.ajax({
@@ -279,6 +286,14 @@ $(function () {
             return false;
         })
     }
+    TIME_TRACKERS.SetMemo = function(){
+        var nameProject = $("#frm_add_project select[name='id_project'] option:selected").text();
+        $("#frm_add_project textarea[name='memo']").val(nameProject);
+    }
+
+    $("#frm_add_project select[name='id_project']").on('change',function (){
+        TIME_TRACKERS.SetMemo();
+    });
 
 })
 $(document).ready(function () {

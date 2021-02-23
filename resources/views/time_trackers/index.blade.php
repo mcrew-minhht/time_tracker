@@ -82,7 +82,7 @@
             </div>
             <div class="text-right my-3">
                 <a href="{{ url('time_trackers_pdf') }}" class="btn btn-info" id="btn_export_pdf">Export</a>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_add_times">
+                <button type="button" class="btn btn-primary" id="open_modal_add">
                     <i class="fas fa-plus-square"></i> Add
                 </button>
                 <button type="button" class="btn btn-primary btn_search">Search</button>
