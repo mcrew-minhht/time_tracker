@@ -16,7 +16,7 @@
             </div>
         </div>
     </x-slot>
-    <div class="bg-white shadow max-w-7xl mx-auto py-10 mt-2 px-1">
+    <div class="bg-white shadow container-fluid mx-auto py-10 mt-2">
 
         <div class="box-search-table overflow-hidden mb-2">
             <div class="float-left">

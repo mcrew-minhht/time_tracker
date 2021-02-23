@@ -18,7 +18,7 @@
             </div>
         </div>
     </x-slot>
-    <div class="max-w-7xl mx-auto">
+    <div class="container-fluid mx-auto">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-6 py-6">
             <div class="">
                 {!! Form::open(['method' => 'POST', 'id' => 'frm_search_project', 'class' => 'needs-validation']) !!}

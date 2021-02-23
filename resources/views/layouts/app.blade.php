@@ -27,7 +27,7 @@
     <script src="{{ asset('bootstrap-4.0.0-dist/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/common.js') }}"></script>
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="max-w-full mx-auto min-h-screen bg-gray-100">
             <livewire:navigation-dropdown></livewire:navigation-dropdown>
             <!-- Page Heading -->
             <header class="bg-white shadow">
