@@ -27,6 +27,12 @@ $(function () {
         });
     };
 
+    APP_TIMES.alert = function (msg, type) {
+        $('#flash_message').html('<div class="alert alert-' + type + '">' +
+            '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
+            '<h4 class="single-text">' + msg + '</h4></div>');
+    };
+
     APP_TIMES.alertDanger = function (msg) {
         return '<div class="alert alert-danger">' +
             '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
@@ -135,6 +141,47 @@ $(function () {
 
     APP_TIMES.scrollTop = function (elm) {
         $("html, body").animate({scrollTop: elm.offset().top}, 300);
+    };
+    APP_TIMES.alertUseCookie = function (scroll = '') {
+        let type = APP_TIMES.getCookie('alert_type');
+        let msg = APP_TIMES.getCookie('alert_msg');
+
+        if (type !== '' && msg !== '') {
+            APP_TIMES.deleteCookie('alert_type');
+            APP_TIMES.deleteCookie('alert_msg');
+            APP_TIMES.alert(msg, type);
+            if (scroll) {
+                APP_TIMES.scrollTop(scroll);
+            }
+        }
+    };
+    APP_TIMES.getCookie = function (name) {
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        name = name + "=";
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+
+        return "";
+    };
+    APP_TIMES.deleteCookie = function (name) {
+        let d = new Date();
+        d.setTime(d.getTime() - (1000 * 60 * 60 * 24));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = name + "=" + "; " + expires + ";path=/";
+    };
+    APP_TIMES.setCookie = function (cname, value, days = 1) {
+        let d = new Date();
+        d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + value + ";" + expires + ";path=/";
     };
 })
 

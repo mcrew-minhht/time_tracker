@@ -3,12 +3,14 @@ let frm_search = $('meta[name=frm_search]').attr('content');
 $(function () {
     'use strict';
     TIME_TRACKERS.init = function () {
+        APP_TIMES.alertUseCookie();
         TIME_TRACKERS.Add_Project_User();
         TIME_TRACKERS.changeWorkingTime();
         TIME_TRACKERS.reload();
         TIME_TRACKERS.delTimeTracker();
         TIME_TRACKERS.searchTimes();
         TIME_TRACKERS.export();
+        TIME_TRACKERS.delAll();
     }
 
     TIME_TRACKERS.Add_Project_User = function () {
@@ -294,7 +296,52 @@ $(function () {
     $("#frm_add_project select[name='id_project']").on('change',function (){
         TIME_TRACKERS.SetMemo();
     });
-
+    TIME_TRACKERS.delAll = function (){
+        $("#check_all").click(function(){
+            $('.list_time input:checkbox').not(this).prop('checked', this.checked);
+        });
+        $(".check_item").click(function () {
+            if(!this.checked){
+                $("#check_all").prop('checked', false);
+            }
+        });
+        $("#del_all").click(function (){
+            let total_check = $(".check_item").filter(':checked').length;
+            if (total_check === 0) {
+                alert('Select row to delete');
+                return false;
+            } else {
+                let tracker_id = '';
+                $.each($(".check_item:checked"), function () {
+                    tracker_id += $(this).val() + ',';
+                });
+                $('#frm_search_times').find('[name=tracker_id]').val(tracker_id);
+                let formData = APP_TIMES.getFormData($('#frm_search_times'));
+                $.ajax({
+                    type: "POST",
+                    url: '/del_all',
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (res) {
+                        if(res.success == 1){
+                            //$("#flash_message").html(APP_TIMES.alertSuccess((res.message)));
+                            APP_TIMES.setCookie('alert_type', 'success');
+                            APP_TIMES.setCookie('alert_msg', encodeURI(res.message));
+                            APP_TIMES.setCookie('scroll', '#frm_search_times');
+                            $('#frm_reload').submit();
+                        }else{
+                            APP_TIMES.delAllErrorMsg('#frm_search_times');
+                            $("#flash_message").html(APP_TIMES.alertDanger(res.message));
+                        }
+                    },
+                });
+                return false;
+            }
+        })
+    }
 })
 $(document).ready(function () {
     TIME_TRACKERS.init();

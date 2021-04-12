@@ -176,5 +176,11 @@ class TimeTrackersController extends Controller
         $pdf = PDF::loadView('time_trackers.pdf_month_user', $data);
         return $pdf->stream();
     }
-
+    public function del_all(Request $request){
+        $tracker_id = explode(',',$request['tracker_id']);
+        foreach($tracker_id as $key=>$value){
+            DB::table('time_trackers')->where('id', $value)->update(['is_delete' => 1]);
+        }
+        return $this->sendResponse(['message' => 'Del successful!'], 1);
+    }
 }

@@ -1,5 +1,6 @@
 <meta name="frm_search" content="frm_search_times">
 <x-app-layout>
+    <div id="flash_message"></div>
     <x-slot name="header">
         <div class="box-header with-border overflow-hidden row">
             <div class="col-6">
@@ -81,6 +82,7 @@
                 {!! Form::close() !!}
             </div>
             <div class="text-right my-3">
+                <a href="{{ url('del_all') }}" class="btn btn-info" id="del_all">Del</a>
                 <a href="{{ url('time_trackers_pdf') }}" class="btn btn-info" id="btn_export_pdf">Export</a>
                 <button type="button" class="btn btn-primary" id="open_modal_add">
                     <i class="fas fa-plus-square"></i> Add
@@ -90,6 +92,7 @@
             <table class="table table-bordered table-striped w-full">
                 <thead>
                     <tr>
+                        <th class="px-4 py-2" width="5%" style="text-align: center"><input type="checkbox" id="check_all"></th>
                         <th class="px-4 py-2" width="25%">{!! sort_title('user_id', __('Project')) !!}</th>
                         <th class="px-4 py-2" width="25%">{!! sort_title('user_id', __('User')) !!}</th>
                         <th class="px-4 py-2">{!! sort_title('working_date', __('Working date')) !!}</th>
@@ -102,6 +105,9 @@
                 @if(isset($lists) && count($lists) > 0)
                         @foreach($lists as $item)
                         <tr>
+                            <td style="text-align: center">
+                                <input type="checkbox" class="check_item" id="item-check-{{ $item->id }}" value="{{ $item->id }}">
+                            </td>
                             <td class="border px-4 py-2">
                                 {{ $item->name_project }}
                                 <input type="hidden" name="id_project" value="{{ $item->id_project }}">
