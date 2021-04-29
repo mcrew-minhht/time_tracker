@@ -83,7 +83,7 @@ $(function () {
             $('#frm_reload').submit();
         });
         $("#modal_add_times").on('hidden.bs.modal', function(){
-            $('#frm_search_times').submit();
+            $('#frm_reload').submit();
         });
     }
     TIME_TRACKERS.delTimeTracker = function(){

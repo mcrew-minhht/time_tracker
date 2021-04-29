@@ -80,7 +80,7 @@ class User extends Authenticatable
         $result->join('users_type','users_type.id','=',$this->table.'.part_time', 'left');
         $result->whereRaw('(is_delete != 1 OR is_delete is null)');
         if (!empty($params['username'])){
-            $result->where('name','like','%'.$params['username'].'%');
+            $result->where('users.name','like','%'.$params['username'].'%');
         }
         if (!empty($params['region'])){
             $result->where('region','=',$params['region']);
