@@ -33,7 +33,7 @@ class UserRequest extends FormRequest
         $validate =  [
             'name' => 'required|max:191',
             'email' => ['required', 'email', 'max:191', Rule::unique('users')->ignore($id)],
-            'employee_code' => 'required|unique:users,employee_code,'.$id.'|max:191',
+            //'employee_code' => 'required|unique:users,employee_code,'.$id.'|max:191',
             'birthdate' => 'nullable|date_format:d/m/Y|max:10'
         ];
         if (empty($id) || (!empty($password) || !empty($password_confirmation))){

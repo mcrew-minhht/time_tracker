@@ -19,7 +19,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="col-sm-6">
+            {{--<div class="col-sm-6">
                 <div class="form-group">
                     <label class="required @error('employee_code') text-danger @enderror" for="employee_code">{{__('Employee code')}}</label>
                     {!! Form::text('employee_code', ($errors->has('employee_code') ? old('employee_code') : $user->employee_code) , array('class' => 'form-control'.($errors->has('employee_code') ? ' is-invalid':''), 'id' => 'employee_code', 'maxlength' => 255, 'disabled'=>'disabled')) !!}
@@ -27,7 +27,7 @@
                     <div class="text text-danger text-sm">{{ $message }}</div>
                     @enderror
                 </div>
-            </div>
+            </div>--}}
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="@error('address') text-danger @enderror" for="address">{{__('Address')}}</label>

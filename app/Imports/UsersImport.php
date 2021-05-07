@@ -31,7 +31,7 @@ class UsersImport implements ToModel,WithHeadingRow,  WithValidation
         return new User([
             'name' => $row['name'],
             'email' => $row['email'],
-            'employee_code' => $row['employee_code'],
+           // 'employee_code' => $row['employee_code'],
             'address' => $row['address'],
             'password' => Hash::make($row['password']),
             'birthdate' => $birthdate,
@@ -51,7 +51,7 @@ class UsersImport implements ToModel,WithHeadingRow,  WithValidation
         return [
             'name' => 'required|max:191',
             'email' => ['required', 'email', 'max:191', Rule::unique('users')],
-            'employee_code' => ['required', 'max:191', 'unique:users'],
+            //'employee_code' => ['required', 'max:191', 'unique:users'],
             'birthdate' => ['nullable'],
             'password'=>'required|min:8|max:191',
             'region'=>'required|integer|min:1|max:3',
