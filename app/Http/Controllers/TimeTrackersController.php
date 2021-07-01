@@ -58,7 +58,9 @@ class TimeTrackersController extends Controller
             'sortfield' => isset($request->sortfield) ? $request->sortfield : "working_date",
             'sorttype' => isset($request->sorttype) ? $request->sorttype : "ASC",
         ];
-
+        if (isset($request->reload) && !empty($request->reload)){
+            $data['params'] = $request->session()->get('time_trackers_search_params');
+        }
         $request->session()->put('time_trackers_search_params', $data['params']);
         $listTimeTrackers = $this->time_trackers->getAllByIdEmployee($data['params']);
         $result = $listTimeTrackers->paginate(35);

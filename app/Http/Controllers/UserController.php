@@ -108,7 +108,7 @@ class UserController extends Controller
         $params = [
             'name' => $request->name ?? null,
             'email' => $request->email ?? null,
-            'employee_code' => $request->employee_code ?? null,
+            //'employee_code' => $request->employee_code ?? null,
             'address' => $request->address,
             'birthdate' => !empty(convert_dmy_to_ymd($request->birthdate)) ? convert_dmy_to_ymd($request->birthdate) :  null,
             'region' => $request->region ?? null,

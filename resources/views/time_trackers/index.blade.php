@@ -158,6 +158,7 @@
     @include('time_trackers.partials.add_project_modal')
     {!! Form::open(['id' => 'frm_reload', 'class' => 'form-horizontal']) !!}
     <input type="hidden" name="id" value="">
+    <input type="hidden" name="reload" value="1">
     {!! Form::close() !!}
     @section('javascript')
         <script type="text/javascript" src="{{ asset('js/app_times.js?version='.config('setting.version')) }}"></script>
