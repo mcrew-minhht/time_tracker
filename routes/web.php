@@ -6,6 +6,7 @@ use App\Http\Controllers\ProjectManagersController;
 use App\Http\Controllers\StatisticalController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DevicesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,6 +46,14 @@ Route::group(['prefix' => '/',  'middleware' => ['auth:sanctum','checkIsAdmin'],
     Route::post('/project_managers/update', [ProjectManagersController::class, 'update'])->name('project_managers_update');
     Route::post('/project_managers/destroy', [ProjectManagersController::class, 'destroy'])->name('project_managers_destroy');
 
+
+    Route::get('/devices', [DevicesController::class, 'index'])->name('devices');
+    Route::get('/devices/create', [DevicesController::class, 'create'])->name('devices_create');
+    Route::post('/devices/store', [DevicesController::class, 'store'])->name('devices_store');
+    Route::get('/devices/edit/{id}', [DevicesController::class, 'edit'])->name('devices_edit');
+    Route::post('/devices/update', [DevicesController::class, 'update'])->name('devices_update');
+    Route::post('/devices/destroy', [DevicesController::class, 'destroy'])->name('devices_destroy');
+    Route::get('/devices/invoice/{id}', [DevicesController::class, 'invoice'])->name('devices_invoice');
 
     Route::get('/statistical_project', [StatisticalController::class, 'statistical_project'])->name('statistical_project');
     Route::post('/statistical_project', [StatisticalController::class, 'statistical_project']);
