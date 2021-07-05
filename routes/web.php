@@ -73,4 +73,6 @@ Route::group(['prefix' => '/',  'middleware' => ['auth:sanctum','checkIsAdmin'],
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile_update');
     Route::post('/profile/confirm-password', [ProfileController::class, 'confirmPassword'])->name('profile-confirm-password');
 
+    Route::get('/employee', [App\Http\Controllers\EmployeeController::class, 'index'])->name('employee');
+
 });

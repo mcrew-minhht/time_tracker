@@ -37,6 +37,26 @@ class TimeTrackers extends Model
         }
         return $result->select('time_trackers.*', DB::raw('users.name as employee_name'), DB::raw('project_time.id_project as id_project'), 'projects.name_project');
     }
+
+    public function getAllEmployee($params){
+        $result =  DB::table('projects');
+        $result->join('project_time','project_time.id_project','=','projects.id');
+        $result->join('time_trackers','time_trackers.id','=','project_time.id_time_tracker');
+        $result->join('users','users.id','=','time_trackers.user_id');
+        $result->whereRaw('(projects.is_delete != 1 OR projects.is_delete is null)');
+
+        if (!empty($params['start_working_day'])){
+            $result->where('time_trackers.working_date','>=',$params['start_working_day']);
+        }
+        if (!empty($params['end_working_day'])){
+            $result->where('time_trackers.working_date','<=',$params['end_working_day']);
+        }
+        if (!empty($params['sortfield']) && !empty($params['sorttype'])){
+            $result->orderBy(DB::raw($params['sortfield']),$params['sorttype']);
+        }
+        return $result->select('projects.*', DB::raw('users.name as employee_name'), DB::raw('projects.name_project'));
+    }
+
     public function getExport($params){
         $result =  DB::table('time_trackers');
         $result->join('users','users.id','=','time_trackers.user_id');

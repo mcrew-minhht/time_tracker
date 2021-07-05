@@ -52,6 +52,9 @@
                         </x-jet-dropdown>
                     </div>
                     @endif
+                    <x-jet-nav-link href="{{ route('employee') }}" :active="request()->routeIs('employee')">
+                        {{ __('Employee') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 
