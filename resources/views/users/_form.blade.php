@@ -92,7 +92,13 @@
                     @enderror
                 </div>
             </div>
-
+            @if(!empty($users->id))
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <a href="{{url('devices') . '?user_id='.$users->id}}">List Devices</a>
+                </div>
+            </div>
+            @endif
             <div class="col-sm-12">
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{__('Save')}}</button>
