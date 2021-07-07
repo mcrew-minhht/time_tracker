@@ -4,7 +4,7 @@
             {{ __('Create Devices') }}
         </h2>
     </x-slot>
-    {!! Form::open(array('url' => url("devices/store"), 'id' => 'form-device-create',  'enctype' => "multipart/form-data")) !!}
+    {!! Form::open(array('url' => url("devices/store"), 'id' => 'form-device-create',  'files'=> true)) !!}
     @include('devices._form')
     {!! Form::close() !!}
 </x-app-layout>
