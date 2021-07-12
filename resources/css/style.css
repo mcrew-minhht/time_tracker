@@ -28,3 +28,20 @@ ul.ul_error{
         max-width: 700px;
     }
 }
+
+#div1, #div2 {
+    float: left;
+    width: 100%;
+    min-height: 500px;
+    height: 100%;
+    margin: 10px;
+    padding: 10px;
+    border-left: 2px solid #dee2e6;
+    border-top: 2px solid #dee2e6;
+    border-bottom: 2px solid #dee2e6;
+    overflow-y:scroll
+}
+
+.first-td {
+    cursor: pointer;
+}

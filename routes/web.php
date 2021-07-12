@@ -74,4 +74,8 @@ Route::group(['prefix' => '/',  'middleware' => ['auth:sanctum','checkIsAdmin'],
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile_update');
     Route::post('/profile/confirm-password', [ProfileController::class, 'confirmPassword'])->name('profile-confirm-password');
 
+    Route::get('/employee', [\App\Http\Controllers\EmployeeController::class, 'index'])->name('employee');
+    Route::get('/employee/get_employee_of_project', [\App\Http\Controllers\EmployeeController::class, 'get_employee_of_project'])->name('get-employee-of-project');
+    Route::post('/project-employee/add_member_into_project/{id}', [\App\Http\Controllers\ProjectEmployeeController::class, 'get_employee_of_project'])->name('add-member-into-project');
+
 });
