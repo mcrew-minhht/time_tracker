@@ -1,11 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Users') }}
+            {{ __('Create Devices') }}
         </h2>
     </x-slot>
-    {!! Form::open(array('url' => url("users/update"), 'id' => 'form-update')) !!}
-    @include('users._form')
+    {!! Form::open(array('url' => url("devices/store"), 'id' => 'form-device-create',  'files'=> true)) !!}
+    @include('devices._form')
     {!! Form::close() !!}
 </x-app-layout>
-@section('javascript')

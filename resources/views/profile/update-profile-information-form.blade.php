@@ -22,13 +22,6 @@
             <x-jet-input-error for="email" class="mt-2" />
         </div>
 
-        <!-- Employee code -->
-        <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="employee_code" value="{{ __('Employee code') }}" />
-            <x-jet-input id="employee_code" type="text" class="mt-1 block w-full" wire:model.defer="state.employee_code" />
-            <x-jet-input-error for="employee_code" class="mt-2" />
-        </div>
-
         <!-- Birthdate -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="birthdate" value="{{ __('Birthdate') }}" />

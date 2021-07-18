@@ -52,6 +52,11 @@
                         </x-jet-dropdown>
                     </div>
                     @endif
+                    @if(is_admin())
+                        <x-jet-nav-link href="{{ route('devices') }}" :active="request()->routeIs('devices')">
+                            {{ __('Device') }}
+                        </x-jet-nav-link>
+                    @endif
                 </div>
             </div>
 

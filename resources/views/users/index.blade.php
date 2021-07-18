@@ -62,10 +62,10 @@
             <thead class="thead-light">
             <tr>
                 <th class="px-2 py-2" style="width: 30px;"><input type="checkbox" id="checkAll" /></th>
-                <th class="px-2 py-2" style="width: 160px;">{!! sort_title('name', __('Name')) !!}</th>
-                <th class="px-2 py-2" style="width: 200px;">{!! sort_title('email', __('Email')) !!}</th>
-                {{--<th class="px-2 py-2" style="width: 150px;">{!! sort_title('employee_code', __('Employee code')) !!}</th>--}}
-                <th class="px-2 py-2" style="width: 100px;">{!! sort_title('birthdate', __('Birthdate')) !!}</th>
+                <th class="px-2 py-2" style="width: 50px;">{!! sort_title('no', __('No')) !!}</th>
+                <th class="px-2 py-2" style="width: 250px;">{!! sort_title('name', __('Name')) !!}</th>
+                <th class="px-2 py-2" style="width: 350px;">{!! sort_title('email', __('Email')) !!}</th>
+                <th class="px-2 py-2" style="width: 150px;">{!! sort_title('birthdate', __('Birthdate')) !!}</th>
                 <th class="px-2 py-2" >{!! sort_title('address', __('Address')) !!}</th>
                 <th class="px-2 py-2" style="width: 150px;">{!! sort_title('region', __('Region')) !!}</th>
                 <th class="px-2 py-2" style="width: 100px;">{!! sort_title('part_time', __('Part-time')) !!}</th>
@@ -75,12 +75,13 @@
             </thead>
             <tbody>
             @if(isset($data['lists']) && count($data['lists'])>0)
+                <?php $no=1 ?>
                 @foreach($data['lists'] as $item)
                     <tr>
                         <td class="px-2 py-2"><input type="checkbox" class="checkItem" value="{{$item->id}}" /></td>
+                        <td class="px-2 py-2">{{ $no }}</td>
                         <td class="px-2 py-2">{{ $item->name ?? '' }}</td>
                         <td class="px-2 py-2">{{ $item->email ?? '' }}</td>
-                        {{--<td class="px-2 py-2">{{ $item->employee_code ?? '' }}</td>--}}
                         <td class="px-2 py-2">{{ format_date("$item->birthdate") }}</td>
                         <td class="px-2 py-2">{{ $item->address ?? '' }}</td>
                         <td class="px-2 py-2">{{ listRegion(true,$item->region ?? null) }}</td>
@@ -91,6 +92,7 @@
                             <a href="javascript:;" class="float-right text-danger btn-delete" data-routes="{{url('users/destroy')}}" data-id="{{$item->id}}" ><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
+                    <?php $no+=1 ?>
                 @endforeach
             @else
                 <tr>

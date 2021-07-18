@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 /**
  * Description of Constants
  *
- * @author kinhdoanh-tt
+ * @author
  */
 class Constants {
 

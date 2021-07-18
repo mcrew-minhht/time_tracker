@@ -29,7 +29,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'employee_code',
         'address',
         'birthdate',
         'password',
@@ -70,7 +69,7 @@ class User extends Authenticatable
 
     public function getEmployees(){
         return DB::table('users')
-            ->select('id','name','employee_code')
+            ->select('id','name')
             ->get();
     }
 
