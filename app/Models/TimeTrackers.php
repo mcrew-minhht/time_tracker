@@ -93,7 +93,6 @@ class TimeTrackers extends Model
     public function insertByDateAndProject($params){
         DB::table('time_trackers')->insert(
             [
-                'employee_code' => $params['employee_code'],
                 'id_project' => $params['id_project'],
                 'working_day' => $params['working_day'],
                 'working_time' => $params['working_time'],

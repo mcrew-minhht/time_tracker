@@ -43,8 +43,13 @@ class DevicesController extends Controller
         try {
             $params = $this->getParams($request);
             $invoice = $request->file('invoice');
-            $uniquesavename = time().uniqid(rand()) .'.'. $invoice->getClientOriginalExtension();
-            $invoice->storeAs('images', $uniquesavename, 'local');
+            if ($invoice != null){
+                $uniquesavename = time().uniqid(rand()) .'.'. $invoice->getClientOriginalExtension();
+                $invoice->storeAs('images', $uniquesavename, 'local');
+            } else {
+                $uniquesavename = '';
+            }
+
             $params['invoice'] = $uniquesavename;
             $result  = $this->devices->insertDevice($params);
             $response = [

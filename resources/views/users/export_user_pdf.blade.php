@@ -17,7 +17,6 @@
             <tr class="row">
                 <td class="px-2 py-2 font-vi">{{ $item->name ?? '' }}</td>
                 <td class="px-2 py-2">{{ $item->email ?? '' }}</td>
-                {{--<td class="px-2 py-2">{{ $item->employee_code ?? '' }}</td>--}}
                 <td class="px-2 py-2">{{ format_date("$item->birthdate") }}</td>
                 <td class="px-2 py-2">{{ $item->address ?? '' }}</td>
                 <td class="px-2 py-2">{{ listRegion(true,$item->region ?? null) }}</td>

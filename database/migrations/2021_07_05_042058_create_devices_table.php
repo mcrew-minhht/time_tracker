@@ -17,7 +17,7 @@ class CreateDevicesTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('user_id');
-            $table->integer('description');
+            $table->string('description');
             $table->string('invoice');
             $table->integer('created_user')->nullable();
             $table->integer('updated_user')->nullable();

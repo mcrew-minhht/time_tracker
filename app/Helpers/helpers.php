@@ -94,7 +94,7 @@ if (!function_exists('listRegion')) {
         }
         $region[1] = "Ha Noi";
         $region[2] = "Da Nang";
-        $region[3] = "TP Ho Chi Minh";
+        $region[3] = "Ho Chi Minh";
 
         if ($isString){
             if ($key != null &&$key>=1 && $key<=3){

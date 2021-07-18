@@ -10,7 +10,6 @@
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-6 py-6">
            {!! Form::open(['url' => route('time_trackers.update',$id), 'id' => 'tbl_input_time']) !!}
                <input type="hidden" name="_method" value="PUT">
-               <input type="hidden" name="employee_code" value="{{ $employee_code }}">
                <input type="hidden" name="id_project" value="{{ $id_project }}">
                <table class="table-fixed w-full" >
                    <thead>
@@ -31,7 +30,6 @@
                             @php
                             $bg = '#cccdd0';
                             $params = [
-                                'employee_code' => $employee_code,
                                 'id_project' => $id_project,
                                 'working_day' => $date->format('Y-m-d'),
                             ];
