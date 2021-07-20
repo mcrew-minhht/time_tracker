@@ -40,7 +40,7 @@
             </div>
             <div class="col-sm-12 overflow-hidden">
                 <div class="form-group float-right">
-                    <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{__('Save')}}</button>
+                    <button class="btn btn-primary" type="submit" onclick="loading();"><i class="fa fa-save"></i> {{__('Save')}}</button>
                 </div>
             </div>
         </div>

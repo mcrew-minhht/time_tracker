@@ -9,8 +9,8 @@
             <div class="col-6">
                 <div class="box-action float-right">
                     <ul class="header-action overflow-hidden">
-                        <li class="float-left"><a href="{{url('devices/create')}}" class="btn btn-success"><i class="fas fa-plus-square"></i> {{__('Add')}}</a></li>
-                        <li class="float-right"><a href="{{url('devices')}}" class="btn btn-light" ><i class="fas fa-sync-alt"></i> {{__('Reset')}}</a></li>
+                        <li class="float-left"><a href="{{url('devices/create')}}" class="btn btn-success" onclick="loading();"><i class="fas fa-plus-square"></i> {{__('Add')}}</a></li>
+                        <li class="float-right"><a href="{{url('devices')}}" class="btn btn-light" onclick="loading();"><i class="fas fa-sync-alt"></i> {{__('Reset')}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="float-right">
-                    <button class="btn btn-primary float-right" type="submit"><i class="fa fa-search"></i> {{__('search')}}</button>
+                    <button class="btn btn-primary float-right" type="submit" onclick="loading();"><i class="fa fa-search"></i> {{__('search')}}</button>
                 </div>
                 {!! Form::close() !!}
             </div>
@@ -81,7 +81,7 @@
                         </td>
                         <td class="px-4 py-2">{{ $item->employees }}</td>
                         <td class="px-4 py-2 overflow-hidden">
-                            <a href="{{url('devices/edit/'.$item->id)}}" class="float-left text-primary"><i class="fas fa-edit"></i></a>
+                            <a href="{{url('devices/edit/'.$item->id)}}" class="float-left text-primary" onclick="loading();"><i class="fas fa-edit"></i></a>
                             <a href="javascript:;" class="float-right text-danger btn-delete" data-routes="{{url('devices/destroy')}}" data-id="{{$item->id}}" ><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>

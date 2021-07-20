@@ -79,7 +79,7 @@
                     <p><i class="fas fa-exclamation-triangle text-warning"></i> {{__('Do you want to update?')}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btn_yes">{{__('Yes')}}</button>
+                    <button type="button" class="btn btn-primary" id="btn_yes" onclick="loading();">{{__('Yes')}}</button>
                     <button type="button" class="btn btn-default" id="btn_no" data-dismiss="modal">{{__('No')}}</button>
                 </div>
                 {!! Form::close() !!}
@@ -101,7 +101,7 @@
                     <p><i class="fas fa-exclamation-triangle text-danger"></i> {{__('Do you want to delete?')}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">{{__('Yes')}}</button>
+                    <button type="submit" class="btn btn-primary" onclick="loading();">{{__('Yes')}}</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{__('No')}}</button>
                 </div>
                 {!! Form::close() !!}
@@ -114,8 +114,10 @@
         @livewireScripts
 
         <script type="text/javascript">
+            loading();
             $(document).ready(function(){
                 $('[data-toggle="tooltip"]').tooltip();
+                    loaded();
             });
 
             $('.required').append(' <span class="text-danger">*</span>');
@@ -177,10 +179,17 @@
                 $('#deleteModal').modal('hide');
             });
 
+            function loading() {
+                $('.loading').show();
+            }
+            function loaded() {
+                $('.loading').hide();
+            }
+
         </script>
 
         <script type="text/javascript" src="{{ asset('js/app.js?version='.config('setting.version')) }}"></script>
         @yield('javascript')
-
+    <div class="loading">Loading&#8230;</div>
     </body>
 </html>

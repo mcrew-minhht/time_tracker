@@ -9,8 +9,8 @@
             <div class="col-6">
                 <div class="box-action float-right">
                     <ul class="header-action overflow-hidden">
-                        <li class="float-left"><a href="{{url('project_managers/create')}}" class="btn btn-success"><i class="fas fa-plus-square"></i> {{__('Add')}}</a></li>
-                        <li class="float-right"><a href="{{url('project_managers')}}" class="btn btn-light" ><i class="fas fa-sync-alt"></i> {{__('Reset')}}</a></li>
+                        <li class="float-left"><a href="{{url('project_managers/create')}}" class="btn btn-success" onclick="loading();"><i class="fas fa-plus-square"></i> {{__('Add')}}</a></li>
+                        <li class="float-right"><a href="{{url('project_managers')}}" class="btn btn-light" onclick="loading();"><i class="fas fa-sync-alt"></i> {{__('Reset')}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             </div>
             <div class="float-right">
                 {!! Form::open(array('url' => url("./project_managers"), 'id' => 'form-search', 'method' => 'GET','class'=>'overflow-hidden')) !!}
-                <button class="btn btn-primary float-right" type="submit"><i class="fa fa-search"></i> {{__('search')}}</button>
+                <button class="btn btn-primary float-right" type="submit" onclick="loading();"><i class="fa fa-search"></i> {{__('search')}}</button>
                 {!! Form::text('search', Request::get('search'), array('class' => 'form-control form-inline float-left', 'maxlength' => 50, 'id' => 'input_source', 'placeholder' => __('Enter keyword'), 'style'=>'width:200px;')) !!}
                 {!! Form::close() !!}
             </div>
@@ -48,7 +48,7 @@
                         <td class="px-4 py-2">{{ format_date("$item->start_date") }}</td>
                         <td class="px-4 py-2">{{ format_date("$item->end_date") }}</td>
                         <td class="px-4 py-2 overflow-hidden">
-                            <a href="{{url('project_managers/edit/'.$item->id)}}" class="float-left text-primary"><i class="fas fa-edit"></i></a>
+                            <a href="{{url('project_managers/edit/'.$item->id)}}" class="float-left text-primary" onclick="loading()"><i class="fas fa-edit"></i></a>
                             <a href="javascript:;" class="float-right text-danger btn-delete" data-routes="{{url('project_managers/destroy')}}" data-id="{{$item->id}}" ><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>

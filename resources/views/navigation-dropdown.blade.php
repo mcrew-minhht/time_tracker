@@ -5,26 +5,26 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('dashboard') }}" onclick="loading();">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link href="{{ route('dashboard') }}" onclick="loading();" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('time_trackers') }}" :active="request()->routeIs('time_trackers')">
+                    <x-jet-nav-link href="{{ route('time_trackers') }}" onclick="loading();"  :active="request()->routeIs('time_trackers')">
                         {{ __('Time Tracker') }}
                     </x-jet-nav-link>
                     @if(is_admin())
-                    <x-jet-nav-link href="{{ route('project_managers') }}" :active="request()->routeIs('project_managers')">
+                    <x-jet-nav-link href="{{ route('project_managers') }}" onclick="loading();" :active="request()->routeIs('project_managers')">
                         {{ __('Project Manager') }}
                     </x-jet-nav-link>
                     @endif
                     @if(is_admin())
-                    <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                    <x-jet-nav-link href="{{ route('users') }}" onclick="loading();" :active="request()->routeIs('users')">
                         {{ __('User Manager') }}
                     </x-jet-nav-link>
                     @endif
@@ -42,10 +42,10 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-jet-dropdown-link href="{{ route('statistical_project') }}">
+                                <x-jet-dropdown-link href="{{ route('statistical_project') }}" onclick="loading();">
                                     {{ __('Statistical From Project') }}
                                 </x-jet-dropdown-link>
-                                <x-jet-dropdown-link href="{{ route('statistical_month') }}">
+                                <x-jet-dropdown-link href="{{ route('statistical_month') }}" onclick="loading();">
                                     {{ __('Statistical From Month') }}
                                 </x-jet-dropdown-link>
                             </x-slot>
@@ -53,7 +53,7 @@
                     </div>
                     @endif
                     @if(is_admin())
-                        <x-jet-nav-link href="{{ route('devices') }}" :active="request()->routeIs('devices')">
+                        <x-jet-nav-link href="{{ route('devices') }}" onclick="loading();" :active="request()->routeIs('devices')">
                             {{ __('Device') }}
                         </x-jet-nav-link>
                     @endif
@@ -87,7 +87,7 @@
                             {{ __('Manage Account') }}
                         </div>
 
-                        <x-jet-dropdown-link href="{{ route('profile') }}">
+                        <x-jet-dropdown-link href="{{ route('profile') }}"  onclick="loading();">
                             {{ __('Profile') }}
                         </x-jet-dropdown-link>
 
