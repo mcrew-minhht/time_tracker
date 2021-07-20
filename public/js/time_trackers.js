@@ -22,6 +22,7 @@ $(function () {
 
 
         $('#add_project').click(function () {
+
             let formData = APP_TIMES.getFormData($('#frm_add_project'));
             $.ajax({
                 type: "POST",
@@ -82,9 +83,11 @@ $(function () {
     }
     TIME_TRACKERS.reload = function(){
         $('#btn_reload').click(function () {
+            loading();
             $('#frm_reload').submit();
         });
         $("#modal_add_times").on('hidden.bs.modal', function(){
+            loading();
             $('#frm_reload').submit();
         });
     }
@@ -95,6 +98,7 @@ $(function () {
             formData.append('id',id);
             var r = confirm("'Del this row?");
             if (r == true) {
+                loading();
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -118,6 +122,7 @@ $(function () {
     }
     TIME_TRACKERS.searchTimes = function(){
         $('.btn_search').click(function () {
+             loading();
              $('#'+ frm_search).attr('target', '');
              $('#'+ frm_search).attr('action', '');
              $('#'+ frm_search).find('[name=action]').val('search');
@@ -125,6 +130,7 @@ $(function () {
         })
 
         $('.btn_search_month').click(function () {
+            loading();
             $("#frm_search_month").attr('target','');
             let formData = APP_TIMES.getFormData($('#frm_search_month'));
             $.ajax({
@@ -152,6 +158,7 @@ $(function () {
                 }
 
             });
+
             return false;
         })
         $('.btn_export_month').click(function () {
@@ -250,6 +257,7 @@ $(function () {
 
     TIME_TRACKERS.export = function (){
         $('#btn_export_pdf').click(function () {
+            loading();
             let formData = APP_TIMES.getFormData($('#frm_search_times'));
             $.ajax({
                 type: "POST",
@@ -285,6 +293,7 @@ $(function () {
                 }
 
             });
+            loaded();
             return false;
         })
     }

@@ -37,7 +37,7 @@ if (!function_exists('sort_title')) {
         }
 
         $type_sort = Request::get('sorttype') == "ASC" ? '<i class="fas fa-sort-amount-up"></i>' : '<i class="fas fa-sort-amount-down"></i>';
-        $link = "<a href=" . base_url($base_url) . ">" . (($name == Request::get('sortfield')) ? $type_sort : '') . " " . (($title != '') ? $title : $name) . "</a>";
+        $link = "<a href=" . base_url($base_url) . " onclick='loading();'>" . (($name == Request::get('sortfield')) ? $type_sort : '') . " " . (($title != '') ? $title : $name) . "</a>";
 
         return $link;
     }

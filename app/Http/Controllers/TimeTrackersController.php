@@ -71,7 +71,7 @@ class TimeTrackersController extends Controller
             $id_employee = Auth::id();
             $data['employees'] = DB::table('users')->where('id' ,'=', $id_employee)->where('id' ,'=', $id_employee)->get();;
         }
-        $data['projects'] = $this->projects->get();
+        $data['projects'] = $this->projects->where('is_delete','!=','1')->get();
         return view('time_trackers.index', $data);
     }
 

@@ -3,11 +3,13 @@ $(function () {
     'use strict';
     $(document).ready(function (){
         $("#export_users").on('click',function (){
+            loading();
             $("#form-search").attr('target','_blank');
             $('#form-search').attr('action', './users/export_users');
             $('#form-search').submit();
             $("#form-search").attr('target','');
             $('#form-search').attr('action', './users');
+            loaded();
         });
 
         $('#form-import').on('submit',function (){

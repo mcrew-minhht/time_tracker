@@ -50,7 +50,7 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{__('Save')}}</button>
-                    <a href="{{url('devices')}}" class="btn btn-default"><i class="fa fa-reply"></i> {{__('Back')}}</a>
+                    <a href="{{url('devices')}}" class="btn btn-default" onclick="loading();"><i class="fa fa-reply"></i> {{__('Back')}}</a>
                 </div>
             </div>
         </div>
